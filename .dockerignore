@@ -1,2 +1,3 @@
 node_modules/
-victory-frontend
+*/node_modules/
+#*/gopath_src.tar.gz

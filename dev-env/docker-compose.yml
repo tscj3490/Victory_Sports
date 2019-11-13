@@ -1,0 +1,24 @@
+
+version: '2'
+services:
+  dev-env:
+    image: victory-dev-env:latest
+    stdin_open: true
+    tty: true
+    working_dir: /go/src/bitbucket.org/softwarehouseio/victory
+    ports:
+      - 3000:3000
+      - 3001:3001
+    volumes:
+      - ../makefile:/go/src/bitbucket.org/softwarehouseio/victory/makefile
+      - ../victory-frontend/gulpfile.js:/go/src/bitbucket.org/softwarehouseio/victory/victory-frontend/gulpfile.js
+      - ../victory-frontend/controllers:/go/src/bitbucket.org/softwarehouseio/victory/victory-frontend/controllers
+      - ../victory-frontend/db:/go/src/bitbucket.org/softwarehouseio/victory/victory-frontend/db
+      - ../victory-frontend/config:/go/src/bitbucket.org/softwarehouseio/victory/victory-frontend/config
+      - ../victory-frontend/cronjobs:/go/src/bitbucket.org/softwarehouseio/victory/victory-frontend/cronjobs
+      - ../victory-frontend/routes:/go/src/bitbucket.org/softwarehouseio/victory/victory-frontend/routes
+      - ../victory-frontend/templates:/go/src/bitbucket.org/softwarehouseio/victory/victory-frontend/templates
+      - ../victory-frontend/libs:/go/src/bitbucket.org/softwarehouseio/victory/victory-frontend/libs
+      - ../victory-frontend/models:/go/src/bitbucket.org/softwarehouseio/victory/victory-frontend/models
+      - ../victory-frontend/public:/go/src/bitbucket.org/softwarehouseio/victory/victory-frontend/public
+      - ../victory-frontend_workdir/uploads:/go/src/bitbucket.org/softwarehouseio/victory/victory-frontend_workdir/uploads

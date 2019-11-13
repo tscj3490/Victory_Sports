@@ -1,0 +1,9 @@
+.idea/
+.vscode/
+.DS_Store
+node_modules/
+Dockerfile-e
+victory-frontend/victory-frontend
+*_workdir/
+vic_server
+victory-frontend/gopath_src.tar.gz

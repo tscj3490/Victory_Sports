@@ -1,0 +1,26 @@
+version: '2'
+services:
+  https-portal:
+    image: steveltn/https-portal
+    # switch this volume to a directory where you'd like to store the
+    # keys generated
+    volumes:
+      - ./https-portal:/var/lib/https-portal
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - victory-frontend
+    # Restart https-portal on failure or after Docker host restart.
+    restart: always
+    environment:
+      STAGE: production
+      DOMAINS: 'victory.softwarehouse.io -> http://victory-frontend:8080'
+      # define multiple sites by comma sep the domain configs
+      ## DOMAINS: 'wordpress.example.com -> http://wordpress'
+      # DOMAINS: 'wordpress.example.com -> http://wordpress #local, gitlab.example.com #production'
+  victory-frontend:
+    image: softwarehouseio/victory-frontend:latest
+    restart: always
+    volumes:
+      - ./victory-frontend:/victory-frontend
