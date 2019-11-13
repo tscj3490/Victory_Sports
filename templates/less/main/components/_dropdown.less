@@ -1,0 +1,125 @@
+.dropdown {
+
+    &__column {
+        padding-left: 4rem;
+        margin: 2rem 0;
+        border-left: 1px solid @color--light-grey;
+
+        &:lang(ar) {
+            padding-left: 0;
+            padding-right: 4rem;
+        }
+
+        &--final {
+            border-right: 1px solid @color--light-grey;        
+        }
+        
+        @media screen and (max-width: 809px) {
+            &:nth-child(2n) {
+                border-right: 1px solid @color--light-grey;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            border: none;
+
+            &:nth-child(2n) {
+                border: none;
+            }
+        }
+    }
+
+    &__content {
+        position: absolute;
+        width: 100vw;
+        top: 4rem;
+        left: 0;
+        z-index: 7;
+        background-color: white;
+        display: none;
+        font-size: 1rem;
+        margin-top: 1px;
+        justify-content: center;
+        grid-template-columns: repeat(auto-fit, 22.5rem);
+    }
+
+    &__list {
+        margin-bottom: 2rem;
+        list-style: none;
+    }
+
+    &__list-heading {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    &__list-item {
+        margin-bottom: .75rem;
+    }
+
+    &__logo {
+        max-height: 15px;
+        max-width: 15px;
+        text-align: center;
+        margin-right: 5px;
+        border-radius: 50%;
+    }
+    
+    &__menu-item {
+        height: 100%;
+        &--selected,
+        &:hover {
+            color: @color--base-font;
+            
+        }
+        &:hover {
+            .dropdown__content {
+                display: grid;
+            }
+
+        }
+
+        &--no-mobile {
+            @media screen and (max-width: @bootstrap_sm) {
+                display: none;
+            }
+        }
+    }
+    
+    &__menu-link {
+        padding: 0 1rem;
+        height: 4rem;
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            border-bottom: 6px solid @color--primary;
+            top: 0;
+            bottom: -3px;
+            right: 0;
+            left: 0;
+            z-index: 8;
+            display: none;
+        }
+
+        &:hover {
+            &::before {
+                display: initial;
+            }
+        }
+    }
+}
+
+#cover {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 6;
+    width: 100%;
+    height: ~"calc(100vh - 12.5rem - 3px)";
+    top: ~"calc(12.5rem + 3px)";
+    display: none;
+}

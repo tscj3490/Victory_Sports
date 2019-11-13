@@ -1,0 +1,225 @@
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/public/static/vendor/chosen_v1.8.2/chosen.min.css" crossorigin="anonymous">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+      href="/public/static/vendor/bootstrap-4.0.0-beta.2-dist/css/bootstrap.min.css"
+      crossorigin="anonymous">
+<link rel="stylesheet" href="/public/static/vendor/fontawesome-free-5.0.6/on-server/css/fontawesome-all.min.css"
+      crossorigin="anonymous">
+
+{% extends "shop.html" %}
+
+{% block content %}
+    <div class="background background--product-details">
+        <div class="product__title">
+            <h5>{{ product.Name }}</h5>
+            <span>{{ t("currency.aed_x", product.Price|floatformat:"0") }}</span>
+        </div>
+        <div class="main-container--product">
+            <!-- images -->
+            <!-- small previews -->
+            <div class="product__preview-container">
+                {#<img src="/public/static/img/1x/side_picture_1-100.jpg" alt="side1" class="product__preview-image">#}
+                {#<img src="/public/static/img/1x/side_picture_2-100.jpg" alt="side2" class="product__preview-image">#}
+                {#<img src="/public/static/img/1x/side_picture_3-100.jpg" alt="side3" class="product__preview-image">#}
+            </div>
+            <div class="product">
+            <!-- /small previews -->
+                <!-- main image -->
+                {% if product.Image == "" %}
+                    <img src="/public/static/img/1x/main_picture-100.jpg" alt="main image" class="product__main-image">
+                {% else %}
+                    <img src="{{ product.Image }}" alt="{{ product.Name }}" class="product__main-image">
+                {% endif %}
+                <!-- /main image -->
+            </div>
+            <!-- /images -->
+            <!-- details and forms -->
+            <div class="product__form">
+                <h5 class="product__title--sidebar">{{ product.Name }}</h5>
+                <div class="product__price">{{ t("currency.aed_x", product.Price|floatformat:"0") }}</div>
+
+                <form action="{{ href("/cart/add") }}" method="post">
+                    <hr>
+                    <input type="hidden" name="ItemID" value="{{ itemID }}">
+                    <h5 class="product-form__heading">{{ t("sidebar.size") }} <span class="product-form__toggle" id="toggle-sizes">-</span></h5>
+                    <div class="btn-group-toggle" id="sizes">
+                        {% for sizeID, size in productSizes sorted %}
+                        <input name="ProductSizes"
+                            id="productsize-{{ size.ID }}" class="product-size"
+                            type="radio" autocomplete="off"
+                            {% if size.ID|stringformat:"%v" in query.filter_size|join:", "|split:", " %}checked{% endif %}
+                            value="{{ size.ID }}">
+                        <label class="checkbox product-size__label" for="productsize-{{ size.ID }}">{{ size.Name }}</label>
+                    {% endfor %}
+                    </div>
+                    <hr>
+                    <h5 class="product-form__heading">{{ t("sidebar.badges") }} <span class="product-form__toggle" id="toggle-badges">+</span></h5>
+                    <div id="badges">
+                        {% for badgeID, badge in badges sorted %}
+                            <div class="flex-container flex-container--align-center">
+                                <input name="Badges"
+                                    id="badge-{{ badge.ID }}" class="form-check-input badge-checkbox"
+                                    type="checkbox" autocomplete="off" value="{{ badge.ID }}">
+                                <label for="badge-{{ badge.ID }}" class="form-check-label checkbox badge-checkbox__label"></label>
+                                {% if badge.Thumbnail %}
+                                    <img class="badge-icon" alt="{{ badge.Name }}" src="{{ badge.Thumbnail }}"/>
+                                {% endif %}
+                                <span {% if badge.Thumbnail %}{% else %}style="padding-left:4px;"{% endif %}
+                                    class="checkbox__label" data-label-for="badge-{{ badge.ID }}">
+                                    {{ t("pages.shopDetails.badges", badge)}}
+                                </span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <hr>
+                    <h5 class="product-form__heading">{{ t("pages.shopDetails.customize") }} <span class="product-form__toggle" id="toggle-customise">+</span></h5>
+                    <div id="customise">
+                        <label for="customizeName" class="col-form-label">{{ t("pages.shopDetails.name") }}</label>
+                        <div class="shop-form__customize-name">
+                            <input type="text" class="form-control" id="customizeName" name="CustomizeName" placeholder="Maximum characters: 10" value="">
+                        </div>
+                        <label for="customizeNumber" class="col-form-label">{{ t("pages.shopDetails.number") }}</label>
+                        <div class="shop-form__customize-number">
+                            <input type="text" class="form-control" id="customizeNumber" name="CustomizeNumber" placeholder="Maximum characters: 2" value="">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="button-row button-row--shop">
+                        <button class="button button--shop" type="submit" value="addToBag" id="addToBag">
+                            {{ t("pages.shopDetails.addToBag") }}
+                        </button>
+                    </div>
+                    <div class="button-row button-row--shop">
+                        <a href="{{ href('/cart/') }}" class="button button--shop" value="goToBag">
+                            {{ t("pages.shopDetails.goToBag") }}
+                        </a>
+                    </div>
+                    <div class="button-row button-row--shop">
+                        <a href="../?{{ query.Encode() }}">
+                            <button class="button button--shop" type="button" value="continueShopping">
+                                {{ t("pages.shopDetails.continueShopping") }}
+                            </button>
+                        </a>
+                    </div>
+                </form>
+                <!-- /details and forms -->
+            </div>
+        </div>
+
+        <div class="main-container--bestsellers">
+            <h2 class="u--bold">{{ t("pages.shopDetails.moreItemsFromThisTeam") }}</h2>
+            <div class="product-cards">
+                {% for p in related_products %}
+                    <a href="{{ href(p.ID|stringformat:'/shop/bestsellers/%v/') }}" class="product-cards__card">
+                        <div class="product-cards__card-image">
+                            {% if p.Thumbnail == "" %}
+                                <img src="/public/static/img/1x/Asset%2011.png" alt="Card image cap">
+                            {% else %}
+                                <img src="{{ p.Thumbnail }}" alt="{{ p.Name }}">
+                            {% endif %}
+                        </div>
+                        <hr>
+                        <h5 class="product-cards__title">{{ p.Name }}</h5>
+                        <p class="product-cards__text">{{ t("currency.aed_x", p.Price|floatformat:"0") }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script language="JavaScript">
+        $(document).ready(function() {
+            $("#customizeNumber").keydown(function (e) {
+                // Allow user to press backspace, delete, tab, escape, enter, arrow keys, home, and end.
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 || (e.keyCode >= 35 && e.keyCode <= 40)) {
+                        return;
+                }
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+
+            $(".product-size").first().prop("checked", true);
+
+            $('[id^=toggle]').click(function() {
+                if($(this).text() == "-") {
+                    $(this).text("+");
+                } else {
+                    $(this).text("-");
+                }
+                var id = '#' + $(this).prop('id').replace('toggle-', "");
+                $(id).toggle();
+            });
+
+            $('#badges').toggle();
+            $('#customise').toggle();
+
+            $('#addToBag').click(function (e){
+                e.preventDefault();
+                var url = $(this).closest('form').attr('action'),
+                data = $(this).closest('form').serialize();
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: data,
+                    success: function() {
+                        incrementCookieValue()
+                        $('.header__notification').addClass('swell')
+                        setTimeout( function() { $('.header__notification').removeClass('swell') }, 1000);
+                    }
+                });
+            });
+
+            $('#customizeName').on('keydown keyup', function() {
+                inputText = $(this).val();
+                regex = /^\D*$/gm;
+                result = inputText.match(regex);
+                if(!result) {
+                    characterArray = inputText.split("");
+                    characterArray.splice(-1);
+                    $('#customizeName').val(characterArray.join(""));
+                }
+            });
+
+            $('#customizeName').on('keydown keyup', function () {
+                inputText = $(this).val();
+                if(inputText.length > 10) {
+                    characterArray = inputText.split("");
+                    characterArray.splice(-1);
+                    $('#customizeName').val(characterArray.join(""));
+                }
+            });
+
+            $('#customizeNumber').on('keydown keyup', function() {
+                inputText = $(this).val();
+                regex = /^\d*$/gm;
+                result = inputText.match(regex);
+                if(!result) {
+                    characterArray = inputText.split("");
+                    characterArray.splice(-1);
+                    $('#customizeNumber').val(characterArray.join(""));
+                }
+            })
+
+            $('#customizeNumber').on('keydown keyup', function () {
+                inputText = $(this).val();
+                if(inputText.length > 2) {
+                    characterArray = inputText.split("");
+                    characterArray.splice(-1);
+                    $('#customizeNumber').val(characterArray.join(""));
+                }
+            });
+
+        });
+        function incrementCookieValue() {
+            cookieValue = parseInt(cookieValue, 10);
+            cookieValue = cookieValue + 1;
+            setCookie("quantity", cookieValue);
+            updateQuantity();
+        }
+    </script>
+{% endblock %}

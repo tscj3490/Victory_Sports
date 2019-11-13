@@ -1,0 +1,63 @@
+{% block content %}
+{% with competitionID=statsLeagueID|integer %}
+{% with seasonID=statsSeasonID|integer %}
+{% with fixtureID=statsFixtureID|integer %}
+{% with comp=stats_filters.GetCompetition(competitionID) %}
+{% with fixtureAndEvents=stats_filters.GetFixture(seasonID,fixtureID) %}
+{% with fixture=fixtureAndEvents.Fixture %}
+{% with localTeam=fixture.LocalTeamInclude.LocalTeam %}
+{% with visitorTeam=fixture.VisitorTeamInclude.VisitorTeam %}
+
+{
+  "vistorTeamId": {{ visitorTeam.ID }},
+  "localTeamId": {{ localTeam.ID }},
+  "visitorTeam": {
+    "name": "{{ visitorTeam.Name }}",
+    "logo": "{{ visitorTeam.LogoPath }}",
+    "ID": "{{ visitorTeam.ID }}"
+  },
+  "localTeam": {
+    "name": "{{ localTeam.Name }}",
+    "logo": "{{ localTeam.LogoPath }}",
+    "ID": "{{ localTeam.ID }}"
+  },
+  "localTeamScore": {{ fixture.Scores.LocalTeamScore }},
+  "visitorTeamScore": {{ fixture.Scores.VisitorTeamScore }},
+  "localTeamEvents": [
+    {% with localTeamID=localTeam.ID|integer %}
+    {% for event in fixture.GetEventsFilteredBy(localTeamID) %}
+    {
+      "type": "{{ event.Type }}",
+      "playerName": "{{ event.PlayerName }}",
+      "relatedPlayerName": "{{ event.RelatedPlayerName }}",
+      "minute": {{ event.Minute }}
+    }{% if !forloop.Last %},{% endif %}
+    {% endfor %}
+    {% endwith %}
+  ],
+  "visitorTeamEvents": [
+    {% with visitorTeamID=visitorTeam.ID|integer %}
+    {% for event in fixture.GetEventsFilteredBy(visitorTeamID) %}
+    {
+      "type": "{{ event.Type }}",
+      "playerName": "{{ event.PlayerName }}",
+      "relatedPlayerName": "{{ event.RelatedPlayerName }}",
+      "minute": {{ event.Minute }}
+    }{% if !forloop.Last %},{% endif %}
+    {% endfor %}
+    {% endwith %}
+  ],
+  "startingTime": "{{ fixture.Time.GetStartTime() }}"
+}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{# competitionID #}
+{% endwith %}
+{# GetCompetition #}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endblock %}
+

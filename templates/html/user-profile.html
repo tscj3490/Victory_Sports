@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block header_title %}
+    <a href="{{ href('/shop/any/') }}" class="header-title__link">
+        {% if locale == "en-US" or locale == "" %}
+            <h1 class="header-title">&nbsp;</h1>
+        {% else %}
+            <h1 class="header-title header-title--arabic">&nbsp;</h1>                    
+        {% endif %}
+        <span class="header-title__subtitle">{{ t("pages.userProfile.header") }}</span>
+    </a>
+{% endblock %}
+{% block below_header_buttons %}
+    <div class="header__background">
+        <div class="header__row--secondary">
+            <a href="{{ href('/shop/any/') }}" class="header__link u--bold">{{ t("pages.shop.title") }}</a>
+            <a href="{{ href('/stats/') }}" class="header__link u--bold">{{ t("pages.stats.title") }}</a>
+        </div>
+    </div>
+{% endblock %}
+{% block extend_javascript %}
+{% endblock %}
+{% block top_leader %}
+{% endblock %}
+
+{% block mobile_menu_items__before %}
+    <li class="menu_lvl_1"><a href="{{ href(BaseURL) }}profile/"><span>{{ t("pages.userProfile.myDetails") }}</span></a></li>
+    <li class="menu_lvl_1"><a href="{{ href(BaseURL) }}profile/history/"><span>{{ t("pages.userProfile.myOrderHistory") }}</span></a></li>
+{% endblock %}
+
+{% block content %}
+<div class="background background--standard main-container main-container--profile">
+
+    <div class="flex-container flex-container--no-wrap">
+        <div id="sidebar">
+            <input type="checkbox" id="show-sidebar" role="button">
+            <label for="show-sidebar" class="show-sidebar show-sidebar--stats">
+                <i class="fas fa-sliders-h"></i>
+            </label>
+            <!-- sidebar block -->
+            <div class="col-12 bd-sidebar">
+                <div class="row">
+                    <div class="col">
+                        <div class="shop-form-title">{{ t("pages.userProfile.myAccount") }}</div>
+                    </div>
+                </div>
+                <div class="shop-form-section-title"><a href="{{ href(BaseURL) }}profile/">{{ t("pages.userProfile.myDetails") }}</a></div>
+                <div class="shop-form-section-title"><a href="{{ href(BaseURL) }}profile/history/">{{ t("pages.userProfile.myOrderHistory") }}</a></div>
+            </div>
+            <!-- /sidebar block -->
+        </div>
+    
+        {% block profile_content %}
+        <div class="tables-container">
+            <form method="post" action="./edit" class="user-profile-form">
+                <div class="form-row checkout-form__border user-profile__form">
+                    <div class="col">
+                        <div class="form-row">
+                            <label for="inputContactName" class="col-sm-3 col-form-label">{{ t("pages.checkout.name") }}</label>
+                            <div class="col-sm-7">
+                                <input value="{{ address.ContactName }}" name="ContactName" type="tel" required="" aria-required="true" class="form-control" id="inputContactName" placeholder="{{ t('pages.checkout.namePlaceholder')}}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="inputTelephone" class="col-sm-3 col-form-label">{{ t("pages.checkout.telephone") }}</label>
+                            <div class="col-sm-7">
+                                <input value="{{ address.Telephone }}" name="Telephone" type="tel" required="" aria-required="true" class="form-control" id="inputTelephone" placeholder="+971 50 2246461">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label">{{ t("pages.checkout.email") }}</label>
+                            <div class="col-sm-7">
+                                <input disabled value="{{ user.Email }}" name="Email" type="email" required="" aria-required="true" class="form-control" id="inputEmail3" placeholder="hello@example.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="inputAdd1" class="col-sm-3 col-form-label">{{ t("pages.checkout.addressLine1") }}</label>
+                            <div class="col-sm-7">
+                                <input value="{{ address.AddressLine1 }}" name="AddressLine1" type="text" required="" aria-required="true" class="form-control" id="inputAdd1" placeholder="{{ t('pages.checkout.addressLine1Placeholder')}}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="inputAdd2" class="col-sm-3 col-form-label">{{ t("pages.checkout.addressLine2") }}</label>
+                            <div class="col-sm-7">
+                                <input value="{{ address.AddressLine2 }}" name="AddressLine2" type="text" required="" aria-required="true" class="form-control" id="inputAdd2" placeholder="{{ t('pages.checkout.addressLine2Placeholder')}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-row">
+                            <label for="inputPostalCode" class="col-sm-3 col-form-label">{{ t("pages.checkout.postalCode") }}</label>
+                            <div class="col-sm-7">
+                                <input value="{{ address.PostalCode }}" name="PostalCode" type="text" required="" aria-required="true" class="form-control" id="inputPostalCode" placeholder="0000">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="inputCity" class="col-sm-3 col-form-label">{{ t("pages.checkout.city") }}</label>
+                            <div class="col-sm-7">
+                                <input value="{{ address.City }}" name="City" type="text" required="" aria-required="true" class="form-control" id="inputCity" placeholder="{{ t('pages.checkout.cityPlaceholder')}}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="selectCountry" class="col-sm-3 col-form-label">{{ t("pages.checkout.country") }}</label>
+                            <div class="col-sm-7">
+                                <select required="" aria-required="true" class="form-control" id="selectCountry" name="Country">
+                                    <option value="">{{ t("pages.checkout.selectACountry") }}</option>
+                                    {% for c, country in countries sorted %}
+                                        <option {% if address.Country == c %}selected{% endif %}
+                                                value="{{ c }}">{{ country.ISO3166OneEnglishShortNameGazetteerOrder }}</option>
+                                    {% endfor  %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="inputNotes" class="col-sm-3 col-form-label">{{ t("pages.checkout.notes") }}</label>
+                            <div class="col-sm-7">
+                                <input value="{{ address.Notes }}" name="Notes" type="text" class="form-control" id="inputNotes" placeholder="{{ t("pages.checkout.notesPlaceholder") }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-row button-row--profile">
+                    <button class="button button--profile" name="Action" value="saveShipping">{{ t("pages.checkout.saveChanges") }}</button>
+                </div>
+            </form>
+        </div>
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,247 @@
+en-US:
+  base:
+    page_title: "Victory"
+    viewAll: View All
+    dir: ltr
+    lang: en
+  currency:
+    aed: AED
+    aed_x: "AED {{ . }}"
+  clubs:
+    leagues:
+      uaeLeague: UAE League
+      premierLeague: Premier League
+      laLiga: La Liga
+      seriaA: Serie A
+      ligue1: Ligue 1
+      bundesliga: Bundesliga
+  internationalTeams:
+    europe: Europe
+    asia: Asia
+    africa: Africa
+    northAndRest: North, Central America and Carribean
+    southAmerica: South America
+  merchandise:
+    shirts: Shirts
+    tshirts: T-Shirts
+    pants: Pants
+    shorts: Shorts
+    jackets: Jackets
+    otherAccessories: Other Accessories
+  stats:
+    WorldCup: World Cup
+    UaeLeague: Uae League
+    Division1: Division 1
+    ArabianGulfCup: Arabian Gulf Cup
+    ProLeague: Pro League
+    KingsCup: Kings Cup
+    LaLiga: La Liga
+    SerieA: Serie A
+    Ligue1: Ligue 1
+    PremierLeague: Premier League
+  pages:
+    user:
+      header: User
+      signIn: Sign In / Sign Up
+      signInMsg: Signing in ... one minute please.
+    userProfile:
+      header: profile
+      myAccount: My Account
+      myDetails: My Details
+      myOrderHistory: My Order History
+      noOrders: No orders placed
+    checkoutGatewayRedirect:
+      redirectToGateway: "We are redirecting you to the gateway."
+      redirectToGatewayFailed: "We are very sorry, but we're not able to redirect you to the payment gateway. Please inform customer support."
+    checkoutOrderReceived:
+      orderConfirmation: Order Confirmation
+      description: Thank you for your order.
+      referenceNrText: "Your order reference number is: {{ . }}"
+    checkoutGateway:
+      description: "Reference: {{ .Reference }} Your Receipt: {{ .GetOrderReceiptURL }}"
+    checkout:
+      shipment: Shipment
+      name: Name
+      telephone: Telephone
+      email: Email
+      addressLine1: Address Line 1
+      addressLine2: Address Line 2
+      postalCode: Postal Code
+      city: City
+      country: Country
+      selectACountry: Select a Country
+      notes: Notes
+      notesPlaceholder: Please ... before delivery.
+      saveChanges: Save Changes
+      delivery: Delivery
+      regularDeliveryDescription: Free delivery within 4-5 working days
+      expressDelivery: Express Delivery
+      expressDeliveryDescription: "{{.}} AED charge delivery within 1-3 working days."
+      payment: Payment
+      cashOnDelivery: Cash On Delivery
+      creditCard: Credit Card
+      payWithPaypal: Pay With PayPal
+      readAndAcceptTerms: I've read and accept the <a href="{{.}}">terms & conditions</a>.
+      subtotal: Subtotal
+      vat: VAT
+      total: Total
+      submit: Submit
+      free: Free
+      yourOrder: Your Order
+      badge: "Badge {{ . }}"
+      size: "Size:"
+      addressLine1Placeholder: "Saada Street, Downtown, Ap 239"
+      addressLine2Placeholder: "Downtown, Dubai, UAE"
+      namePlaceholder: "Muhamad Ali"
+      cityPlaceholder: "Abu Dhabi"
+      currentlyUnavailable: Currently unavailable
+    cart:
+      item: Item
+      description: Description
+      size: Size
+      quantity: Quantity
+      price: Price
+      unitPrice: Unit Price
+      subtotal: Subtotal
+      remove: Remove
+      badge: "Badge {{ . }}"
+      mobileSize: "Size:"
+      proceedToCheckout: Proceed To Checkout
+      continueShopping: Continue Shopping
+      yourShoppingCartIsEmpty: Your Shopping Bag is empty. Lets go add some items.
+      customisations: Customisations
+    shopDetails:
+      badges: "{{ .Name }} ({{ .Price }} AED)"
+      customize: Customize
+      name: Name
+      number: Number
+      addToBag: Add To Bag
+      goToBag: Go To Bag
+      continueShopping: Continue Shopping
+      moreItemsFromThisTeam: More Items from this team
+    shop:
+      header_title: shop
+      title: Shop
+      all: "All"
+      clubs: "Clubs"
+      internationalTeams: "International Teams"
+      players: "Players"
+      merchandise: "Merchandise"
+      allTeams: All Teams
+      noResults: No results
+    stats:
+      header: stats
+      title: Stats
+      scores: "Scores"
+      topScorer: Top Scorers
+      league:
+        uae: UAE
+        laliga: La Liga
+        premierLeague: Premier League
+      highlightsAfterMatchEnds: Highlights will be available after the match ends.
+      foul: Foul
+      goal: Goal
+      exchange: Exchange
+      cornerKick: Corner Kick
+      offside: Offside
+      saves: Saves
+      ballPossession: "{{ . }}% Ball Possession"
+      lineUp_x_Formation: "Line up {{ . }} Formation"
+      buyTheJersey: buy the jersey
+      tableHeading:
+        buy: Buy
+        club: Club
+        draws: D
+        goals: Goals
+        goalsAgainst: GA
+        goalsScored: GS
+        highlight: Highlight
+        losses: L
+        points: Pts
+        position: Position
+        played: P
+        player: Player
+        shop: Buy
+        team: Team
+        time: Time
+        wins: W
+      seeMore: see more
+      noMatches: No matches scheduled for today.
+      matchStats: Match stats
+      ownGoal: Own Goal
+      ownGoals: Own Goals
+      sub: Substitution
+      subs: Substitutions
+      yellowCard: Yellow Card
+      yellowCards: Yellow Cards
+      redCard: Red Card
+      redCards: Red Cards
+      yellowRedCard: 2nd Yellow Card
+      yellowRedCards: 2nd Yellow Cards
+      goals: Goals
+      penalty: Penalty
+      penalties: Penalties
+      missed-penalty: Missed Penalty
+      missed-penalties: Missed Penalties
+      madeShootoutPenalty: Made Shootout Penalty
+      madeShootoutPenalties: Made Shootout Penalties
+      missedShootoutPenalty: Missed Shootout Penalty
+      missedShootoutPenalties: Missed Shootout Penalties
+      emailCaptureMessage: Please allow us to notify you when the product becomes available.
+      table: Table
+      noFormation: No formation available
+      lineUpFormation: Line up formation
+      topScorerMissing: Top scorer information will be displayed when available.
+      nextMatch: Please click here for the next available match.
+    homepage:
+      downloadVictoryApp: Download Victory App
+      downloadVictoryAppText: Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
+      buttons:
+        appStore: App Store
+        playStore: Play Store
+      whatsNew: What's New
+      featured: Kit of the week
+      bestSellers: Best Sellers
+      cookiePolicy: We use cookies to offer you a better experience when using our site. By continuing to use our website, you consent to the use of cookies in accordance with our
+      cookiePolicyLink: Cookie Policy
+      accept: Accept
+  sidebar:
+    filter: Filter
+    kit: Kit
+    clubs: Clubs
+    internationalTeams: INT-Teams
+    gender: Gender
+    size: Size
+    brand: Brand
+    badges: Badges
+    sortBy: Sort By
+    priceLowToHigh: Price Low to High
+    priceHighToLow: Price High to Low
+    competition: Competition
+    season: Season
+    selectAClub: Select a Club
+    selectATeam: Select a Team
+    selectABrand: Select a Brand
+    options:
+      homekit: "Home Kit"
+      awaykit: "Away Kit"
+      thirdkit: "Third Kit"
+      goalkeeperkit: "Goalkeeper Kit"
+      accessories: "Accessories"
+      male: "Male"
+      female: "Female"
+      unisex: "Unisex"
+      youth: "Youth"
+  menu:
+    home: "Home"
+    cart: Cart
+  auth:
+    signin: Sign In / Sign Up
+    signout: Sign Out
+  topLeader:
+    taglines:
+      homepage: Check scores and shop from your favorite team
+  footer:
+    about: About
+    downloadTheApp: Download the app
+    customerService: Customer Service

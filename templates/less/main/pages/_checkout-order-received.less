@@ -1,0 +1,117 @@
+
+.mixin_cart_table_border() {
+    border: 1px solid @color--light-grey;
+}
+
+.cart_table {
+    &__img {
+        max-width: auto;
+        max-height: 100px;
+        padding-right: 5px;
+    }
+    &__description {
+        max-width: 125px;
+    }
+    &__buttons-row {
+        margin-top: -20px;
+    } // border settings
+    td {
+        .mixin_cart_table_border();
+        border-left: none;
+        border-right: none;
+        background-color: white;
+    }
+    td:first-child {
+        border: none;
+        background: none;
+        width: 80px;
+    }
+    td.cart_table__begin {
+        .mixin_cart_table_border();
+        border-right: none;
+        &:lang(ar) {
+            .mixin_cart_table_border();
+            border-left: none;
+        }
+    }
+    td.cart_table__end {
+        .mixin_cart_table_border();
+        border-left: none;
+        &:lang(ar) {
+            .mixin_cart_table_border();
+            border-right: none;
+        }
+    } // text alignment
+    th {
+        padding-left: 2rem;
+    }
+    td {
+        padding: 0;
+        padding-left: 2rem;
+        padding-bottom: 2rem;
+        padding-top: 1.8rem;
+        padding-right: 10px;
+        &:first-child {
+            padding: 0;
+        }
+        span {
+            line-height: 2rem;
+        }
+        .btn-link {
+            color: @color--dark-grey;
+            &:hover {
+                color: @color--dark-grey;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+        .cart_table__quantity_current {
+            line-height: 1.9rem;
+        }
+        .cart_table__quantity_control {
+            line-height: 1.2rem;
+        }
+    } // control buttons
+    button {
+        width: 100%;
+    }
+}
+
+@media (min-width: @bootstrap_lg) {
+    .cart_table__img {
+        width: auto;
+        height: 300px;
+    }
+    .cart_item {
+        &__col {
+            border: 1px solid @color--light-grey;
+            padding: 15px;
+            margin: 15px;
+            background-color: @color--background;
+        }
+        &__price {
+            border-top: 1px solid @color--light-grey;
+            padding-top: 2rem;
+        }
+        &__quantity {
+            padding-top: 2rem;
+            h5 {
+                padding-top: 8px;
+                font-weight: 400;
+            }
+        }
+    }
+    .card-img-top {
+        background-color: @color--table-background;
+        border: none;
+        border-radius: unset;
+    }
+    .cart_table__quantity_current {
+        padding-top: 5px;
+        font-size: 1.4rem;
+    }
+    .cart_table__quantity_control {
+        font-size: 2rem;
+        line-height: 0.4rem;
+    }
+}

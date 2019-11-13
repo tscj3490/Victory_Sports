@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block header_title %}
+    <a href="{{ href("/") }}" class="header-title__link">
+        {% if locale == "en-US" or locale == "" %}
+            <h1 class="header-title">&nbsp;</h1>
+        {% else %}
+            <h1 class="header-title header-title--arabic">&nbsp;</h1>                    
+        {% endif %}
+        <span class="header-title__subtitle color-stats">{{ t("pages.user.header") }}</span>
+    </a>
+{% endblock %}
+
+{% block header_button %}
+    <div class="menu-item menu-border-left"><a href="{{ href("/shop/") }}">{{ t("pages.shop.header_title") }}</a></div>
+{% endblock %}
+
+{% block below_header_buttons %}
+{% endblock %}
+
+
+{% block top_leader %}
+{%  endblock %}
+
+
+{% block extend_javascript %}
+    <script src="https://www.gstatic.com/firebasejs/5.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDKEB4twE57BWYwj1nMYxOFrF0JFyjIQzo",
+            authDomain: "sh-tt-victory.firebaseapp.com",
+            databaseURL: "https://sh-tt-victory.firebaseio.com",
+            projectId: "sh-tt-victory",
+            storageBucket: "",
+            messagingSenderId: "871713921541"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script type="text/javascript">
+
+        initApp = function() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    // User is signed in.
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    var emailVerified = user.emailVerified;
+                    var photoURL = user.photoURL;
+                    var uid = user.uid;
+                    var phoneNumber = user.phoneNumber;
+                    var providerData = user.providerData;
+                    user.getIdToken().then(function(idToken) {
+                        // document.getElementById('sign-in-status').textContent = 'Signed in';
+                        // document.getElementById('sign-in').textContent = 'Sign out';
+                        // document.getElementById('account-details').textContent = JSON.stringify({
+                        //     displayName: displayName,
+                        //     email: email,
+                        //     emailVerified: emailVerified,
+                        //     phoneNumber: phoneNumber,
+                        //     photoURL: photoURL,
+                        //     uid: uid,
+                        //     accessToken: idToken,
+                        //     providerData: providerData
+                        // }, null, '  ');
+                        // TODO: change this to build a form and submit the form instead
+
+                        // $("#authForm input[name=idToken]").val(idToken);
+                        // $("#authForm input[name=displayName]").val(displayName);
+                        // $("#authForm input[name=email]").val(email);
+                        // $("#authForm input[name=uid]").val(uid);
+
+                        $("#authForm").children("input").each(function(){
+                            var that = $(this);
+                            var name = that.attr("name");
+                            if (name !== "idToken") {
+                                that.val(user[name]);
+                            } else {
+                                that.val(idToken);
+                            }
+                        });
+                        $("#authForm").children("input").each(function() {
+                            var that = $(this);
+                            var name = that.attr("name");
+                            // console.log(name, that.val());
+                        });
+                        setTimeout(function(){
+                            $("#authForm").submit();
+                        }, 1000);
+
+                    });
+                } else {
+                    // User is signed out.
+                    // document.getElementById('sign-in-status').textContent = 'Signed out';
+                    // document.getElementById('sign-in').textContent = 'Sign in';
+                    // document.getElementById('account-details').textContent = 'null';
+                }
+            }, function(error) {
+                console.log(error);
+            });
+        };
+
+        window.addEventListener('load', function() {
+            initApp()
+        });
+    </script>
+{% endblock %}
+
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+    <div class="container background background--standard">
+        <div class="row justify-content-center">
+            <div class="col-6" style="text-align: center;min-height: 94vh;padding-top: 25vh;">
+                <div class="col" id="firebaseui-auth-container">
+                    <h1>{{ t("pages.user.signInMsg") }}</h1>
+                    <form id="authForm" action="{{ href(generateSessionURL) }}" method="post">
+                        <input type="hidden" name="displayName" value="">
+                        <input type="hidden" name="email" value="">
+                        <input type="hidden" name="uid" value="">
+                        <input type="hidden" name="idToken" value="">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,20 @@
+.mobile-menu {
+
+    &__wrapper {
+        font-size: 1.2rem;
+        width: 80vw;
+        position: absolute;
+        z-index: 5;
+        display: none;
+        overflow-y: auto;
+        top: 4.5rem;
+        left: 0;
+    }
+}
+
+#show-menu {
+
+    &:checked ~ .mobile-menu__wrapper {
+        display: block;
+    }
+}

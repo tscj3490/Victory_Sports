@@ -1,0 +1,43 @@
+.flex-container {
+    display: flex;
+
+    &--align-center,
+    &--download-app,
+    &--order {
+        align-items: center;
+    }
+
+    &--column {
+        flex-direction: column;
+    }
+
+    &--download-app,
+    &--no-orders {
+        padding: 2rem 4rem;
+        justify-content: center;
+
+        @media screen and (max-width: @bootstrap_lg) {
+            flex-direction: column;
+            padding-bottom: 0;
+        }
+
+        @media screen and (max-width: @bootstrap_sm) {
+            padding: 2rem;
+            padding-bottom: 0;
+        }
+    }
+
+    &--no-orders {
+        text-align: center;
+        font-size: 1.5rem;
+        width: 100%;
+    }
+
+    &--no-wrap {
+        flex-wrap: nowrap;
+    }
+
+    &--order {
+        justify-content: space-between;
+    }
+}

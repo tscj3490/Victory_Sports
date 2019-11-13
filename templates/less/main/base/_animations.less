@@ -1,0 +1,30 @@
+@keyframes fadein {
+    0%   {opacity: .5}
+    100% {opacity: 0}
+}
+
+@keyframes swell {
+    0% {
+        top: 1.1rem;
+        right: 1.25rem;
+        height: 1.35rem;
+        width: 1.35rem;
+    }
+    50% {
+        top: 3.1rem;
+        right: -2.25rem;
+        height: 3.35rem;
+        width: 3.35rem;
+        font-size: 1.75rem;
+    }
+    100% {
+        top: 1.1rem;
+        right: 1.25rem;
+        height: 1.35rem;
+        width: 1.35rem;
+    }
+}
+
+.swell {
+    animation: swell 1s ease-in-out;
+}

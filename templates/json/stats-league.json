@@ -1,0 +1,120 @@
+{% block content %}
+{
+  "todayIdx": {{ stats_calendar.TodayOrNextIdx }},
+  "calendar": [
+      {% for entry in stats_calendar.Entries %}
+      {
+          "index": {{ entry.Idx }},
+          "dateTime": "{{ entry.DateTime.String() }}",
+          "href": "{{ entry.GetHrefParameter() }}"
+      }{% if !forloop.Last %},{% endif %}
+      {% endfor %}
+  ],
+  "leagues": [
+    {% with competitionID=statsLeagueID|integer %}
+    {% with comp=stats_filters.GetCompetition(competitionID) %}
+    {
+      {% with currentSeasonID=comp.CurrentSeasonID|integer %}
+      {% with fixtures = stats_filters.ListFixturesBySeasonAndDate(currentSeasonID,stats_calendar.DateParameterTime, 0) %}
+      "name": "{{ comp.Name }}",
+      "id": {{ comp.ID }},
+      "fixtures": [
+          {% for fixture in fixtures %}
+          {% with localTeam=fixture.LocalTeamInclude.LocalTeam %}
+          {% with visitorTeam=fixture.VisitorTeamInclude.VisitorTeam %}
+          {% with startingTime=fixture.Time.GetStartTime() %}
+                    {
+                    "vistorTeamId": {{ visitorTeam.ID }},
+                    "localTeamId": {{ localTeam.ID }},
+                    "visitorTeam": {
+                      "name": "{{ visitorTeam.Name }}",
+                      "logo": "{{ visitorTeam.LogoPath }}",
+                      "ID": "{{ visitorTeam.ID }}"
+                    },
+                    "localTeam": {
+                      "name": "{{ localTeam.Name }}",
+                      "logo": "{{ localTeam.LogoPath }}",
+                      "ID": "{{ localTeam.ID }}"
+                    },
+                    "localTeamScore": {{ fixture.Scores.LocalTeamScore }},
+                    "visitorTeamScore": {{ fixture.Scores.VisitorTeamScore }},
+                    "localTeamEvents": [
+                    {% with localTeamID=localTeam.ID|integer %}
+                    {% for event in fixture.GetEventsFilteredBy(localTeamID)|slice:":2" %}
+                    {
+                            "type": "{{ event.Type }}",
+                            "playerName": "{{ event.PlayerName }}",
+                            "relatedPlayerName": "{{ event.RelatedPlayerName }}",
+                            "minute": {{ event.Minute }}
+                    }{% if !forloop.Last %},{% endif %}
+                    {% endfor %}
+                    {% endwith %}
+                    ],
+                    "visitorTeamEvents": [
+                    {% with visitorTeamID=visitorTeam.ID|integer %}
+                    {% for event in fixture.GetEventsFilteredBy(visitorTeamID)|slice:":2" %}
+                    {
+                    "type": "{{ event.Type }}",
+                    "playerName": "{{ event.PlayerName }}",
+                    "relatedPlayerName": "{{ event.RelatedPlayerName }}",
+                    "minute": {{ event.Minute }}
+                    }{% if !forloop.Last %},{% endif %}
+                    {% endfor %}
+                    {% endwith %}
+                    ],
+                    "startingTime": "{{ startingTime }}"
+                    }{% if !forloop.Last %},{% endif %}
+          {% endwith %}
+          {% endwith %}
+          {% endwith %}
+          {% endfor %}
+      ]
+    {% endwith %}
+    {% endwith %}
+    }
+    {% endwith %}
+    {% endwith %}
+  ],
+  "leagueTable": [
+
+{% with seasonID=statsSeasonID|integer %}
+{% for standing in stats_filters.GetStandings(seasonID) %}
+{% with team=standing.TeamInclude.Team %}
+        {
+          "team": "{{ team.Name }}",
+          "teamID": {{ team.ID }},
+          "teamLogo": "{{ team.LogoPath }}",
+          "position": {{ standing.Position }},
+          "positionStatus": "{{ standing.Status }}",
+          "played": {{standing.Overall.GamesPlayed}},
+          "wins": {{standing.Overall.Won}},
+          "draws": {{standing.Overall.Draw}},
+          "losses": {{standing.Overall.Lost}},
+          "goalsScored": {{standing.Overall.GoalsScored}},
+          "goalsAgainst": {{standing.Overall.GoalsAgainst}},
+          "points": {{standing.Points}}
+        }{% if !forloop.Last %},{% endif %}
+{% endwith %}
+{% endfor %}
+{% endwith %}
+  ],
+"topscorers": [
+{% with seasonID=statsSeasonID|integer %}
+{% for topscorer in stats_filters.GetTopscorers(seasonID)|slice:":6" %}
+{% with player=topscorer.PlayerInclude.Player %}
+{% with team=topscorer.TeamInclude.Team %}
+  {
+    "team": "{{ team.Name }}",
+    "teamID": {{ team.ID }},
+    "teamLogo": "{{ team.LogoPath }}",
+    "name": "{{ player.CommonName }}",
+    "position": "{% if player.PositionID == 1 %}GoalKeeper{% endif %}{% if player.PositionID == 2 %}Defender{% endif %}{% if player.PositionID == 3 %}Midfielder{% endif %}{% if player.PositionID == 4 %}Forward{% endif %}"
+  }{% if !forloop.Last %},{% endif %}
+{% endwith %}
+{% endwith %}
+{% endfor %}
+{% endwith %}
+]
+}
+{% endblock %}
+

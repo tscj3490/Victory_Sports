@@ -1,0 +1,119 @@
+.stats-details {
+    
+    &__icon {
+        height: .8rem;
+        width: .8rem;
+        margin: 0 1rem;
+        flex-shrink: 0;
+    }
+
+    &__match-formation {
+        flex-grow: 1;
+    }
+
+    &__match-formation,
+    &__match-stats-container {
+        border: 1px solid @color--light-grey;
+        padding: 2.5rem;
+        background-color: @color--background;
+
+        @media screen and (max-width: @bootstrap_md) {
+            padding: 1.5rem;
+        }
+    }
+
+    &__match-stats-container {
+        margin-right: 2.5rem;
+        flex-shrink: 0;
+        min-width: 22rem;
+        width: 100%;
+        max-width: 30rem;
+        
+        &:lang(ar) {
+            margin: 0;
+            margin-left: 2.5rem; 
+        }
+        
+        @media screen and (max-width: @bootstrap_md) {
+            margin: 0 auto 2.5rem auto;
+
+            &:lang(ar) {
+                margin: 0 auto 2.5rem auto;
+            }
+        }
+
+    }
+
+    &__player {
+        flex-grow: 1;
+
+        &--left {
+            text-align: right;
+        }
+
+        &:lang(ar) {
+            text-align: right;
+        }
+    }
+
+    &__row {
+        display: flex;
+        align-items: center;
+        padding: .5rem;
+
+        &--header {
+            padding: .75rem;
+            grid-column: ~"1 / -1";
+            font-size: 1.5rem;
+        }
+
+        &--left {
+            flex-direction: row-reverse;
+        }
+    }
+
+    &__score,
+    &__team {
+        display: block;
+    }
+
+    &__score {
+        flex-shrink: 1;
+        width: 4rem;
+        text-align: center;
+        margin: 0 2.5rem;
+    }
+    
+    &__team {
+        flex-grow: 9999;
+
+        &--local {
+            text-align: right;
+        
+            &:lang(ar) {
+                text-align: left;
+            }
+        }
+
+        &--visitor {
+            text-align: left;
+            
+            &:lang(ar) {
+                text-align: right;
+            }
+        }
+    }
+
+    &__time {
+        width: 5rem;
+        flex-shrink: 0;
+
+        @media screen and (max-width: @bootstrap_sm) {
+            width: 3rem;
+        }
+
+        &--left {
+            text-align: right;
+        }
+    }
+}

@@ -1,0 +1,47 @@
+.ic_top {
+    width: 18px;
+
+    &__lookingglass {
+        width: 20px;
+    }
+
+    &__profile {
+        width: 26px;
+    }
+
+    &__switch_lang {
+        width: 30px;
+    }
+}
+
+// TODO: Remove .row_only_on_desktop and .row_only_on_mobile
+
+.row_only_on_desktop {
+    display: none;
+    @media(min-width: @bootstrap_lg) {
+        display: flex;
+    }
+}
+
+.row_only_on_mobile {
+    display: flex;
+    @media(min-width: @bootstrap_lg) {
+        display: none;
+    }
+}
+
+// TODO: Remove .container-fluid_only_on_desktop and .container-fluid_only_on_mobile
+
+.container-fluid_only_on_mobile {
+    display: block;
+    @media(min-width: @bootstrap_lg) {
+        display: none;
+    }
+}
+
+.container-fluid_only_on_desktop {
+    display: none;
+    @media(min-width: @bootstrap_lg) {
+        display: block;
+    }
+}

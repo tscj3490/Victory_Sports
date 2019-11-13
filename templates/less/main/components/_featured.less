@@ -1,0 +1,44 @@
+.featured-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+    margin: 2rem 0;
+
+    @media screen and (max-width: @bootstrap_lg) {
+        grid-template-columns: 1fr;
+    }
+
+    &__block {
+        text-align: center;
+        height: 24.5rem;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        background-clip: content-box;
+
+        &--featured {
+            background-image: url('/public/static/img/iphone/iphone vectors-06.svg');
+        }
+
+        &--whats-new {
+            background-image: url('/public/static/img/iphone/iphone vectors-05.svg');
+        }
+    }
+    
+    &__image {        
+        height: 208px;
+        margin-top: 30px;
+    }
+
+    &__text {
+        color: @color--medium-grey;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-top: -5px;
+    
+        @media(min-width: @bootstrap_xs) {
+            margin-top: 5px;
+        }
+    }
+}

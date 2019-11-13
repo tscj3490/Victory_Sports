@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_profile</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="7.03" cy="7.03" r="6.53"></circle>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic_profile">
+            <g>
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Oval" stroke="#000000" xlink:href="#path-1"></use>
+                <g id="Group" mask="url(#mask-2)" stroke="#000000">
+                    <path d="M7.03,21.47 C3.66658587,21.47 0.94,18.7434141 0.94,15.38 C0.94,12.0165859 3.66658587,9.29 7.03,9.29 C10.3934141,9.29 13.12,12.0165859 13.12,15.38 C13.12,18.7434141 10.3934141,21.47 7.03,21.47 Z M7.03,9.2 C5.47255701,9.2 4.21,7.93744299 4.21,6.38 C4.21,4.82255701 5.47255701,3.56 7.03,3.56 C8.58744299,3.56 9.85,4.82255701 9.85,6.38 C9.85,7.93744299 8.58744299,9.2 7.03,9.2 Z" id="Combined-Shape"></path>
+                    <circle id="Oval" cx="7.03" cy="7.03" r="6.53"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

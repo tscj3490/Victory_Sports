@@ -1,0 +1,187 @@
+@font-face {
+    font-family: 'Droid Arabic Kufi';
+    src: url('/public/static/fonts/DroidKufi/generated/DroidKufi-Bold.eot');
+    src: url('/public/static/fonts/DroidKufi/generated/DroidKufi-Bold.eot?#iefix') format('embedded-opentype'), url('/public/static/fonts/DroidKufi/generated/DroidKufi-Bold.woff') format('woff'), url('/public/static/fonts/DroidKufi/generated/DroidKufi-Bold.woff2') format('woff2'), url('/public/static/fonts/DroidKufi/DroidKufi-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Droid Arabic Kufi';
+    src: url('/public/static/fonts/DroidKufi/generated/DroidKufi-Regular.eot');
+    src: url('/public/static/fonts/DroidKufi/generated/DroidKufi-Regular.eot?#iefix') format('embedded-opentype'), url('/public/static/fonts/DroidKufi/generated/DroidKufi-Regular.woff') format('woff'), url('/public/static/fonts/DroidKufi/generated/DroidKufi-Regular.woff2') format('woff2'), url('/public/static/fonts/DroidKufi/DroidKufi-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* open-sans-regular - latin */
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/public/static/fonts/open-sans-v15-latin/open-sans-v15-latin-regular.eot');
+    /* IE9 Compat Modes */
+    src: local('Open Sans Regular'), local('OpenSans-Regular'), url('/public/static/fonts/open-sans-v15-latin/open-sans-v15-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('/public/static/fonts/open-sans-v15-latin/open-sans-v15-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/public/static/fonts/open-sans-v15-latin/open-sans-v15-latin-regular.woff') format('woff'), /* Modern Browsers */
+    url('/public/static/fonts/open-sans-v15-latin/open-sans-v15-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('/public/static/fonts/open-sans-v15-latin/open-sans-v15-latin-regular.svg#OpenSans') format('svg');
+    /* Legacy iOS */
+}
+
+/* open-sans-600 - latin */
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    src: url('/public/static/fonts/open-sans-v15-latin/open_sanssemibold.eot');
+    /* IE9 Compat Modes */
+    src: local('Open Sans Regular'), local('OpenSans-Regular'), url('/public/static/fonts/open-sans-v15-latin/open_sanssemibold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('/public/static/fonts/open-sans-v15-latin/OpenSans-Semibold.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/public/static/fonts/open-sans-v15-latin/OpenSans-Semibold-webfont.woff') format('woff'), /* Modern Browsers */
+    url('/public/static/fonts/open-sans-v15-latin/OpenSans-Semibold-webfont.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('/public/static/fonts/open-sans-v15-latin/OpenSans-Semibold-webfont.svg#open_sanssemibold') format('svg');
+    /* Legacy iOS */
+}
+
+/* open-sans-700 - latin */
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: url('/public/static/fonts/open-sans-v15-latin/open-sans-v15-latin-700.eot');
+    /* IE9 Compat Modes */
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url('/public/static/fonts/open-sans-v15-latin/open-sans-v15-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('/public/static/fonts/open-sans-v15-latin/open-sans-v15-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/public/static/fonts/open-sans-v15-latin/open-sans-v15-latin-700.woff') format('woff'), /* Modern Browsers */
+    url('/public/static/fonts/open-sans-v15-latin/open-sans-v15-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('/public/static/fonts/open-sans-v15-latin/open-sans-v15-latin-700.svg#OpenSans') format('svg');
+    /* Legacy iOS */
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &[dir="rtl"] {
+        font-family: "Droid Arabic Kufi", "OpenSans", sans-serif;
+    }
+    
+    &:lang(ar) {
+        text-align: right;
+    }
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+
+    &:hover {
+        color: inherit;
+        text-decoration: inherit;
+    }
+}
+
+.heading {
+
+    &--checkout {
+
+        &:after {
+            content: "\2212";
+            font-size: 1.4rem;
+            float: right;
+            cursor: pointer;
+        }
+    }
+
+    &--checkout,
+    &--checkout-secondary {
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-bottom: .5rem;
+        width: 10rem;
+        padding: 0 .5rem;
+    }
+
+    &--minimised-checkout {
+        margin: 1.5rem 0;
+
+        &:after {
+            content: "+";
+        }
+    }
+
+    &--download-app {
+        font-size: 2.41rem;
+        margin: 5rem 0 1.5rem 0;
+        font-weight: 700;
+        color: @color--heading-primary;
+
+        @media (max-width: @bootstrap_lg) {
+            text-align: center;
+            font-size: 1.25rem;
+            margin-top: 2rem;
+        }
+    }
+
+    &--sign-in {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    &--stats-title {
+        font-size: 1.16rem;
+        color: #000;
+        padding-top: 40px;
+        margin-bottom: 1.25rem;
+
+        &:lang(ar) {
+            font-family: "OpenSans", sans-serif;
+        }
+    }
+
+    &--tagline {
+        font-size: 1.41rem;
+        margin-bottom: 4rem;
+        color: @color--background;
+        text-align: center;
+        display: block;
+        padding: 0 2rem;
+        z-index: 10;
+
+        @media (min-width: @bootstrap_xs) {
+            font-size: 2rem;
+        }
+
+        @media (min-width: @bootstrap_md) {
+            font-size: 2.75rem;
+        }
+    }
+}
+
+.text {
+    
+    &--download-app {
+        text-align: left;
+        
+        &:lang(ar) {
+            text-align: right;
+        }
+        
+        @media (max-width: @bootstrap_lg) {
+            display: none;
+        }
+    }
+
+    &--latin {
+        &:lang(ar) {
+            font-family: "OpenSans", sans-serif;
+        }
+    }
+}

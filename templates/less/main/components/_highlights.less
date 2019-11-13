@@ -1,0 +1,143 @@
+.highlights {
+    
+    &__details {
+        grid-row: ~"2 / 4";
+
+        @media screen and (max-width: @bootstrap_md) {
+            grid-row: ~"2 / 3";        
+        }
+        
+        &--local {
+            grid-column: ~"6 / 7";
+
+            @media screen and (max-width: @bootstrap_md) {
+                grid-column: ~"2 / 4";
+            }
+
+            @media screen and (max-width: @bootstrap_sm) {
+                grid-column: ~"2 / 5";
+            }
+        }
+        
+        &--visitor {
+            grid-column: ~"7 / 8";
+            
+            @media screen and (max-width: @bootstrap_md) {
+                grid-column: ~"6 / 8";
+            }
+
+            @media screen and (max-width: @bootstrap_sm) {
+                grid-column: ~"5 / 8";
+            }
+        }
+    }
+    
+    &__details-row {
+        font-size: .8rem;
+        margin-bottom: .25rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    &__event-icon {
+        height: .8rem;
+        width: .8rem;
+        margin-right: .5rem;
+
+        &:lang(ar) {
+            margin-right: 0;
+            margin-left: .5rem;
+        }
+    }
+    
+    &__more {
+        grid-column: ~"6 / 8";
+        grid-row: ~"4 / 5";
+        text-align: right;
+        padding-right: 1rem;
+
+        &:lang(ar) {
+            font-family: "Droid Arabic Kufi", "OpenSans", sans-serif;
+            text-align: left;
+            padding-right: 0;
+            padding-left: 1rem;
+        }
+
+        @media screen and (max-width: @bootstrap_md) {
+            grid-column: ~"2 / 8";
+            grid-row: ~"3 / 4";
+        }
+    }
+    
+    &__team-name {
+        font-size: .8rem;
+        grid-row: ~"1 / 2";
+        
+        @media screen and (max-width: @bootstrap_md) {
+            font-size: 1rem;
+        }
+
+        @media screen and (max-width: @bootstrap_md) {
+            font-size: .9rem;
+        }
+
+        &--local {
+            grid-column: ~"6 / 7";
+
+            @media screen and (max-width: @bootstrap_md) {
+                grid-column: ~"3 / 4";
+            }
+        }
+
+        &--visitor {
+            grid-column: ~"7 / 8";
+
+            @media screen and (max-width: @bootstrap_md) {
+                grid-column: ~"7 / 8";
+            }
+        }
+    }
+
+    &__time {
+        margin-right: 1rem;
+        width: 5ch;
+        
+        @media screen and (max-width: @bootstrap_sm) {
+            margin-right: .5rem;
+        }
+
+        &:lang(ar) {
+            text-align: right;
+            margin-right: 0;
+            margin-left: 1rem;
+        
+            @media screen and (max-width: @bootstrap_sm) {
+                margin-left: .5rem;
+            }
+        }
+
+    }
+}
+
+.highlights-divider {
+    border-right: 1px solid @color--light-grey;
+    height: 100%;
+    grid-row: ~"1 / 5";
+    grid-column: ~"5";
+
+    &:lang(ar) {
+        border-right: none;
+        border-left: 1px solid @color--light-grey;
+    }
+
+    @media screen and (max-width: @bootstrap_md) {
+            grid-column: ~"1";
+            border-left: none;
+            border-right: 1px solid @color--light-grey;
+            
+            &:lang(ar) {
+                border-right: none;
+                border-left: 1px solid @color--light-grey;
+            }
+    }
+}

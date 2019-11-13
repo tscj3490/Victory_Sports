@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 377.35 306.38">
+  <defs>
+    <style>
+      .\35 dea4eaa-250e-4018-a0bd-4a35a502abe0 {
+        fill: none;
+        stroke: #ccc;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .\36 039860c-4e57-42c0-a0ba-2004af6c63f3 {
+        fill: #ccc;
+      }
+
+      .\37 b1cad90-3313-4dbc-bd19-26a2f580cdfb {
+        fill: #f1f1f1;
+      }
+
+      .\35 1ad6cd2-a737-462e-bacc-cf1dfecf761e {
+        font-size: 7.94px;
+        fill: #666;
+        font-family: Aller-Regular, Aller;
+        letter-spacing: 0.05em;
+      }
+    </style>
+  </defs>
+  <title>ic_stats_formation</title>
+  <g id="06d03ff7-95c9-4d7e-a155-261f22fde67b" data-name="Layer 2">
+    <g id="894d6abe-984b-4728-be4a-4ac6b64011b3" data-name="socres _ page">
+      <g id="c0c432ac-9325-4122-8e41-7e9bc9c23002" data-name="content">
+        <g id="f50b4ef3-62c8-47fa-a576-43336da096b3" data-name="formation">
+          <g id="fc21579d-0455-4a5b-b7ae-0e49ab98bda6" data-name="field">
+            <rect class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" x="1" y="1" width="375.35" height="286.84"/>
+            <g id="0b4c20de-58b7-4efb-bb0e-eea5c6f906dc" data-name="field">
+              <path class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" d="M246.6,1.52a57.93,57.93,0,1,1-115.85,0"/>
+              <path class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" d="M245.28,195.05a57.94,57.94,0,0,0-113.23.11"/>
+              <polyline class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" points="296.91 287.84 296.91 195.82 78.45 195.82 78.45 287.84"/>
+              <polyline class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" points="262.49 287.84 262.49 244.81 113.87 244.81 113.87 287.84"/>
+              <circle class="6039860c-4e57-42c0-a0ba-2004af6c63f3" cx="188.68" cy="220.65" r="2.98"/>
+              <polyline class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" points="225.56 287.84 225.56 305.38 151.6 305.38 151.6 287.84"/>
+              <path class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" d="M1.33,276.61q.33,0,.66,0a10.26,10.26,0,0,1,10.26,10.27,11.55,11.55,0,0,1-.08,1.32"/>
+              <path class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" d="M364.46,287.18c0-.22,0-.44,0-.67a10.26,10.26,0,0,1,10.26-10.26,9.54,9.54,0,0,1,1.32.09"/>
+            </g>
+          </g>
+          <g id="11f5effc-522b-4026-8b55-2c58ef7a6afc" data-name="players clickable">
+            <rect class="7b1cad90-3313-4dbc-bd19-26a2f580cdfb" x="39.4" y="53.03" width="88.05" height="14.32"/>
+            <rect class="7b1cad90-3313-4dbc-bd19-26a2f580cdfb" x="78.45" y="110.62" width="82.09" height="14.32"/>
+            <rect class="7b1cad90-3313-4dbc-bd19-26a2f580cdfb" x="114.2" y="211.25" width="45.68" height="14.32"/>
+            <rect class="7b1cad90-3313-4dbc-bd19-26a2f580cdfb" x="13.58" y="182.87" width="60.24" height="14.32"/>
+            <rect class="7b1cad90-3313-4dbc-bd19-26a2f580cdfb" x="304.86" y="182.87" width="60.24" height="14.32"/>
+            <rect class="7b1cad90-3313-4dbc-bd19-26a2f580cdfb" x="210.19" y="211.25" width="62.23" height="14.32"/>
+            <rect class="7b1cad90-3313-4dbc-bd19-26a2f580cdfb" x="267.12" y="53.03" width="62.23" height="14.32"/>
+            <rect class="7b1cad90-3313-4dbc-bd19-26a2f580cdfb" x="166.5" y="48.39" width="45.68" height="14.32"/>
+            <rect class="7b1cad90-3313-4dbc-bd19-26a2f580cdfb" x="161.87" y="143.06" width="58.26" height="14.32"/>
+            <rect class="7b1cad90-3313-4dbc-bd19-26a2f580cdfb" x="159.88" y="254.94" width="57.59" height="14.32"/>
+            <rect class="7b1cad90-3313-4dbc-bd19-26a2f580cdfb" x="220.12" y="110.62" width="71.5" height="14.32"/>
+            <text class="stats-lineup-svg__name" transform="translate(45.74 62.75)">Omar Abdulrahman</text>
+            <text class="stats-lineup-svg__name" transform="translate(84.13 120.34)">Hamdan Al-Kamali</text>
+            <text class="stats-lineup-svg__name" transform="translate(171.52 58.11)">Ali Khasif</text>
+            <text class="stats-lineup-svg__name" transform="translate(272.81 62.75)">Habib Fardan</text>
+            <text class="stats-lineup-svg__name" transform="translate(224.48 120.34)">Khamis Esmaeel</text>
+            <text class="stats-lineup-svg__name" transform="translate(165.56 152.78)">Habib Fardan</text>
+            <text class="stats-lineup-svg__name" transform="translate(17.27 192.58)">Ahmed Khalil</text>
+            <text class="stats-lineup-svg__name" transform="translate(308.55 192.58)">Ahmed Khalil</text>
+            <text class="stats-lineup-svg__name" transform="translate(215.21 220.96)">Ahmed Khalil</text>
+            <text class="stats-lineup-svg__name" transform="translate(118.56 220.96)">Ali Khasif</text>
+            <text class="stats-lineup-svg__name" transform="translate(170.2 264.66)">Ali Khasif</text>
+          </g>
+          <g id="010aeda0-d725-4ea4-9c75-e86188833993" data-name="formation_team_logos">
+            <image width="316" height="316" transform="translate(176.43 273.27) scale(0.08)" xlink:href="ic_stats_formation1.png"/>
+            <image width="316" height="316" transform="translate(176.43 19.73) scale(0.08)" xlink:href="ic_stats_formation2.png"/>
+            <image width="316" height="316" transform="translate(176.43 115.06) scale(0.08)" xlink:href="ic_stats_formation3.png"/>
+            <image width="316" height="316" transform="translate(70.51 23.04) scale(0.08)" xlink:href="ic_stats_formation4.png"/>
+            <image width="316" height="316" transform="translate(285 23.04) scale(0.08)" xlink:href="ic_stats_formation5.png"/>
+            <image width="316" height="316" transform="translate(32.11 154.2) scale(0.08)" xlink:href="ic_stats_formation6.png"/>
+            <image width="316" height="316" transform="translate(321.41 154.2) scale(0.08)" xlink:href="ic_stats_formation7.png"/>
+            <image width="316" height="316" transform="translate(106.92 82.62) scale(0.08)" xlink:href="ic_stats_formation8.png"/>
+            <image width="316" height="316" transform="translate(243.29 82.62) scale(0.08)" xlink:href="ic_stats_formation9.png"/>
+            <image width="316" height="316" transform="translate(124.13 182.58) scale(0.08)" xlink:href="ic_stats_formation10.png"/>
+            <image width="316" height="316" transform="translate(228.07 182.58) scale(0.08)" xlink:href="ic_stats_formation11.png"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

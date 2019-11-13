@@ -1,0 +1,41 @@
+.badge-checkbox,
+.product-size {
+    visibility: hidden;
+    position: absolute;
+}
+
+.badge-checkbox {
+
+    &__label {
+        margin-bottom: 0;
+    }
+}
+
+.product-size {
+
+    &__label {
+        height: initial;
+        width: initial;
+        padding: 0.166rem 0.5rem;
+        margin-right: .5rem;
+        margin-bottom: .5rem;
+        color: @color--dark-grey;
+        font-weight: 400;
+    }
+}
+
+.product-size:checked + .product-size__label,
+.badge-checkbox:checked + .badge-checkbox__label {
+    border-color: @color--primary;
+    background-color: @color--primary;
+    color: #fff;
+    box-shadow: none;
+}
+
+#customizeName {
+    text-transform: uppercase;
+
+    &::placeholder {
+        text-transform: none;
+    }
+}

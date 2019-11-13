@@ -1,0 +1,31 @@
+.cookie-banner {
+    padding: 2rem 3rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__accept:link,
+    &__accept:visited {
+        background: #6dff9f;
+        padding: .5rem 1rem;
+        border-radius: 4px;
+        color: black;
+        font-weight: 600;
+        .standard-transition()
+
+    }
+
+    &__accept:hover {
+        background: darken(#6dff9f, 10);
+    }
+
+    &__link {
+        font-weight: 600;
+    }
+
+    &__text {
+        margin-bottom: 0;
+    }
+}

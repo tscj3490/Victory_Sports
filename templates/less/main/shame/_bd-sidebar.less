@@ -1,0 +1,91 @@
+// TODO: This should probably be changed in the future, but it is not exhibiting buddy behaviour at the moment.
+
+.bd-sidebar {
+    padding: 0 2rem;
+    &:lang(ar) {
+        text-align: right;
+    }
+    font-weight: bold;
+    color: #000;
+    width: 260px;
+    @media (max-width: @bootstrap_lg) {
+        // dont show filters by default on mobile ... wait for the user to press the button
+        display: none;
+        position: absolute;
+        z-index: 2;
+        background-color: @color--background;
+        top: ~"calc(13rem - 3px)";
+        border-right: 1px solid @color--light-grey;
+        border-bottom: 1px solid @color--light-grey;
+        max-height: ~"calc(100vh - 17.5rem - 3px)";
+        overflow-y: scroll;
+        left: 0;
+
+        &:lang(ar) {
+            border-right: transparent;
+            border-left: 1px solid @color--light-grey;
+            right: 0;
+        }
+
+        &--stats {
+            top: ~"calc(8.5rem + 2px)";
+            max-height: ~"calc(100vh - 13rem - 2px)";
+        }
+    }
+}
+
+input#show-sidebar[type=checkbox] {
+    display: none;
+}
+
+input#show-sidebar[type=checkbox] + .show-sidebar {
+    display: none;
+}
+
+@media (max-width: @bootstrap_lg) {
+    input#show-sidebar[type=checkbox] + .show-sidebar {
+        display: block;
+    }
+    /*Hide checkbox*/
+    input#show-sidebar[type=checkbox] {
+        display: none;
+        /*Show menu when invisible checkbox is checked*/
+        &:checked~.bd-sidebar {
+            display: block;
+        }
+        + .show-sidebar {
+            top: 162px;
+            padding: 1rem 1.5rem;
+            left: 0;
+            font-size: 1.5rem; // adjust the size of the settings icon
+            border: 1px solid @color--light-grey;
+            border-left: none;
+            height: 4rem;
+            width: 5rem;
+            margin: 0;
+            position: absolute;
+            background: @color--background;
+
+            &:lang(ar) {
+                right: 0;
+                border-right: none;
+                border-left: 1px solid @color--light-grey;
+            }
+
+            &--stats {
+                top: 114px;
+            }
+        }
+        &:checked + .show-sidebar {
+            @media (min-width: @bootstrap_xs) {
+                left: 260px;
+
+                &:lang(ar) {
+                    left: initial;
+                    right: 260px;
+                }
+            }
+            z-index: 3;
+        }
+    }
+}

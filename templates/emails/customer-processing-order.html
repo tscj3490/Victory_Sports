@@ -1,0 +1,22 @@
+{% extends "email-base.html" %}
+
+{% block email_heading %}
+    <h1>Processing Order #{{ order.Reference }}</h1>
+{% endblock %}
+
+{% block content %}
+    {% with url=order.URL() %}
+    <p>Your order (<a href="{{ url }}">link</a>) has been received and is now being processed. Your order details are shown below for your reference:</p>
+    {% endwith %}
+    {% if order.PaymentMethod == "cashOnDelivery" %}
+        <p>Pay with cash on delivery.</p>
+    {% endif %}
+    {% if order.PaymentMethod == "creditCard" %}
+        <p>Paid with credit card.</p>
+    {% endif %}
+    {% if order.PaymentMethod == "paypal" %}
+        <p>Paid with PayPal.</p>
+    {% endif %}
+    {% include "email-order-details.html" %}
+    {% include "email-addresses.html" %}
+{% endblock %}

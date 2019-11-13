@@ -1,0 +1,38 @@
+.header-title {
+    background-repeat: no-repeat;
+    background-image: url("/public/static/img/SVG/base_victory_logo.svg");
+    background-position: 50%;
+    background-size: 100px 100px;
+    height: 35px;
+    margin-top: 9px;
+    width: 100%;
+    background-size: contain;
+
+    &--arabic {
+        background-image: url("/public/static/img/SVG/logo-Ar.svg");
+    }
+
+    &__subtitle {
+        font-style: italic;
+        font-weight: 700;
+        color: #8BC7D3;        
+        position: absolute;
+        z-index: 5;
+        margin-top: -23px;
+        margin-left: 55px;
+        font-size: 1.2rem;
+        left: 50%;
+        
+        &:lang(ar) {
+            margin-left: 0;
+            margin-right: 60px;
+            left: 0;
+            right: 50%;
+        }
+    }
+    
+    &__link {
+        width: 100%;
+        position: relative;
+    }
+}

@@ -1,0 +1,147 @@
+.email-capture {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+
+    &:target {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    &:target &__content {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        top: 50%;
+        left: 50%;
+    }
+    
+    &__button {
+        text-transform: uppercase;
+        color: #989898;
+        cursor: pointer;
+        padding: .75rem 1.5rem;
+
+        &:hover {
+            color: @color--background;
+            background: @color--secondary;
+        }
+
+        @media screen and (max-width: @bootstrap_sm) {
+            margin: 2rem 0 1.5rem 0;
+        }
+    }
+
+    &__button,
+    &__input {
+        display: block;
+        border-radius: 0;
+        border: 1px solid @color--light-grey;
+        font-size: 1.2rem;
+    }        
+
+    &__content {
+        padding: 4rem 6rem;
+        position: fixed;
+        background: @color--background;
+        box-shadow: 0 2rem 4rem rgba(0, 0, 0, .2);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto;
+        opacity: 0;
+        transform: translate(-50%, calc(-50% - .5px)) scale(.25);
+        -webkit-filter: blur(0.000001px);
+        max-width: 100%;
+        min-width: 60rem;
+        backface-visibility: hidden;
+
+        @media screen and (max-width: @bootstrap_md) {
+            width: 95%;
+            max-width: initial;
+            min-width: initial;
+            transform: translateY(-50%) scale(.25);
+            padding: 3rem 4rem;
+        }
+
+        @media screen and (max-width: @bootstrap_sm) {
+            padding: 2rem 2.5rem;
+        }
+    }
+
+    &__form {
+        display: inline-flex;
+        align-items: flex-start;
+        justify-content: center;
+        position: relative;
+        margin: 0 auto;
+
+        @media screen and (max-width: @bootstrap_sm) {
+            flex-direction: column;
+            margin: 0;
+            display: flex;
+            width: 100%;
+        }
+    }
+
+    &__input {
+        border-right: none;
+        width: 28ch;
+        padding: .75rem 1rem;
+
+        &:active,
+        &:focus {
+            outline: none;
+        }
+
+        &:lang(ar) {
+            border-left: 0;
+            border-right: 1px solid @color--light-grey;
+        }
+
+        @media screen and (max-width: @bootstrap_sm) {
+            border-right: 1px solid @color--light-grey;
+            width: 100%;
+        }
+    }
+
+    &__input:placeholder-shown + &__label {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-4rem);
+    }
+
+    &__label {
+        font-size: 1rem;
+        margin: .4rem 1rem 0 1rem;
+        display: block;
+        transition: all .3s;
+        position: absolute;
+        top: 3.5rem;
+        left: 0;
+
+        @media screen and (max-width: @bootstrap_sm) {
+            display: none;
+        }
+    }
+
+    &__text {
+        font-size: 1.4rem;
+        margin-bottom: 3rem;
+        padding: 0 1.5rem;
+        display: block;
+        width: 100%;
+        text-align: center;
+
+        @media screen and (max-width: @bootstrap_sm) {
+            font-size: 1.25rem;
+        }
+    }
+}

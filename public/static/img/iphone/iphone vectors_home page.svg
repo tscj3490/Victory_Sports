@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="376px" height="473px" viewBox="0 0 376 473" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>iphone vectors_home page</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-6.56976744%" y1="94.7888442%" x2="99.7788827%" y2="10.5698984%" id="linearGradient-1">
+            <stop stop-color="#91E9BE" offset="0%"></stop>
+            <stop stop-color="#8DD4CB" offset="32%"></stop>
+            <stop stop-color="#85A1EA" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iphone-vectors_home-page">
+            <g transform="translate(-374.000000, 0.000000)">
+                <rect id="Rectangle-path" fill="url(#linearGradient-1)" fill-rule="nonzero" x="375.2" y="0.4" width="374.1" height="472.4"></rect>
+                <g id="Group" transform="translate(0.000000, 40.000000)" stroke="#FFFFFF" stroke-width="4">
+                    <path d="M638,195.6 C636.2,207.8 632.7,219.8 627.7,231.1" id="Shape"></path>
+                    <path d="M410.6,72.5 C467.4,22.1 554.4,27.3 604.8,84.1 C618.4,99.4 628.3,117.5 634,137.1" id="Shape"></path>
+                    <polyline id="Shape" points="499.9 138 311.4 0.5 144.7 229.1"></polyline>
+                    <polyline id="Shape" points="563.8 534.7 730.5 306.1 579 195.6"></polyline>
+                    <polyline id="Shape" points="210.8 277.3 297.8 157.9 582.9 365.8 495.9 485.1"></polyline>
+                    <polyline id="Shape" points="0.8 306.4 87.8 187.1 552.6 526 465.6 645.3"></polyline>
+                    <polyline id="Shape" points="281.6 328.9 257.1 362.6 398.9 466 423.5 432.4"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

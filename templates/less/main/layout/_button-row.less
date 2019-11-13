@@ -1,0 +1,45 @@
+.button-row {
+
+    max-width: 80rem;
+
+    &--app-store {
+        max-width: initial;
+        width: 100%;
+        display: flex;
+        margin: 2rem 0 4rem 0;
+
+        @media (max-width: @bootstrap_lg) {
+            justify-content: center;
+        }
+    }
+
+    &--cart {
+        text-align: right;
+        margin: 1rem auto;
+        padding: 0 2rem;
+
+        &:lang(ar) {
+            text-align: left;
+        }
+
+        @media (max-width: @bootstrap_sm) {
+            padding: 0 1rem;
+        }
+    }
+
+    &--checkout {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &--profile {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &--shop {
+        margin: 1rem 0;
+    }
+
+}

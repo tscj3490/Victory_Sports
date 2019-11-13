@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block header_title %}
+    <a href="/" class="header-title__link">
+        {% if locale == "en-US" or locale == "" %}
+            <h1 class="header-title">&nbsp;</h1>
+        {% else %}
+            <h1 class="header-title header-title--arabic">&nbsp;</h1>                    
+        {% endif %}
+        <span class="header-title__subtitle">{{ t("pages.shop.header_title") }}</span>
+    </a>
+{% endblock %}
+
+{% block below_header_buttons %}
+    <div class="header__background">
+        <div class="header__row--secondary">
+            <a href="{{ href("/shop/any/") }}" class="header__link u--bold">{{ t("pages.shop.title") }}</a>
+            <a href="{{ href("/stats/") }}" class="header__link u--bold">{{ t("pages.stats.title") }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block top_leader %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="background background--checkout main-container">
+        <div class="checkout checkout--confirmation">
+            
+            <div class="checkout__order-confirmation">
+                <h4>{{ t("pages.checkoutOrderReceived.orderConfirmation") }}</h4>
+                <p>{{ t("pages.checkoutOrderReceived.description") }}</p>
+                <p>{{ t("pages.checkoutOrderReceived.referenceNrText", order.Reference) }}</p>
+            </div>
+
+            <div class="checkout__main-content checkout__main-content--confirmation">
+                <div class="cart__summary cart__summary--confirmation">
+                    <div class="cart__summary-headings cart__summary-headings--confirmation">
+                        <span class="cart__summary-heading cart__summary-heading--item">{{ t("pages.cart.item") }}</span>
+                        <span class="cart__summary-heading cart__summary-heading--description cart__summary-heading--no-mob">{{ t("pages.cart.description") }}</span>
+                        <span class="cart__summary-heading">{{ t("pages.cart.size") }}</span>
+                        <span class="cart__summary-heading">{{ t("pages.cart.quantity") }}</span>
+                        <span class="cart__summary-heading">{{ t("pages.cart.price") }}</span>
+                        {#<span>Remove</span>#}
+                    </div>
+                </div>
+            
+                {% for orderItem in order.OrderItems %}
+                    {% with productVariation=orderItem.ProductVariation %}
+                    {% with product=productVariation.Product %}
+                        <div class="cart__summary-items cart__summary-items--confirmation">
+                            <div class="cart__summary-item cart__summary-item--product-name">
+                                <span>{{ product.Name }}</span>
+                                {% if productVariation.BadgeID %}
+                                    <span>{{ t("pages.cart.badge", productVariation.Badge.Name) }}</span>
+                                {% endif %}
+                            </div>
+                            <span class="cart__summary-item cart__summary-item--description cart__summary-item--no-mob">{{ product.Description }}</span>
+                            <span class="cart__summary-item">{{ productVariation.Size.Name }}</span>
+                            <span class="cart__summary-item">{{ orderItem.Quantity }}</span>
+                            <span class="cart__summary-item">{{ t("currency.aed_x", product.Price |floatformat:"0") }}</span>
+                        </div>
+                    {% endwith %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+                        <!-- control buttons -->
+            <div class="checkout__secondary-content checkout__secondary-content--confirmation">         
+                <dl class="checkout__summary checkout__summary--secondary">
+                    <dt class="checkout__summary-term">{{ t("pages.checkout.subtotal") }}</dt>
+                    <dd class="checkout__summary-value">{{ t("currency.aed_x", subtotal|floatformat:"2") }}</dd>
+                    <dt class="checkout__summary-term">{{ t("pages.checkout.vat") }}</dt>
+                    <dd class="checkout__summary-value">{{ t("currency.aed_x", vat|floatformat:"2") }}</dd>
+                    <dt class="checkout__summary-term">{{ t("pages.checkout.shipment") }}</dt>
+                    {% if order.ShippingCost == 0.0 %}
+                        <dd class="checkout__summary-value">{{ t("pages.checkout.free") }}</dd>
+                    {% else %}
+                        <dd class="checkout__summary-value">{{ t("currency.aed_x", shipping|floatformat:"2") }}</dd>
+                    {% endif %}
+                    <hr class="checkout__summary-divider">
+                    <dt class="checkout__summary-term checkout__summary-term--total">{{ t("pages.checkout.total") }}</dt>
+                    <dd class="checkout__summary-value checkout__summary-value--total">{{ t("currency.aed_x", total|floatformat:"2") }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

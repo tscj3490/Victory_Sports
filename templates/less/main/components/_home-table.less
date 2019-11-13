@@ -1,0 +1,163 @@
+.home-table {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr) 10ch;
+    grid-row: ~"2 / 3";
+    grid-column: ~"2 / 3";
+    border: 1px solid @color--light-grey;
+
+    @media screen and (max-width: 1600px) {
+        grid-template-columns: repeat(6, 1fr) 10ch;
+    }
+    
+    @media screen and (max-width: 1400px) {
+        grid-template-columns: repeat(5, 1fr) 10ch;
+        grid-column-gap: 1.5rem;
+    }
+
+    @media screen and (max-width: @bootstrap_xl) {
+        grid-template-columns: repeat(4, 1fr) 10ch;
+    }
+
+    @media screen and (max-width: @bootstrap_lg) {
+        grid-column: ~"1 / 2";
+        grid-column-gap: 1.5rem;
+    }
+
+    @media screen and (max-width: @bootstrap_md) {
+        grid-template-columns: repeat(3, 1fr);
+        grid-column-gap: 1rem;
+    }
+
+    @media screen and (max-width: @bootstrap_sm) {
+        grid-column-gap: 0;
+    }
+
+    &__cell {
+        display: grid;
+        grid-template-columns: 1.25rem 1fr 2ch;
+        grid-column-gap: 1rem;
+        padding: .75rem 1.5rem;
+        border-right: 1px solid @color--light-grey;
+        font-weight: 600;
+
+        &:lang(ar) {
+            border-right: none;
+            border-left: 1px solid @color--light-grey;
+        }
+    
+        @media screen and (max-width: 1600px) {
+            &:nth-child(n + 7) {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 1400px) {
+            &:nth-child(n + 6) {
+                display: none;
+            }
+
+            padding-left: 0;
+
+            &:nth-child(1) {
+                padding-left: 1.5rem;
+            }
+        }
+
+        @media screen and (max-width: @bootstrap_xl) {
+            &:nth-child(n + 5) {
+                display: none;
+            }
+            grid-column-gap: .75rem;
+        }
+
+        @media screen and (max-width: @bootstrap_md) {
+            &:nth-child(n + 4) {
+                display: none;
+            }
+            grid-column-gap: .5rem;
+            font-size: .9rem;            
+        }
+
+        @media screen and (max-width: @bootstrap_sm) {
+            font-size: .8rem;
+            padding: .75rem 1rem;
+        }
+    }
+
+    &__chevron {
+        font-size: 3rem;
+        color: @color--primary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-row: ~"2 / 3";
+
+        @media screen and (max-width: @bootstrap_lg) {
+            display: none;
+        }
+    }
+
+    &__goals {
+        justify-content: center;
+    }
+
+    &__goals,
+    &__logo-container,
+    &__team-name,
+    &__view-all {
+        display: flex;
+        align-items: center;
+    }
+
+    &__header-item {
+        display: flex;
+        padding: 0;
+        align-items: center;
+        text-transform: uppercase;
+        white-space: nowrap;
+
+        span {
+            padding: 0 1.25rem;
+        }
+
+        &--selected {
+            border-bottom: solid 5px @color--primary;
+            color: @color--base-font;
+        }
+    }
+
+    &__header-row {
+        display: flex;
+        color: @color--heading-primary;
+        font-weight: 600;
+
+        @media screen and (max-width: @bootstrap_sm) {
+            font-size: .9rem;
+            
+            div:nth-child(3) {
+                display: none;
+            }
+        }
+    }
+
+    &__logo {
+        height: 1.25rem;
+        width: 1.25rem;
+    }
+
+    &__view-all {
+        justify-content: center;
+        
+        @media screen and (max-width: 1400px) {
+            padding-right: 1.5rem;
+        }
+
+        &:lang(ar) {
+            grid-column: ~"-1 / -2";
+        }
+
+        @media screen and (max-width: @bootstrap_md) {
+            display: none;
+        }
+    }
+}

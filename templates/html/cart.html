@@ -1,0 +1,264 @@
+{% extends "shop.html" %}
+
+{% block header_title %}
+    <a href="{{ href('/') }}" class="header-title__link">
+        {% if locale == "en-US" or locale == "" %}
+            <h1 class="header-title">&nbsp;</h1>
+        {% else %}
+            <h1 class="header-title header-title--arabic">&nbsp;</h1>                    
+        {% endif %}
+        <span class="header-title__subtitle">{{ t("pages.shop.header_title") }}</span>
+    </a>
+{% endblock %}
+
+{% block below_header_buttons %}
+    <div class="header__background">
+        <div class="header__row--secondary">
+            <a href="{{ href('/shop/any/') }}" class="header__link u--bold">{{ t("pages.shop.title") }}</a>
+            <a href="{{ href('/stats/') }}" class="header__link u--bold">{{ t("pages.stats.title") }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block top_leader %}
+{% endblock %}
+
+
+{% block content %}
+    {% if cartIsEmpty %}
+        <div class="background background--cart main-container main-container--empty-cart">
+            <h3 style="margin-top: 25vh;">
+                <a href="{{ href('/shop/any/') }}">{{ t("pages.cart.yourShoppingCartIsEmpty") }}</a>
+            </h3>
+        </div>
+    {% else %}
+        <div class="background background--cart main-container main-container--cart">
+            <form action="./controls" method="post" class="cart__summary">
+                <div class="cart__summary-headings">
+                    <span class="cart__summary-heading cart__summary-heading--item">{{ t("pages.cart.item") }}</span>
+                    <span class="cart__summary-heading cart__summary-heading--description">{{ t("pages.cart.description") }}</span>
+                    <span class="cart__summary-heading cart__summary-heading--customisations">{{ t("pages.cart.customisations") }}</span>
+                    <span class="cart__summary-heading">{{ t("pages.cart.size") }}</span>
+                    <span class="cart__summary-heading">{{ t("pages.cart.quantity") }}</span>
+                    <span class="cart__summary-heading cart__summary-heading--price">{{ t("pages.cart.price") }}</span>
+                    <span class="cart__summary-heading cart__summary-heading--unit-price">{{ t("pages.cart.unitPrice") }}</span>
+                    <span class="cart__summary-heading cart__summary-heading--subtotal">{{ t("pages.cart.subtotal") }}</span>
+                    <span class="cart__summary-heading">{{ t("pages.cart.remove") }}</span>
+                </div>
+                {% for id, item in cartItems sorted %}
+                {% with productVariation=getProductVariation(id) %}
+                {% with product=productVariation.Product %}
+                    <div class="cart__summary-items">
+                        <div class="cart__summary-item cart__summary-item--product-name">
+                            {% if productVariation.BadgeID %}
+                                <span class="cart__product-name--with-badge">{{ product.Name }}</span>
+                                <span>{{ t("pages.cart.badge", productVariation.Badge.Name) }}</span>
+                            {% else %}
+                                <span>{{ product.Name }}</span>
+                            {% endif %}
+                        </div>
+                        <span class="cart__summary-item cart__summary-item--description">{{ product.Description }}</span>
+                        <span class="cart__summary-item cart__summary-item--customisations">
+                            {% if item.CustomizedName %}
+                                {{ item.CustomizedName }}
+
+                                {% if item.CustomizedNumber %}
+                                    - {{ item.CustomizedNumber }}
+                                {% endif %}                                
+                            {% else %}
+                                {% if item.CustomizedNumber %}
+                                    Number {{ item.CustomizedNumber }}
+                                {% else %}
+                                    N/a
+                                {% endif %}
+                            {% endif %}
+                        </span>
+                        <span class="cart__summary-item cart__summary-item--size">{{ productVariation.Size.Name }}</span>
+                        <div class="cart__summary-item">
+                            <button type="submit" name="minus" value="{{ productVariation.ID }}" class="button button--cart-quantity minus">&minus;</button>
+                            <span class="cart__item-quantity">
+                                {{ item.Quantity }}
+                            </span>
+                            <button type="submit" name="plus" value="{{ productVariation.ID }}" class="button button--cart-quantity plus">+</button>
+                        </div>
+                        <span class="cart__summary-item cart__summary-item--price">{{ t("currency.aed_x", productVariation.GetPrice() |floatformat:"0") }}</span>
+                        <span class="cart__summary-item cart__summary-item--subtotal">
+                                {{ t("currency.aed_x", productVariation.GetPrice()*item.Quantity |floatformat:"0") }}
+                        </span>
+                        <div class="cart__summary-item">
+                            <button class="cart__summary-item--remove" type="submit" name="remove" value="{{ productVariation.ID }}">
+                                <i class="oi oi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                {% endwith %}
+                {% endwith %}
+                {% endfor %}
+                <div class="cart__summary-items cart__summary-items--total">
+                    <span>Total:</span><span>{{ t("currency.aed_x", subtotal |floatformat:"0") }}</span>
+                </div>
+            </form>     
+            {% for id, item in cartItems sorted %}
+            {% with productVariation=getProductVariation(id) %}
+            {% with product=productVariation.Product %}
+                <form action="./controls" method="post" class="cart__summary cart__summary--mobile">    
+                    <div class="flex-container">
+                        <div>
+                            {% if product.Thumbnail == "" %}
+                                <img src="/public/static/img/1x/Asset%2011.png" alt="Card image cap">
+                            {% else %}
+                                <img src="{{ product.Thumbnail }}" alt="{{ product.Name }}">
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h5>{{ product.Name }}</h5><br>
+                            {% if productVariation.BadgeID %}
+                                <p>{{ t("pages.cart.badge", productVariation.Badge.Name) }}</p>
+                            {% endif %}
+                            <p>{{ product.Description }}</p>
+                            <p>
+                                <span>{{ t("pages.cart.mobileSize") }}</span> <span>{{ productVariation.Size.Name }}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="cart__summary-row flex-container">
+                        <h5 class="cart__summary-heading cart__summary-heading--mobile">{{ t("pages.cart.quantity") }}</h5>
+                        <div class="cart__summary-quantity-container" style="text-align: center;">
+                            <button class="button button--cart-quantity minus" type="submit" name="minus" value="{{ productVariation.ID }}">&minus;</button>
+                            <span class="cart__item-quantity">
+                                {{ item.Quantity }}
+                            </span>
+                            <button class="button button--cart-quantity plus" type="submit" name="plus" value="{{ productVariation.ID }}">+</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="cart__summary-row flex-container">
+                        <h5 class="cart__summary-heading cart__summary-heading--mobile">{{ t("pages.cart.customisations") }}</h5>
+                        <div class="cart__summary-quantity-container" style="text-align: center;">
+                            {% if item.CustomizedName %}
+                                {{ item.CustomizedName }}
+
+                                {% if item.CustomizedNumber %}
+                                    - {{ item.CustomizedNumber }}
+                                {% endif %}                                
+                            {% else %}
+                                {% if item.CustomizedNumber %}
+                                    Number {{ item.CustomizedNumber }}
+                                {% else %}
+                                    N/a
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="cart__summary-row flex-container">
+                        <h5 class="cart__summary-heading cart__summary-heading--price cart__summary-heading--mobile">
+                            {{ t("pages.cart.price") }}
+                        </h5>
+                        <h5 class="cart__summary-heading cart__summary-heading--unit-price cart__summary-heading--mobile">
+                            {{ t("pages.cart.unitPrice") }}
+                        </h5>
+                        <h5 class="cart__summary-price">{{ t("currency.aed_x", productVariation.GetPrice() |floatformat:"0") }}</h5>
+                    </div>
+                    <hr class="hr--subtotal-divider">
+                    <div class="cart__summary-row cart__summary-row--subtotal flex-container">
+                        <h5 class="cart__summary-heading cart__summary-heading--subtotal cart__summary-heading--mobile">
+                            {{ t("pages.cart.subtotal") }}
+                        </h5>
+                        <h5 class="cart__summary-price cart__summary-price--subtotal">{{ t("currency.aed_x", productVariation.GetPrice()*item.Quantity |floatformat:"0") }}</h5>
+                    </div>
+                </form>
+            {% endwith %}
+            {% endwith %}
+            {% endfor %}
+            <div class="button-row button-row--cart">
+                <a href="{{ href(checkoutURL) }}">
+                    <button class="button button--cart" name="proceedToCheckout" value="1">
+                        {{ t("pages.cart.proceedToCheckout") }}
+                    </button>
+                </a>
+            </div>
+            <div class="button-row button-row--cart">
+                <a href="{{ href(continueShoppingURL) }}">
+                    <button class="button button--cart" name="continueShopping" value="1">
+                        {{ t("pages.cart.continueShopping") }}
+                    </button>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            $('.cart__item-quantity').each(checkQuantity);
+            function checkQuantity() {
+                if ($(this).text() > 1) {
+                    restructureCart();
+                }
+            }
+            function restructureCart() {
+                $('.cart__summary-heading--price').css("display", "none");
+                $('.cart__summary-heading--unit-price').css("display", "block");
+                $('.cart__summary-heading--subtotal').css("display", "block");
+                $('.cart__summary-item--subtotal').css("display", "flex");
+                $('.cart__summary-price--subtotal').css("display", "block");
+                $('.cart__summary-row--subtotal').css("display", "flex");
+                $('.hr--subtotal-divider').css("display", "block");
+                $('.cart__summary-headings').addClass('cart__summary-headings--subtotal');
+                $('.cart__summary-items').addClass('cart__summary-items--subtotal');
+            }
+
+            $('.minus').click(function(e) {
+                e.preventDefault();
+                cookieValue = parseInt(cookieValue, 10);
+                cookieValue = cookieValue - 1;
+                setCookie(cookieValue);
+                updateQuantity();
+                var data = $(this);
+                $.ajax({
+                    url: './controls',
+                    type: 'post',
+                    data:data,
+                    success:function(){
+                        location.reload();
+                    }
+                });
+            });
+
+            $('.plus').click(function(e) {
+                e.preventDefault();
+                cookieValue = parseInt(cookieValue, 10);
+                cookieValue = cookieValue + 1;
+                setCookie(cookieValue);
+                updateQuantity();
+                var data = $(this);
+                $.ajax({
+                    url: './controls',
+                    type: 'post',
+                    data:data,
+                    success:function(){
+                        location.reload();
+                    }
+                });
+            });
+
+            $('.cart__summary-item--remove').click(function(e) {
+                e.preventDefault();
+                cookieValue = parseInt(cookieValue, 10);
+                currentItemQuantity = $(this).parent().siblings('.cart__summary-item--price').prev().children('.cart__item-quantity').text();
+                cookieValue = cookieValue - currentItemQuantity;
+                setCookie(cookieValue);
+                updateQuantity();
+                var data = $(this);
+                $.ajax({
+                    url: './controls',
+                    type: 'post',
+                    data:data,
+                    success:function(){
+                        location.reload();
+                    }
+                });
+            })
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,161 @@
+productsizes:
+  - name: S
+  - name: M
+  - name: L
+  - name: XL
+  - name: XXL
+badges:
+  - name: Russia 2018 Badge
+    price: 10.0
+    thumbnail: /public/static/img/4x/premier_league_badge@4x.png
+    image: /public/static/img/4x/premier_league_badge@4x.png
+  - name: Premier League Badge
+    price: 10.0
+    thumbnail: /public/static/img/4x/premier_league_badge@4x.png
+    image: /public/static/img/4x/premier_league_badge@4x.png
+products:
+  - name: Belgium Home Jersey
+    description: A home jersey inspired by belgium's glittering football history.
+    price: 480
+    thumbnail: /public/static/img/1x/bq1.png
+    image: /public/static/img/1x/bq1_main.jpg
+    categoryname: Jersey
+    gender: male
+    kitcode: homekit
+    sizes:
+      - name: XL
+      - name: M
+    brandname: Adidas
+    teamname: Belgium
+    collections:
+      - name: WorldCup
+      - name: WorldCup2018
+      - name: Europe
+      - name: Featured Products
+      - name: Whats New
+      - name: Best Sellers
+    badges:
+      - name: Russia 2018 Badge
+  - name: Mexico Home Replica Jersey
+    description: A home jersey inspired by mexico's glittering football history.
+    price: 330
+    thumbnail: /public/static/img/1x/bq2.png
+    image: /public/static/img/1x/bq2_main.jpg
+    categoryname: Jersey
+    kitcode: homekit
+    gender: female
+    sizes:
+      - name: XL
+      - name: M
+      - name: S
+    brandname: Adidas
+    teamname: Mexico
+    collections:
+      - name: WorldCup
+      - name: WorldCup2018
+      - name: Europe
+      - name: Featured Products
+      - name: Best Sellers
+    badges:
+      - name: Russia 2018 Badge
+  - name: Colombia Away Replica Jersey
+    description: A away jersey inspired by colombia's glittering football history.
+    price: 330
+    thumbnail: /public/static/img/1x/bq5.png
+    image: /public/static/img/1x/bq5_main.jpg
+    categoryname: Jersey
+    gender: youth
+    kitcode: awaykit
+    sizes:
+      - name: S
+      - name: M
+      - name: XXL
+    brandname: Adidas
+    teamname: Colombia
+    collections:
+      - name: WorldCup2018
+      - name: WorldCup
+      - name: Europe
+    badges:
+      - name: Russia 2018 Badge
+  - name: Japan Goalkeeper Replica Jersey
+    description: A goalkeeper jersey inspired by Japan's glittering football history.
+    price: 300
+    thumbnail: /public/static/img/1x/bq6.png
+    image: /public/static/img/1x/bq6_main.jpg
+    categoryname: Jersey
+    gender: female
+    kitcode: goalkeeperkit
+    sizes:
+      - name: S
+      - name: M
+      - name: XXL
+    brandname: Adidas
+    teamname: Japan
+    collections:
+      - name: WorldCup2018
+      - name: WorldCup
+      - name: Europe
+    badges:
+      - name: Russia 2018 Badge
+  - name: Spain Home Replica Jersey
+    description: A home jersey inspired by Spain's glittering football history.
+    price: 300
+    thumbnail: /public/static/img/1x/bq8.png
+    image: /public/static/img/1x/bq8_main.jpg
+    categoryname: Jersey
+    gender: male
+    kitcode: homekit
+    sizes:
+      - name: S
+      - name: M
+      - name: XXL
+    brandname: Adidas
+    teamname: Spain
+    collections:
+      - name: WorldCup2018
+      - name: WorldCup
+      - name: Europe
+      - name: Featured Products
+      - name: Best Sellers
+    badges:
+      - name: Russia 2018 Badge
+  - name: FC Barcelona Home Replica Jersey
+    description: A home jersey inspired by Barcelona's glittering football history.
+    price: 400
+    thumbnail: /public/static/img/1x/Asset%2012.png
+    image: /public/static/img/1x/main_picture-100.jpg
+    categoryname: Jersey
+    gender: male
+    kitcode: homekit
+    sizes:
+      - name: S
+      - name: M
+      - name: XXL
+    brandname: Nike
+    teamname: Barcelona
+    collections:
+      - name: La Liga
+      - name: Clubs
+      - name: Featured Products
+      - name: Best Sellers
+  - name: Manchester United Home Replica Jersey
+    description: A home jersey inspired by ManU's glittering football history.
+    price: 200
+    thumbnail: /public/static/img/1x/manUnited_thumb.png
+    image: /public/static/img/1x/manUnited.png
+    categoryname: Jersey
+    gender: male
+    kitcode: homekit
+    sizes:
+      - name: S
+      - name: M
+      - name: XXL
+    brandname: New Balance
+    teamname: Manchester United
+    collections:
+      - name: Premier League
+      - name: Clubs
+      - name: Whats New
+    badges:
+      - name: Premier League Badge

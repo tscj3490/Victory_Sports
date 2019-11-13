@@ -1,0 +1,9 @@
+users:
+  - email: albsen@gmail.com
+    firebaseid: "93PkHYYvLHdIAcYXXaSEgvOv1KC2"
+    useraccesslevel: 100
+  - email: albsen@dietzel.me
+    useraccesslevel: 50
+  - email: me@phillip.best
+    firebaseid: HrJFSpmLRieGEEfmg6eVx5L8kdZ2
+    useraccesslevel: 100

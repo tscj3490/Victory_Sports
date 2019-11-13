@@ -1,0 +1,247 @@
+ar-AE:
+  base:
+    page_title: "فيكتوري"
+    viewAll: الكل
+    dir: rtl
+    lang: ar
+  currency:
+    aed: درهم
+    aed_x: "درهم {{. }}"
+  clubs:
+    leagues:
+      uaeLeague: الدوري الخليجي العربي
+      premierLeague: الدوري الانجليزي الممتاز
+      laLiga: الدوري الاسباني
+      seriaA: الدوري الايطالي
+      ligue1: الدوري الفرنسي
+      bundesliga: الدوري الألماني
+  internationalTeams:
+    europe: أوروبا
+    asia: آسيا
+    africa: أفريقيا
+    northAndRest: أمريكا الشمالية والوسطى والبحر الكاريبي
+    southAmerica: أمريكا الجنوبية
+  merchandise:
+    shirts: قمصان
+    tshirts: تيشرتات
+    pants: بناطيل
+    shorts: شورت
+    jackets: جاكيتات
+    otherAccessories: إكسسوارات
+  stats:
+    WorldCup: كأس العالم
+    UaeLeague: Uae League
+    Division1: Division 1
+    ArabianGulfCup: Arabian Gulf Cup
+    ProLeague: Pro League
+    KingsCup: Kings Cup
+    LaLiga: La Liga
+    SerieA: Serie A
+    Ligue1: Ligue 1
+    PremierLeague: Premier League
+  pages:
+    user:
+      header: المستخدم
+      signIn: تسجيل دخول
+      signInMsg: تسجيل الدخول ... دقيقة واحدة من فضلك.
+    userProfile:
+      header: حسابي
+      myAccount: حسابي
+      myDetails: عنواني و معلوماتي
+      myOrderHistory: مشترياتي السابقة
+      noOrders: No orders placed
+    checkoutGatewayRedirect:
+      redirectToGateway: "نحن بصدد توجيهكم إلى بوابة الدفع."
+      redirectToGatewayFailed: "نحن آسفون لأننا لم نتمكن من توجيهكم إلى بوابة الدفع، الرجاء الإتصال بخدمة الزبائن."
+    checkoutOrderReceived:
+      orderConfirmation: تأكيد الطلب
+      description: ! أشكركم على الطلب معنا
+      referenceNrText: "رقم الطلب الخاص بك هو: {{. }}"
+    checkoutGateway:
+      description: "Reference: {{ .Reference }} Your Receipt: {{ .GetOrderReceiptURL }}"
+    checkout:
+      shipment: الطلب
+      name: الإسم
+      telephone: الموبايل
+      email: الايميل
+      addressLine1: العنوان 1
+      addressLine2: العنوان 2
+      postalCode: الرمز البريدي
+      city: المدينة
+      country: البلد
+      selectACountry: اختر البلد
+      notes: ملاحظات
+      notesPlaceholder: من فضلك ... قبل التسليم.
+      saveChanges: حفظ التغييرات
+      delivery: توصيل
+      regularDeliveryDescription: توصيل مجاني في خلال 5-4 ايام
+      expressDelivery: التوصيل السريع
+      expressDeliveryDescription: "زيادة {{.}} درهم علي التوصيل في خلال 1-3 ايام"
+      payment: الدفع
+      cashOnDelivery: الدفع عن الاستلام
+      creditCard: بطاقة ائتمان
+      payWithPaypal: الدفع بواسط باى بال
+      readAndAcceptTerms: لقد قرأت ووافقت<a href="{{.}}"> على الشروط والأحكام</a>.
+      subtotal: المبلغ الاجمالي
+      vat: ضريبة
+      total: المبلغ الكلي
+      submit: إدفع
+      free: مجانا
+      yourOrder: طلبك
+      badge: "شارة {{ . }}"
+      size: "المقاس:"
+      addressLine1Placeholder: "Saada Street, Downtown, Ap 239"
+      addressLine2Placeholder: "Downtown, Dubai, UAE"
+      namePlaceholder: "Muhamad Ali"
+      cityPlaceholder: "Abu Dhabi"
+      currentlyUnavailable: Currently unavailable
+    cart:
+      item: المنتج
+      description: وصف المنتج
+      size: المقاس
+      quantity: الكمية
+      price: السعر
+      unitPrice: Unit Price
+      subtotal: Subtotal
+      remove: إلغاء
+      badge: "شارة {{ . }}"
+      mobileSize: "المقاس:"
+      proceedToCheckout: تابع للدفع
+      continueShopping: واصل التسوق
+      yourShoppingCartIsEmpty: سلة التسوق الخاصة بك فارغة. هل ترغب في ملئها
+      customisations: Customisations
+    shopDetails:
+      badges: "<span dir='ltr'>{{ .Name }} ({{ .Price }}AED)</span>"
+      customize: كستومايز
+      name: الاسم
+      number: الرقم
+      addToBag: أضف الى الحقيبة
+      goToBag: Go To Bag
+      continueShopping: واصل التسوق
+      moreItemsFromThisTeam: المزيد من هذا الفريق
+    shop:
+      header_title: تسوق
+      title: تسوق
+      all: الكل
+      clubs: النوادي
+      internationalTeams: المنتخبات
+      players: اللاعبين
+      merchandise: تسوق
+      allTeams: كل الفرق
+      noResults: No results
+    stats:
+      header: آخر الاخبار
+      title: آخر الأخبار
+      scores: نتائج المباريات
+      topScorer: أفضل اللاعبين
+      league:
+        uae: الدوري الخليجي العربي
+        laliga: الدوري الاسباني
+        premierLeague: الدوري الانجليزي الممتاز
+      highlightsAfterMatchEnds: سوف تكون متوافرة بعد انتهاء المباراة
+      foul: أخطاء
+      goal:  هدف
+      exchange: التبادلات
+      cornerKick: ركلات الزاوية
+      offside: تسلل
+      saves: تم الحفظ
+      ballPossession: "{{ . }}% استحواذ الكرة"
+      lineUp_x_Formation: "تشكيلة الفريق{{ . }}"
+      buyTheJersey: اشتري القميص
+      tableHeading:
+        buy: اشتر
+        club: النادي
+        draws: ت
+        goals: الأهداف
+        goalsAgainst: تلقّى
+        goalsScored: سجّل
+        highlight: الأحداث
+        losses: خ
+        points: نقاط
+        position: مركز
+        played: ل
+        player: اللاعب
+        shop: المتجر
+        team: الفريق
+        time: التوقيت
+        wins: ر
+      seeMore: المزيد
+      noMatches: لا يوجد مباريات محددة في هذا النهار.
+      matchStats: إحصاءات المباراة
+      ownGoal: هدف في مرماه
+      ownGoals: أهداف في مرماهم
+      sub: استبدال
+      subs: استبدالات
+      yellowCard: بطاقة صفراء
+      yellowCards: بطاقات صفر
+      redCard: بطاقة حمراء
+      redCards: بطاقات حمراء
+      yellowRedCard: بطاقة صفراء ثانية
+      yellowRedCards: بطاقات صفراء ثانية
+      goals: أهداف
+      penalty: ركلة جزاء
+      penalties: ركلات جزاء
+      missed-penalty: ركلة جزاء ضائعة
+      missed-penalties: ركلات جزاء ضائعة
+      madeShootoutPenalty: ركلة ترجيح محققة
+      madeShootoutPenalties: ركلات ترجيح محققة
+      missedShootoutPenalty: ركلة ترجيح ضائعة 
+      missedShootoutPenalties: ركلات ترجيح ضائعة
+      emailCaptureMessage: Please allow us to notify you when the product becomes available.
+      table: Table
+      noFormation: No formation available
+      lineUpFormation: Line up formation
+      topScorerMissing: Top scorer information will be displayed when available.
+      nextMatch: Please click here for the next available match.
+    homepage:
+      downloadVictoryApp: حمل تطبيق فيكتوري
+      downloadVictoryAppText: "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكرهء"
+      buttons:
+        appStore: متجر التطبيقات
+        playStore: متجر اللعب
+      whatsNew: جديد
+      featured: هذا الأسبوع
+      bestSellers: أفضل المبيعات
+      cookiePolicy: We use cookies to offer you a better experience when using our site. By continuing to use our website, you consent to the use of cookies in accordance with our
+      cookiePolicyLink: Cookie Policy
+      accept: Accept
+  sidebar:
+    filter: فلتر
+    kit: عدة
+    clubs: النادي
+    internationalTeams: الفرق الدولية
+    gender: نوع
+    size: المقاس
+    brand: ماركة
+    badges: شارة
+    sortBy: ترتيب حسب
+    priceLowToHigh: السعر من الادنى للاعلى
+    priceHighToLow: السعر من الاعلى الى الادنى
+    competition: الدوري او الكأس
+    season: الموسم
+    selectAClub: اختر النادي
+    selectATeam: اختر الفريق
+    selectABrand: اختر الماركة
+    options:
+      homekit: "قميص الفريق الاول"
+      awaykit: "قميص الفريق الثاني"
+      thirdkit: "قميص الفريق الثالث"
+      goalkeeperkit: "قميص حارس المرمى"
+      accessories: "إكسسوارات"
+      male: "رجال"
+      female: "نساء"
+      unisex: "الكل"
+      youth: "شباب"
+  menu:
+    home: الصفحة الرئيسية
+    cart: سلة التسوق
+  auth:
+    signin: تسجيل دخول
+    signout: تسجيل خروج
+  topLeader:
+    taglines:
+      homepage: تابع آخر أخبار وتسوق من فريقك المفضل
+  footer:
+    about: معلومات عنا
+    downloadTheApp: حمل التطبيق
+    customerService: خدمة العملاء

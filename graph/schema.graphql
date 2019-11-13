@@ -1,0 +1,624 @@
+# League
+type League {
+	id: Int!
+	legacyId: Int!
+	countryId: Int!
+	name: String!
+	isCup: Boolean!
+	currentSeasonId: Int!
+	currentRoundId: Int!
+	currentStageId: Int!
+	liveStandings: Boolean!
+	coverage: Coverage!
+	seasonsInclude(orderBy: String!, limit: Int!): SeasonsRoot
+}
+
+
+type Coverage {
+    topscorerGoals: Boolean!
+    topscorerAssists: Boolean!
+    topscorerCards: Boolean!
+}
+
+type SeasonsRoot {
+	seasons: [Season!]! 
+}
+
+# Season
+type Season {
+    id: Int!
+    name: String!
+    leagueId: Int!
+    stageData: [Stage!]!
+    roundsData: [Round!]!
+    fixturesInclude(orderBy: String!, limit: Int!): [Fixture!]!
+}
+
+type FormSelection {
+	name: String!
+	id: Int!
+	href: String!
+}
+
+type Stage {
+    id: Int!
+    name: String!
+    leagueId: Int!
+    seasonId: Int! 
+}
+
+type Round {
+    id: Int!
+    name: String!
+    leagueId: Int!
+    seasonId: Int!
+    start: String!
+    end: String!
+}
+
+type Fixture {
+    id: Int!
+    leagueId: Int!
+    seasonId: Int!
+    stageId: Int!
+    roundId: Int!
+    groupId: Int!
+    venueId: Int!
+    localTeamId: Int!
+    visitorTeamId: Int!
+    formation: FixtureFormation!
+    scores: FixtureScore!
+    time: FixtureTime!
+    coaches: FixtureCoaches!
+    standings: FixtureStandings!
+    deleted: Boolean!
+    localTeamInclude: LocalTeamInclude!
+    visitorTeamInclude: VisitorTeamInclude!
+    eventsInclude: EventsInclude!
+    lineupInclude: LineupInclude!	
+}
+
+type FixtureFormation {
+	localTeamFormation:  String!
+	visitorTeamFormation: String!
+} 
+
+type FixtureScore {
+	localTeamScore: Int!
+	visitorTeamScore: Int!
+	localTeamScorePen: Int!
+	visitorTeamScorePen: Int!
+	halfTimeScore: String!
+	fullTimeScore: String!
+	extraTimeScore: String!
+}
+
+type FixtureCoaches {
+	localTeamCoachId: Int!
+	visitorTeamCoachId: Int!
+}
+type FixtureStandings {
+	localTeamPosition: Int!
+	visitorTeamPosition: Int!
+}
+type FixtureStartingAt {
+    dateTime: String!
+    date: String!
+    time: String!
+    timestamp: Int!
+    timezone: String!
+}
+type FixtureTime {
+	status:     String!
+	startingAt: FixtureStartingAt!
+    minute: Int!
+    second: Int!
+    addedTime: Int!
+    extraTime: Int!
+    injuryTime: Int!
+}
+
+type StartingAt {
+	key: String!
+	value: String!
+}
+
+# team
+type Team { 
+    id: Int!
+    legacyId: Int!
+    countryId: Int!
+    name: String!
+    shortCode: String!
+    nationalTeam: Boolean!
+    founded: Int!
+    logoPath: String!
+    venueId: Int!	
+}
+
+type LocalTeamInclude {
+	localTeam: Team!
+}
+
+type VisitorTeamInclude {
+	visitorTeam: Team!
+} 
+
+type EventsInclude {
+	events: [FixtureEvent!]!
+} 
+
+type LineupInclude {
+	players: [FixturePlayer!]!
+}
+
+type FixtureEvent {
+	id: Int!
+	teamId: String!
+	type:   String!
+	fixtureId: Int!
+	playerId: Int!
+	playerName: String!
+	relatedPlayerId: Int!
+	relatedPlayerName: String!
+	minute: Int!
+	extraMinute:Int!
+	reason: String!
+	injuried: Boolean!
+	result: String!
+} 
+
+type FixturePlayer {
+	teamId: Int!
+	fixtureId: Int!
+	playerId: Int!
+	playerName: Int!
+	number: Int!
+	position: String!
+	formationPosition: Int!
+	posX: Int!
+	posY: Int!
+	stats: FixturePlayerStats!
+}
+
+type FixturePlayerStats {
+	shorts: Shots!
+	goals: Goals!
+	fouls: Fouls!
+	cards: Cards!
+	passing: Passing!
+	other: Other!	
+}
+
+type Shots {
+	shotsTotal:	Int!
+	shotsOnGoal: Int!
+} 
+
+type Goals {
+	scored:	Int!
+	conceded: Int!
+}
+
+type Fouls {
+	drawn:	Int!
+	comitted: Int!
+}
+
+type Cards {
+	yellowCards: Int!
+	redCards: Int!
+}
+
+type Passing {
+	totalCrosses: Int!
+	crossesAccuracy: Int!
+	passes: Int!
+	passesAccuracy: Int! 
+}
+
+type Other {
+	assists: Int!
+	offsides: Int!
+	saves: Int!
+	penScored: Int!
+	penMissed: Int!
+	penSaved: Int!
+	penCommitted: Int!
+	penWon: Int!
+	hitWoodwork: Int!
+	tackles: Int!
+	blocks: Int!
+	interceptions: Int!
+	clearances: Int!
+	minutesPlayed: Int!
+} 
+
+# GetTopscorer
+type Topscorer {
+	position: Int!
+	playerId: Int!
+	teamId: Int!
+	stageId: Int!
+	goals: Int!
+	penaltyGoals: Int!	
+	playerInclude: PlayerInclude!
+	teamInclude: TeamInclude!	
+}
+
+type TeamInclude {
+	team: Team !
+} 
+
+# standing
+type StandingStats {
+	gamesPlayed: Int!
+	won: Int!
+	draw: Int!
+	lost: Int!
+	goalsScored: Int!
+	goalsAgainst: Int!
+}
+type Standing {
+	position: Int!
+	teamId: Int!
+	teamName: String!
+	groupId: Int!
+	groupName: String!
+	overall: StandingStats!
+	home: StandingStats!
+	away: StandingStats!
+	total: Total!
+	result: String!
+	points: Int!
+	recentForm: String!
+	status: String!
+	teamInclude: TeamInclude!
+}
+
+type Total {	
+	points: Int!
+}
+#player 
+
+type Player {
+	playerId: Int!
+	teamId: Int!  
+	countryId: Int!
+	positionId: Int!
+	commonName: String!
+	fullName: String!
+	firstName: String!
+	lastName: String!
+	nationality: String!
+	birthdate: String!
+	birthcountry: String!
+	birthplace: String!
+	height: String!
+	weight: String!
+	imagePath: String!
+	teamInclude: TeamInclude!
+	statsInclude: StatsInclude!
+	transfersInclude: TransfersInclude!	
+}
+
+
+type PlayerInclude {
+	player: Player!
+} 
+
+type StatsInclude {
+	stats: PlayerStats!
+} 
+
+type TransfersInclude {
+	transfers: PlayerTransfers!
+}
+
+type PlayerStats {
+	playerId: Int!
+	teamId: Int!
+	leagueId: Int!
+	minutes: Int!
+	appearences: Int!
+	lineups: Int!
+	substituteIn: Int!
+	substituteOut: Int!
+	substituteOnBench: Int!
+	goals: Int!
+	yellowCards: Int!
+	yellowred: Int!
+	redCards: Int!
+	type: String!
+}
+
+type PlayerTransfers {
+	playerId: Int!
+	toTeamId: Int!
+	seasonId: Int!
+	transfer: String!
+	type: String!
+	date: String!
+	amount: String!
+}
+
+type playerRoot {
+	player: Player!
+}
+
+type PlayerSquadStats {
+	playerId: Int!
+	teamId: Int!
+	leagueId: Int!
+	minutes: Int!
+	appearences: Int!
+	lineups: Int!
+	substituteIn: Int!
+	substituteOut: Int!
+	substituteOnBench: Int!
+	goals: Int!
+	yellowCards: Int!
+	yellowred: Int!
+	redCards: Int!
+	type: String!
+	playerInclude: PlayerInclude!
+	positionInclude: PositionInclude!
+}
+
+type PositionInclude {
+	position: PlayerPosition!
+}
+
+type PlayerPosition {
+	id: Int!
+	name: String!
+}
+
+type SquadRoot {
+	players: [PlayerSquadStats!]!
+}
+
+# calendar 
+type StatsCalendar {
+	dateParameter: String!
+	dateParameterTime: Time!
+	entries: [StatsCalendarEntry!]!
+	todayOrNextIdx: Int!
+	count: Int!
+}
+type StatsCalendarEntry {
+	dateTime: Time
+	nextOrToday: Boolean!
+	idx: Int!
+}
+
+# GetFixtures
+type FixtureAndEvents {
+	fixture: Fixture
+	events: Events
+}
+
+type FixtureEventArray {
+	key:String!
+	value:[FixtureEvent!]!
+}
+
+type Events {
+	localTeamEvents:   [FixtureEventArray]!
+	visitorTeamEvents: [FixtureEventArray]!
+}
+##########################    shop   ########################
+type LeagueM {
+	league: League!
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+}
+
+type CollectionM {
+	name: String!
+	code: String!
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+}
+
+type TeamM {
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+
+	name: String!
+	leaguesM: [LeagueM!]!
+	collections: [CollectionM!]!
+	brandID: Int!
+	brand: Brand!
+	logo: String!
+}
+
+type TeamArray {
+	key: String!
+	value: [TeamM!]!
+}
+
+type Brand {
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+	name: String!
+}
+
+type ProductSize {
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+	name: String!
+}
+
+type ProductAttrs {
+	code: String!        
+	name: String!          
+	translationId: String!
+}
+
+type ProductVariation {
+	id: Int!
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+	productId: Int!
+	product: Product!
+	badgeId: Int
+	badge: Badge!
+	sizeId: Int!
+	size: ProductSize!
+	SKU: String!
+	availableQuantity: Int!
+}
+
+
+type Badge {
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+	name: String!
+	image: String!
+	thumbnail: String!
+	price: Float!
+}
+
+type Category {
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+	name: String!
+	code: String!
+}
+
+type Product {
+	id: Int!
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+	name: String!
+	description: String!
+	price: Float!
+	gender: String!
+	image: String!
+	thumbnail: String!
+	collections:  [CollectionM!]!
+	sizes: [ProductSize!]!
+	categoryId: Int!
+	category: Category 
+	kitCode: String!
+	variations: [ProductVariation!]!
+	brandId: Int!
+	brand: Brand
+	leagueId: Int!
+	teamID: Int!
+	team: TeamM
+	playerId: Int!
+}
+# profile
+
+type Order {
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+	reference: String!
+	userId: Int	user: User!
+	email: String!
+	paymentAmount: Float!
+	abandonedReason: String!
+	discountValue: Int!
+	trackingNumber: String!
+	shippedAt: Time
+	returnedAt: Time
+	cancelledAt: Time
+	shippingAddressId: Int!
+#	shippingAddress: Address!
+	paymentMethod: String!
+	shippingMethod: String!
+	subtotal: Float!
+	VAT: Float!
+	shippingCost: Float!
+	total: Float!
+	notes: String!
+	orderItems: [OrderItem!]!	
+}
+
+type User {
+	ID: Int!
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+	email: String!
+	firebaseI: String!
+	userAccessLevel: Int!
+	telephone: String!
+}
+
+type OrderItem {
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+	orderId: Int!
+	productVariationId: Int!
+	productVariation: ProductVariation!
+	persistProductDetailsJSON: String!
+	customizedName: String!
+	customizedNumber: Int!
+	quantity: Int!
+	price: Float!
+	discountRate: Int!	
+}
+
+type Address {
+	ID: Int!
+	createdAt: Time
+	updatedAt: Time
+	deletedAt: Time
+	userId: Int
+	contactName: String!
+	telephone: String!
+	city: String!
+	country: String!
+	addressLine1: String!
+	addressLine2: String!
+	postalCode: String!
+	notes: String!
+}
+
+# query
+type Query {
+    getLeague(leagueId: Int!): League
+#	fixturesInclude(orderBy: String!, limit: Int!): [Fixture!]!
+#	seasonsInclude(orderBy: String!, limit: Int!): [Season!]!
+	listSeasons(competitionId: Int!): [FormSelection!]!
+	listTeamsBy(seasonId: Int!): [Team!]!
+	listFixturesBySeason(seasonId: Int!): [Fixture!]!
+	listFixturesBySeasonAndDate(seasonId: Int!, filterDate: Time!, teamId: Int!): [Fixture!]!
+	listFixturesBySeasonDateAndTeam(seasonId: Int!, filterDate: Time!): [Fixture!]!	
+	getTopscorers(seasonId: Int!): [Topscorer!]!
+	getStandings(seasonId: Int!): [Standing!]!
+	getStatsCalendar(seasonId: Int!, dateParam: String!, teamIds: [Int!]!): StatsCalendar!
+	getStatsCalendarAll(dateParam: String!):StatsCalendar!
+	getFixture(seasonId: Int!, fixtureId: Int!): FixtureAndEvents!
+	getTeamsGroupByCollectionCode(): [TeamArray]!
+	getBrands(): [Brand!]!
+	getProductSizes(): [ProductSize!]!
+	getProductKits(): [ProductAttrs!]!
+	getProductGenders(): [ProductAttrs!]!
+	getCollections(shopType: String!): [CollectionM!]!
+	getProductDetails(productId: Int!): [Product!]!
+	getProductVariations(productId: Int!):[ProductVariation!]!
+	getProducts(collectionId: Int!, collectionCode: String!, kitCode: String!, productSort: String!): [Product!]!
+	getProfileHistory(): [Order!]!
+	getProfileView(): Address!
+	showCartContent(): [ProductVariation!]!	
+}
+
+scalar Time
+scalar Map
+
+

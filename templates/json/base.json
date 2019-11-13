@@ -1,0 +1,5 @@
+{
+  "language": "{{ t('base.lang') }}",
+  "direction": "{{ t("base.dir") }}",
+  "content": {% block content %}{% endblock %}
+}

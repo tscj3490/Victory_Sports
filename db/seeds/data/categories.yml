@@ -1,0 +1,28 @@
+categories:
+  - name: Jersey
+  - name: T-Shirt
+  - name: Shirt
+  - name: Jacket
+  - name: Pants
+  - name: Sweatshirt
+  - name: Shorts
+pagecontent:
+  - page: "homepage"
+    identifier: "advertismentText1"
+    link: "#advertisementText1Target"
+    text:
+      en: "Check scores and shop from your favorite team"
+      ar: "تابع آخر أخبار وتسوق من فريقك المفضل"
+  - page: "homepage"
+    identifier: "advertismentText2"
+    link: "#advertisementText2Target"
+    text:
+      en: "Check scores and shop from your favorite team"
+      ar: "تابع آخر أخبار وتسوق من فريقك المفضل"
+  - page: "homepage"
+    identifier: "advertismentText3"
+    link: "#advertisementText3Target"
+    text:
+      en: "Check scores and shop from your favorite team"
+      ar: "تابع آخر أخبار وتسوق من فريقك المفضل"
+

@@ -1,0 +1,37 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    // Sets global font size for small devices
+    font-size: 12px;
+
+    // Linear interpolation function allows for a steady increase in font size between 448 and 1000px
+    // At a size of 1000px, the font size reaches 16px: the default font size for browsers
+    @media screen and (min-width: @breakpoint--font-elastic-small) {
+        font-size: calc(12px + (16 - 12) * (100vw - 800px) / (1440 - 800));
+    }
+
+    // Returns the font size to a static value
+    @media screen and (min-width: @breakpoint--font-static-medium) {
+        font-size: 16px;
+    }
+
+    // Reintroduces scaling font for very large displays exceeding 1080p
+    @media screen and (min-width: @breakpoint--font-elastic-large) {
+        font-size: calc(16px + (32 - 16) * (100vw - 2000px) / (3000 - 2000));
+    }
+
+    // Reverts back to a static value of 32px: 2 x the standard browswer font size
+    @media screen and (min-width: @breakpoint--font-static-large)  {
+        font-size: 32px;
+    }
+}
+
+body {
+    box-sizing: border-box;
+}

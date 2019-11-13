@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 377.35 306.38">
+    <defs>
+        <style>.a0a6cbec-351d-43e2-a359-2da6c71d4cdf{fill:none;stroke:#ccc;stroke-miterlimit:10;stroke-width:2px;}.\32 e16dd42-1bf6-435a-bbe0-da935ba4e7f6{fill:#ccc;}.\36 5811715-620c-4ee6-a176-57c9c27e801d{fill:#f1f1f1;}.\36 1d5ff3c-ced9-441d-8147-36c6eadd2e29{font-size:7.94px;fill:#666;font-family:Aller-Regular, Aller;letter-spacing:0.05em;}</style></defs>
+    <title>formation</title>
+    <g id="7a3caca3-1bba-4bcc-a404-291016c2b3b1" data-name="Layer 2">
+        <g id="d943da0a-6861-4fd4-83c6-7e0b57b9a333" data-name="socres _ page">
+            <g id="61f62974-f2b7-468a-a7ab-f447f38071cd" data-name="content">
+                <g id="66027bdf-68a0-49f4-b541-9807e780a81b" data-name="formation">
+                    <g id="e75c08af-b44a-4baa-a40a-9700603e865c" data-name="field">
+                        <rect class="a0a6cbec-351d-43e2-a359-2da6c71d4cdf" x="1" y="1" width="375.35" height="286.84"/>
+                        <g id="63d010bf-b279-4bd9-8b63-3a2c7bcf2dc8" data-name="field">
+                            <path class="a0a6cbec-351d-43e2-a359-2da6c71d4cdf" d="M246.6,1.52a57.93,57.93,0,1,1-115.85,0"/>
+                            <path class="a0a6cbec-351d-43e2-a359-2da6c71d4cdf" d="M245.28,195.05a57.94,57.94,0,0,0-113.23.11"/>
+                            <polyline class="a0a6cbec-351d-43e2-a359-2da6c71d4cdf" points="296.91 287.84 296.91 195.82 78.45 195.82 78.45 287.84"/>
+                            <polyline class="a0a6cbec-351d-43e2-a359-2da6c71d4cdf" points="262.49 287.84 262.49 244.81 113.87 244.81 113.87 287.84"/>
+                            <circle class="2e16dd42-1bf6-435a-bbe0-da935ba4e7f6" cx="188.68" cy="220.65" r="2.98"/><polyline class="a0a6cbec-351d-43e2-a359-2da6c71d4cdf" points="225.56 287.84 225.56 305.38 151.6 305.38 151.6 287.84"/>
+                            <path class="a0a6cbec-351d-43e2-a359-2da6c71d4cdf" d="M1.33,276.61q.33,0,.66,0a10.26,10.26,0,0,1,10.26,10.27,11.55,11.55,0,0,1-.08,1.32"/>
+                            <path class="a0a6cbec-351d-43e2-a359-2da6c71d4cdf" d="M364.46,287.18c0-.22,0-.44,0-.67a10.26,10.26,0,0,1,10.26-10.26,9.54,9.54,0,0,1,1.32.09"/>
+                        </g>
+                    </g>
+                    <g id="b4e77720-5999-4905-aac8-ed3ff9cc0481" data-name="players clickable">
+                        <rect class="65811715-620c-4ee6-a176-57c9c27e801d" x="39.4" y="53.03" width="88.05" height="14.32"/>
+                        <rect class="65811715-620c-4ee6-a176-57c9c27e801d" x="78.45" y="110.62" width="82.09" height="14.32"/>
+                        <rect class="65811715-620c-4ee6-a176-57c9c27e801d" x="114.2" y="211.25" width="45.68" height="14.32"/>
+                        <rect class="65811715-620c-4ee6-a176-57c9c27e801d" x="13.58" y="182.87" width="60.24" height="14.32"/>
+                        <rect class="65811715-620c-4ee6-a176-57c9c27e801d" x="304.86" y="182.87" width="60.24" height="14.32"/>
+                        <rect class="65811715-620c-4ee6-a176-57c9c27e801d" x="210.19" y="211.25" width="62.23" height="14.32"/>
+                        <rect class="65811715-620c-4ee6-a176-57c9c27e801d" x="267.12" y="53.03" width="62.23" height="14.32"/>
+                        <rect class="65811715-620c-4ee6-a176-57c9c27e801d" x="166.5" y="48.39" width="45.68" height="14.32"/>
+                        <rect class="65811715-620c-4ee6-a176-57c9c27e801d" x="161.87" y="143.06" width="58.26" height="14.32"/>
+                        <rect class="65811715-620c-4ee6-a176-57c9c27e801d" x="159.88" y="254.94" width="57.59" height="14.32"/>
+                        <rect class="65811715-620c-4ee6-a176-57c9c27e801d" x="220.12" y="110.62" width="71.5" height="14.32"/>
+                        <text class="61d5ff3c-ced9-441d-8147-36c6eadd2e29" transform="translate(45.74 62.75)">Omar Abdulrahman</text>
+                        <text class="61d5ff3c-ced9-441d-8147-36c6eadd2e29" transform="translate(84.13 120.34)">Hamdan Al-Kamali</text>
+                        <text class="61d5ff3c-ced9-441d-8147-36c6eadd2e29" transform="translate(171.52 58.11)">Ali Khasif</text>
+                        <text class="61d5ff3c-ced9-441d-8147-36c6eadd2e29" transform="translate(272.81 62.75)">Habib Fardan</text>
+                        <text class="61d5ff3c-ced9-441d-8147-36c6eadd2e29" transform="translate(224.48 120.34)">Khamis Esmaeel</text>
+                        <text class="61d5ff3c-ced9-441d-8147-36c6eadd2e29" transform="translate(165.56 152.78)">Habib Fardan</text>
+                        <text class="61d5ff3c-ced9-441d-8147-36c6eadd2e29" transform="translate(17.27 192.58)">Ahmed Khalil</text>
+                        <text class="61d5ff3c-ced9-441d-8147-36c6eadd2e29" transform="translate(308.55 192.58)">Ahmed Khalil</text>
+                        <text class="61d5ff3c-ced9-441d-8147-36c6eadd2e29" transform="translate(215.21 220.96)">Ahmed Khalil</text>
+                        <text class="61d5ff3c-ced9-441d-8147-36c6eadd2e29" transform="translate(118.56 220.96)">Ali Khasif</text>
+                        <text class="61d5ff3c-ced9-441d-8147-36c6eadd2e29" transform="translate(170.2 264.66)">Ali Khasif</text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

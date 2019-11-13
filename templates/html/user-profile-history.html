@@ -1,0 +1,36 @@
+{% extends "user-profile.html" %}
+
+
+{% block profile_content %}
+    <div class="col d-flex flex-wrap justify-content-start">
+        {% if orders|length == 0 %}
+            <div class="flex-container flex-container--no-orders">
+                <span>{{ t("pages.userProfile.noOrders") }}</span>
+            </div>
+        {% endif %}
+        {% for order in orders %}
+            {% for oi in order.OrderItems %}
+                <p>{{ oi }}</p>
+                {% with pv=oi.ProductVariation %}
+                    {% with p=pv.Product %}
+                    <div class="card">
+                        <a href="/cart/checkout/order-received/{{ order.ID }}/">
+                            <div class="card-img-top">
+                                {% if p.Thumbnail == "" %}
+                                    <img src="/public/static/img/1x/Asset%2011.png" alt="Card image cap">
+                                {% else %}
+                                    <img src="{{ p.Thumbnail }}" alt="{{ p.Name }}">
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ p.Name }}</h5>
+                                <p class="card-text">{{ t("currency.aed_x", pv.Price|floatformat:"0") }}</p>
+                            </div>
+                        </a>
+                    </div>
+                    {% endwith %}
+                {% endwith %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}

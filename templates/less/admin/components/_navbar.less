@@ -1,0 +1,21 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: @color--dark-grey;
+    
+    &__brand,
+    &__brand:link,
+    &__brand:visited {
+        display: block;
+        padding: 0 1.25rem;
+        font-size: 1.3rem;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.9);        
+        cursor: pointer;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+}

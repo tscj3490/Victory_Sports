@@ -1,0 +1,80 @@
+{# text_align is set to fix right to left or left to righ languages #}
+{#$text_align = is_rtl() ? 'right' : 'left';#}
+
+
+<h2>Order Reference Number: {{ order.ID }}</h2>
+<div style="margin-bottom: 40px;">
+    <table class="td" cellspacing="0" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" border="1">
+        <thead>
+        <tr>
+            <th class="td" scope="col" style="text-align:{{ text_align }};">Product</th>
+            <th class="td" scope="col" style="text-align:{{ text_align }};">Quantity</th>
+            <th class="td" scope="col" style="text-align:{{ text_align }};">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in order.OrderItems %}
+        {% with pv=item.ProductVariation %}
+        {% with product=pv.Product %}
+        <tr class="order_item">
+            <td class="td" style="text-align:{{ text_align }}; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap:break-word;">
+                {% if product.Thumbnail %}
+                <div style="margin-bottom: 5px">
+                    <img src="{{ order.ThumbnailURL(product.Thumbnail) }}"
+                         alt="Product Image"
+                         {#width="" height=""#}
+                         style="vertical-align:middle;{% if is_rtl %}margin-left:10px;{% else %}margin-right:10px;{% endif %}" />
+                </div>
+                {% endif %}
+                <p>{{ product.Name }}</p>
+
+
+            </td>
+            <td class="td" style="text-align:{{ text_align }}; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+                {{ item.Quantity }}
+            </td>
+            <td class="td" style="text-align:{{ text_align }}; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+                {{ pv.Price|floatformat:"2" }}
+            </td>
+        </tr>
+        {% if purchase_note %}
+            <tr>
+                <td colspan="3" style="text-align:{{ text_align }}; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">
+                    {{ purchase_note }}
+                </td>
+            </tr>
+        {% endif %}
+        {% endwith %}
+        {% endwith %}
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th class="td" scope="row" colspan="2" style="text-align:{{ text_align }}; border-top-width: 4px;font-weight: 400;">Subtotal</th>
+                <td class="td" style="text-align:{{ text_align }}; border-top-width: 4px;">{{ order.Subtotal|floatformat:"2" }} AED</td>
+            </tr>
+            <tr>
+                <th class="td" scope="row" colspan="2" style="text-align:{{ text_align }}; font-weight: 400;">VAT</th>
+                <td class="td" style="text-align:{{ text_align }}; ">{{ order.VAT|floatformat:"2" }} AED</td>
+            </tr>
+            <tr>
+                <th class="td" scope="row" colspan="2" style="text-align:{{ text_align }}; font-weight: 400;">Shipping</th>
+                <td class="td" style="text-align:{{ text_align }}; ">
+                    {% if order.ShippingCost == 0.0 %}
+                        <span>Free</span>
+                    {% else %}
+                        <span>{{ order.ShippingCost |floatformat:"2" }} AED</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="td" scope="row" colspan="2" style="text-align:{{ text_align }}; border-top-width: 4px;">Total</th>
+                <td class="td" style="text-align:{{ text_align }}; border-top-width: 4px; font-weight: 500;">{{ order.Total|floatformat:"2" }} AED</td>
+            </tr>
+            {#{% with totals=order.GetOrderItemTotals() %}#}
+            {#{% endwith %}#}
+            {#{% with note=order.GetCustomerNote() %}#}
+            {#{% endwith %}#}
+        </tfoot>
+    </table>
+</div>

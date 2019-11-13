@@ -1,0 +1,12 @@
+{% extends "email-base.html" %}
+
+{% block email_heading %}
+<h1>Order #{{ order.ID }} Order Notes Changed</h1>
+{% endblock %}
+
+{% block content %}
+    <p>Hello, a note has just been added to your order: #{{ order.ID }}</p>
+    <blockquote>{{ order.Notes }}</blockquote>
+    <p>For your reference, your order details are shown below.</p>
+    {% include "email-order-details.html" %}
+{% endblock %}

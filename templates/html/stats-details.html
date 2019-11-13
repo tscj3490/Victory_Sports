@@ -1,0 +1,928 @@
+
+{% extends "stats.html" %}
+
+{% block top_leader %}
+{%  endblock %}
+
+
+{% block content %}
+
+{% with competitionID=statsLeagueID|integer %}
+{% with seasonID=statsSeasonID|integer %} 
+{% with fixtureID=statsFixtureID|integer %} 
+{% with comp=stats_filters.GetCompetition(competitionID) %}
+{% with fixtureAndEvents=stats_filters.GetFixture(seasonID,fixtureID) %}
+{% with fixture=fixtureAndEvents.Fixture %}
+{% with localTeam=stats_filters.ConvertGosportmonksTeamToStatsTeam(fixture.LocalTeamInclude.LocalTeam) %}
+{% with visitorTeam=stats_filters.ConvertGosportmonksTeamToStatsTeam(fixture.VisitorTeamInclude.VisitorTeam) %}
+<div class="background background--stats-details main-container main-container--stats-details">
+
+    <div class="tables-container tables-container--stats-details">
+        {% macro in_match_details(e) %}
+            <span class="stats-details__time">{{ e.Minute }}'</span>
+            {% if e.Type == "goal" || e.Type == "own-goal" %}
+                <img src="/public/static/img/SVG/ic_stats_goal.svg" alt="Goal" class="stats-details__icon">
+            {% endif %}
+            {% if e.Type == "yellowcard" %}
+                <img src="/public/static/img/SVG/ic_stats_yellow_card.svg" alt="Yellow Card" class="stats-details__icon">
+            {% endif %}
+            {% if e.Type == "yellowred" %}
+                <img src="/public/static/img/SVG/ic_stats_red_card.svg" alt="Red Card" class="stats-details__icon">
+            {% endif %}
+            {% if e.Type == "redcard" %}
+                <img src="/public/static/img/SVG/ic_stats_red_card.svg" alt="Red Card" class="stats-details__icon">
+            {% endif %}
+            {% if e.Type == "substitution" %}
+                <img src="/public/static/img/SVG/ic_stats_substitution.svg" alt="Substitution" class="stats-details__icon">
+            {% endif %}
+            {% if e.Type == "penalty" %}
+                <img src="/public/static/img/SVG/ic_stats_goal.svg" alt="Missed Penalty" class="stats-details__icon">
+            {% endif %}
+            {% if e.Type == "missed_penalty" %}
+                <img src="/public/static/img/SVG/ic_stats_no-goal.svg" alt="Penalty" class="stats-details__icon">
+            {% endif %}
+            {% if e.Type == "substitution" %}
+                <span class="stats-details__player"> {{ e.PlayerName }} - {{ e.RelatedPlayerName }}</span>
+            {% else %}
+                <span class="stats-details__player"> {{ e.PlayerName }}</span>
+            {% endif %}
+        {% endmacro %}
+        <div class="table table--stats-details">
+            <div class="stats-details__row stats-details__row--header">
+                <span class="stats-details__team stats-details__team--local">
+                    {% if localTeam.LogoPath == "" %}
+                        <img class="stats-details__logo-image stats-details__logo-image--local" src="/public/static/icons/clubs/official_logo_soon.png" alt="{{ localTeam.Name }}">
+                    {% else %}
+                        <img class="stats-details__logo-image stats-details__logo-image--local" src="{{ localTeam.LogoPath }}" alt="{{ t(localTeam.Name, localTeam.Name) }}">
+                    {% endif %}
+                    {{ t(localTeam.Name, localTeam.Name) }}
+                </span>
+                <div class="stats-details__score">
+                    <span>{{fixture.Scores.LocalTeamScore}}</span> : <span>{{fixture.Scores.VisitorTeamScore}}</span>
+                </div>
+                <span class="stats-details__team stats-details__team--visitor">
+                    {{ t(visitorTeam.Name, visitorTeam.Name) }}
+                    {% if visitorTeam.LogoPath == "" %}
+                        <img class="stats-details__logo-image stats-details__logo-image--visitor" src="/public/static/icons/clubs/official_logo_soon.png" alt="{{ t(visitorTeam.Name, visitorTeam.Name) }}">
+                    {% else %}
+                        <img class="stats-details__logo-image stats-details__logo-image--visitor" src="{{ visitorTeam.LogoPath }}" alt="{{ t(visitorTeam.Name, visitorTeam.Name) }}">
+                    {% endif %}
+                </span>
+            </div>
+            <div>
+                {% with localTeamID=localTeam.ID|integer %}
+                    {% for event in fixture.GetEventsFilteredBy(localTeamID) %}
+                        <!-- <p>{{ event.Type }}</p> -->
+                        <div class="stats-details__row">
+                            {{ in_match_details(event) }}
+                        </div>
+                    {% endfor %}
+                {% endwith %}
+            </div>
+            <div>
+                {% with visitorTeamID=visitorTeam.ID|integer %}
+                    {% for event in fixture.GetEventsFilteredBy(visitorTeamID) %}
+                        <div class="stats-details__row">
+                            {{ in_match_details(event) }}
+                        </div>
+                    {% endfor %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+
+    <!-- timeline -->
+    <div class="timeline">
+        {% with localTeamID=localTeam.ID|integer %}
+        {% with visitorTeamID=visitorTeam.ID|integer %}
+            {% for event in fixture.GetEventsFilteredBy(localTeamID) %}
+                <div class="timeline__item">
+                    {% if event.Type == "goal" || event.Type == "own-goal" %}
+                        <img src="/public/static/img/SVG/ic_stats_goal.svg" alt="Goal" class="timeline__icon">
+                    {% endif %}
+                    {% if event.Type == "yellowcard" %}
+                        <img src="/public/static/img/SVG/ic_stats_yellow_card.svg" alt="Yellow Card" class="timeline__icon">
+                    {% endif %}
+                    {% if event.Type == "yellowred" %}
+                        <img src="/public/static/img/SVG/ic_stats_red_card.svg" alt="Red Card" class="timeline__icon">
+                    {% endif %}
+                    {% if event.Type == "redcard" %}
+                        <img src="/public/static/img/SVG/ic_stats_red_card.svg" alt="Red Card" class="timeline__icon">
+                    {% endif %}
+                    {% if event.Type == "substitution" %}
+                        <img src="/public/static/img/SVG/ic_stats_substitution.svg" alt="Substitution" class="timeline__icon">
+                    {% endif %}
+                    {% if event.Type == "penalty" %}
+                        <img src="/public/static/img/SVG/ic_stats_goal.svg" alt="Penalty" class="timeline__icon">
+                    {% endif %}
+                    {% if event.Type == "missed_penalty" %}
+                        <img src="/public/static/img/SVG/ic_stats_no-goal.svg" alt="Missed Penalty" class="timeline__icon">
+                    {% endif %}
+                    <span class="timeline__time timeline__time--local">{{ event.Minute }}</span>
+                    <span class="timeline__gap">&nbsp;</span>
+                </div>
+            {% endfor %}
+            {% for event in fixture.GetEventsFilteredBy(visitorTeamID) %}
+                <div class="timeline__item">
+                    <span class="timeline__gap">&nbsp;</span>
+                    <span class="timeline__time timeline__time--visitor">{{ event.Minute }}</span>
+                    {% if event.Type == "goal" || event.Type == "own-goal" %}
+                        <img src="/public/static/img/SVG/ic_stats_goal.svg" alt="Goal" class="timeline__icon">
+                    {% endif %}
+                    {% if event.Type == "yellowcard" %}
+                        <img src="/public/static/img/SVG/ic_stats_yellow_card.svg" alt="Yellow Card" class="timeline__icon">
+                    {% endif %}
+                    {% if event.Type == "yellowred" %}
+                        <img src="/public/static/img/SVG/ic_stats_red_card.svg" alt="Red Card" class="timeline__icon">
+                    {% endif %}
+                    {% if event.Type == "redcard" %}
+                        <img src="/public/static/img/SVG/ic_stats_red_card.svg" alt="Red Card" class="timeline__icon">
+                    {% endif %}
+                    {% if event.Type == "substitution" %}
+                        <img src="/public/static/img/SVG/ic_stats_substitution.svg" alt="Substitution" class="timeline__icon">
+                    {% endif %}
+                    {% if event.Type == "penalty" %}
+                        <img src="/public/static/img/SVG/ic_stats_goal.svg" alt="Penalty" class="timeline__icon">
+                    {% endif %}
+                    {% if event.Type == "missed_penalty" %}
+                        <img src="/public/static/img/SVG/ic_stats_no-goal.svg" alt="Missed Penalty" class="timeline__icon">
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endwith %}
+        {% endwith %}
+    </div>
+    <!-- /timeline -->
+
+    <!-- match stats and line up -->
+    <div class="tables-container tables-container--secondary-stats-details">
+        <div class="stats-details__match-stats-container">
+            <!-- match stats team a -->
+            <h4 class="match-stats__title">{{ t("pages.stats.matchStats")}}</h4>
+            <div class="match-stats">
+                <div class="match-stats__team-name-container">
+                    <div class="match-stats__vertical-line">&nbsp;</div>
+                    <div class="match-stats__team-name">{{ t(localTeam.Name, localTeam.Name) }}</div>
+                </div>
+                {% macro show_events_by_type(events_by_type) %}                        
+                    <div class="match-stats__inner-container">
+                        {% for type, events in events_by_type %}
+                            <span class="match-stats__quantity">{{ events|length }}</span>
+                            <div class="flex-container">
+                                <span class="match-stats__event">
+                                    {% if type == "goal" %}
+                                        {% if events|length > 1 %}
+                                            {{ t("pages.stats.goals") }}
+                                        {% else %}
+                                            {{ t("pages.stats.goal") }}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if type == "penalty" %}
+                                        {% if events|length > 1 %}
+                                            {{ t("pages.stats.penalties") }}
+                                        {% else %}
+                                            {{ t("pages.stats.penalty") }}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if type == "missed_penalty" %}
+                                        {% if events|length > 1 %}
+                                            {{ t("pages.stats.missedPenalties") }}
+                                        {% else %}
+                                            {{ t("pages.stats.missedPenalty") }}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if type == "own-goal" %}
+                                        {% if events|length > 1 %}
+                                            {{ t("pages.stats.ownGoals") }}
+                                        {% else %}
+                                            {{ t("pages.stats.ownGoal") }}                                                            
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if type == "yellowcard" %}
+                                        {% if events|length > 1 %}
+                                            {{ t("pages.stats.yellowCards") }}                                                            
+                                        {% else %}
+                                            {{ t("pages.stats.yellowCard") }}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if type == "yellowred" %}
+                                        {% if events|length > 1 %}
+                                            {{ t("pages.stats.yellowRedCards") }}
+                                        {% else %}
+                                            {{ t("pages.stats.yellowRedCard") }}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if type == "redcard" %}
+                                        {% if events|length > 1 %}
+                                            {{ t("pages.stats.redCards") }}
+                                        {% else %}
+                                            {{ t("pages.stats.redCard") }}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if type == "substitution" %}
+                                        {% if events|length > 1 %}
+                                            {{ t("pages.stats.subs") }}
+                                        {% else %}
+                                            {{ t("pages.stats.sub") }}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if type == "pen_shootout_goal" %}
+                                        {% if events|length > 1 %}
+                                            {{ t("pages.stats.madeShootoutPenalties") }}
+                                        {% else %}
+                                            {{ t("pages.stats.madeShootoutPenalty") }}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if type == "pen_shootout_miss" %}
+                                        {% if events|length > 1 %}
+                                            {{ t("pages.stats.missedShootoutPenalties") }}
+                                        {% else %}
+                                            {{ t("pages.stats.missedShootoutPenalty") }}
+                                        {% endif %}
+                                    {% endif %}
+                                </span>
+                                <hr class="match-stats__rule">
+                                <div class="match-stats__times">
+                                    {% for event in events %}
+                                        <span>{{event.Minute}}'</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endmacro %}
+                {{ show_events_by_type(fixtureAndEvents.Events.LocalTeamEvents) }}
+                <p>{{ fixtureAndEvents.Events.LocalTeamEvents }}</p>
+            </div>
+            <!-- /match stats team a -->
+            <!-- match stats team b -->
+            <div class="match-stats">
+                <div class="match-stats__team-name-container">
+                    <div class="match-stats__vertical-line">&nbsp;</div>
+                    <div class="match-stats__team-name">{{ t(visitorTeam.Name, visitorTeam.Name) }}</div>
+                </div>
+                {{ show_events_by_type(fixtureAndEvents.Events.VisitorTeamEvents) }}
+            </div>
+            <!-- /match stats team b -->
+        </div>
+        <div class="stats-details__match-formation" id="localformation">
+            <div class="stats-lineup__header">
+                <i class="fas fa-chevron-left" onclick="toggleformation()"></i>
+                <h3 class="stats-lineup__title">{{ t(localTeam.Name, localTeam.Name) }}</h3>
+                <span class="stats-lineup__subtitle">
+                    {{ t("pages.stats.lineUpFormation") }}
+                    {% if fixture.Formation.LocalTeamFormation == "" %}
+                        {{ t("pages.stats.noFormation") }}
+                    {% else %}
+                        {{ fixture.Formation.LocalTeamFormation }}
+                    {% endif %}
+                </span>
+                <i class="fas fa-chevron-right" onclick="toggleformation()"></i>
+                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}">
+                {% else %}
+                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}#email-capture">
+                {% endif %}
+                    <p>{{ t("pages.stats.buyTheJersey")}}</p>
+                </a>
+            </div>
+
+            {% with localLineup=fixture.GetLineupFormationPositionFilteredBy(localTeam.ID) %}
+            <!-- line up local team-->
+            {% if localLineup|length == 0 %}
+                No Formation Available
+            {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 377.35 306.38">
+                    <defs>
+                        <style>
+                            .\35 dea4eaa-250e-4018-a0bd-4a35a502abe0 {
+                                fill: none;
+                                stroke: #ccc;
+                                stroke-miterlimit: 10;
+                                stroke-width: 2px;
+                            }
+
+                            .\36 039860c-4e57-42c0-a0ba-2004af6c63f3 {
+                                            fill: #ccc;
+                                        }
+
+                            .\37 b1cad90-3313-4dbc-bd19-26a2f580cdfb {
+                                fill: #f1f1f1;
+                            }
+                        </style>
+                    </defs>
+                    <title>{{ t(localTeam.Name, localTeam.Name) }} Formation</title>
+                    <g id="06d03ff7-95c9-4d7e-a155-261f22fde67b" data-name="Layer 2">
+                        <g id="894d6abe-984b-4728-be4a-4ac6b64011b3" data-name="socres _ page">
+                            <g id="c0c432ac-9325-4122-8e41-7e9bc9c23002" data-name="content">
+                                <g id="f50b4ef3-62c8-47fa-a576-43336da096b3" data-name="formation">
+                                    <g id="fc21579d-0455-4a5b-b7ae-0e49ab98bda6" data-name="field">
+                                        <rect class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" x="1" y="1" width="375.35" height="286.84"/>
+                                        <g id="0b4c20de-58b7-4efb-bb0e-eea5c6f906dc" data-name="field">
+                                            <path class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" d="M246.6,1.52a57.93,57.93,0,1,1-115.85,0"/>
+                                            <path class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" d="M245.28,195.05a57.94,57.94,0,0,0-113.23.11"/>
+                                            <polyline class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" points="296.91 287.84 296.91 195.82 78.45 195.82 78.45 287.84"/>
+                                            <polyline class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" points="262.49 287.84 262.49 244.81 113.87 244.81 113.87 287.84"/>
+                                            <circle class="6039860c-4e57-42c0-a0ba-2004af6c63f3" cx="188.68" cy="220.65" r="2.98"/>
+                                            <polyline class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" points="225.56 287.84 225.56 305.38 151.6 305.38 151.6 287.84"/>
+                                            <path class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" d="M1.33,276.61q.33,0,.66,0a10.26,10.26,0,0,1,10.26,10.27,11.55,11.55,0,0,1-.08,1.32"/>
+                                            <path class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" d="M364.46,287.18c0-.22,0-.44,0-.67a10.26,10.26,0,0,1,10.26-10.26,9.54,9.54,0,0,1,1.32.09"/>
+                                        </g>
+                                    </g>
+                                    {% with squad=stats_filters.GetSquadIntMap(seasonID,localTeam.ID) %}
+                                    <g id="010aeda0-d725-4ea4-9c75-e86188833993" data-name="formation_team_logos">
+                                        {# TODO: add all the other pictures as well as failover to the team logo if no picture is available #}
+                                        {% with fixturePlayer=11|fixture_player_from_int_map:localLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(175.035 14.11) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(175.035 14.11) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(187.675 52.11)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=10|fixture_player_from_int_map:localLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(315.4412 46) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(315.4412 46) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(328.0812 86)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=9|fixture_player_from_int_map:localLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(34.2788 46) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(34.2788 46) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(46.91875 86)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=8|fixture_player_from_int_map:localLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(245.2381 80) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(245.2381 80) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(257.8781 120.34)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=7|fixture_player_from_int_map:localLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(104.656875 80) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(104.656875 80) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(117.296875 120.34)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=6|fixture_player_from_int_map:localLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(175.035 104.78) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(175.035 104.78) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(187.675 144.78)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=5|fixture_player_from_int_map:localLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(315.4412 152.58) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(315.4412 152.58) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(328.0812 192.58)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=4|fixture_player_from_int_map:localLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(221.9538 180.96) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(221.9538 180.96) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(234.5938 220.96)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=3|fixture_player_from_int_map:localLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(128.135 180.96) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(128.135 180.96) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(140.775 220.96)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=2|fixture_player_from_int_map:localLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(34.2788 152.58) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(34.2788 152.58) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(46.91875 192.58)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=1|fixture_player_from_int_map:localLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(175.035 234.66) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(175.035 234.66) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(187.675 274.66)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                    </g>
+                                    {% endwith %}
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            {% endif %}
+            
+            <!-- /line up -->
+            {% endwith %}
+        </div>
+
+        <div class="stats-details__match-formation d-none" id="visitorformation">
+            <div class="d-flex flex-row stats-lineup__header">
+                <i class="fas fa-chevron-left" onclick="toggleformation()"></i>
+                <h3 class="stats-lineup__title">{{ t(visitorTeam.Name, visitorTeam.Name) }}</h3>
+                <span class="stats-lineup__subtitle">
+                    {{ t("pages.stats.lineUpFormation") }}
+                    {% if fixture.Formation.LocalTeamFormation == "" %}
+                        {{ t("pages.stats.noFormation") }}
+                    {% else %}
+                        {{ fixture.Formation.LocalTeamFormation }}
+                    {% endif %}
+                </span>
+                <i class="fas fa-chevron-right" onclick="toggleformation()"></i>
+                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}">
+                {% else %}
+                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}#email-capture">
+                {% endif %}
+                    <p>{{ t("pages.stats.buyTheJersey")}}</p>
+                </a>
+            </div>
+            {% with visitorLineup=fixture.GetLineupFormationPositionFilteredBy(visitorTeam.ID) %}
+            <!-- line up visitor team-->
+            {% if visitorLineup|length == 0 %}
+                No Formation Available
+            {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 377.35 306.38">
+                    <defs>
+                        <style>
+                            .\35 dea4eaa-250e-4018-a0bd-4a35a502abe0 {
+                                fill: none;
+                                stroke: #ccc;
+                                stroke-miterlimit: 10;
+                                stroke-width: 1.5px;
+                            }
+
+                            .\36 039860c-4e57-42c0-a0ba-2004af6c63f3 {
+                                        fill: #ccc;
+                                    }
+
+                            .\37 b1cad90-3313-4dbc-bd19-26a2f580cdfb {
+                                fill: #f1f1f1;
+                            }
+                        </style>
+                    </defs>
+                    <title>{{ t(visitorTeam.Name, visitorTeam.Name) }} Formation</title>
+                    {% with squad=stats_filters.GetSquadIntMap(seasonID,visitorTeam.ID) %}
+                    <g id="06d03ff7-95c9-4d7e-a155-261f22fde67b" data-name="Layer 2">
+                        <g id="894d6abe-984b-4728-be4a-4ac6b64011b3" data-name="socres _ page">
+                            <g id="c0c432ac-9325-4122-8e41-7e9bc9c23002" data-name="content">
+                                <g id="f50b4ef3-62c8-47fa-a576-43336da096b3" data-name="formation">
+                                    <g id="fc21579d-0455-4a5b-b7ae-0e49ab98bda6" data-name="field">
+                                        <rect class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" x="1" y="1" width="375.35" height="286.84"/>
+                                        <g id="0b4c20de-58b7-4efb-bb0e-eea5c6f906dc" data-name="field">
+                                            <path class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" d="M246.6,1.52a57.93,57.93,0,1,1-115.85,0"/>
+                                            <path class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" d="M245.28,195.05a57.94,57.94,0,0,0-113.23.11"/>
+                                            <polyline class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" points="296.91 287.84 296.91 195.82 78.45 195.82 78.45 287.84"/>
+                                            <polyline class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" points="262.49 287.84 262.49 244.81 113.87 244.81 113.87 287.84"/>
+                                            <circle class="6039860c-4e57-42c0-a0ba-2004af6c63f3" cx="188.68" cy="220.65" r="2.98"/>
+                                            <polyline class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" points="225.56 287.84 225.56 305.38 151.6 305.38 151.6 287.84"/>
+                                            <path class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" d="M1.33,276.61q.33,0,.66,0a10.26,10.26,0,0,1,10.26,10.27,11.55,11.55,0,0,1-.08,1.32"/>
+                                            <path class="5dea4eaa-250e-4018-a0bd-4a35a502abe0" d="M364.46,287.18c0-.22,0-.44,0-.67a10.26,10.26,0,0,1,10.26-10.26,9.54,9.54,0,0,1,1.32.09"/>
+                                        </g>
+                                    </g>
+                                    <g id="010aeda0-d725-4ea4-9c75-e86188833993" data-name="formation_team_logos">
+                                            {% with fixturePlayer=11|fixture_player_from_int_map:visitorLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(175.035 14.11) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(175.035 14.11) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(187.675 52.11)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=10|fixture_player_from_int_map:visitorLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(315.4412 46) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(315.4412 46) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(328.0812 86)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=9|fixture_player_from_int_map:visitorLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(34.2788 46) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(34.2788 46) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(46.91875 86)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=8|fixture_player_from_int_map:visitorLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(245.2381 80) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(245.2381 80) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(257.8781 120.34)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=7|fixture_player_from_int_map:visitorLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(104.656875 80) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(104.656875 80) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(117.296875 120.34)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=6|fixture_player_from_int_map:visitorLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(175.035 104.78) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(175.035 104.78) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(187.675 144.78)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=5|fixture_player_from_int_map:visitorLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(315.4412 152.58) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(315.4412 152.58) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(328.0812 192.58)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=4|fixture_player_from_int_map:visitorLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(221.9538 180.96) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(221.9538 180.96) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(234.5938 220.96)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=3|fixture_player_from_int_map:visitorLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(128.135 180.96) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(128.135 180.96) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(140.775 220.96)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=2|fixture_player_from_int_map:visitorLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(34.2788 152.58) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(34.2788 152.58) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(46.91875 192.58)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                        {% with fixturePlayer=1|fixture_player_from_int_map:visitorLineup %}
+                                            {% with player=fixturePlayer|player_from_int_map:squad %}
+                                                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" style="cursor: pointer;">
+                                                {% else %}
+                                                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}#email-capture" style="cursor: pointer;">
+                                                {% endif %}
+                                                {% if player.PlayerInclude.Player.ImagePath %}
+                                                    <image width="316" height="316" transform="translate(175.035 234.66) scale(0.08)" xlink:href="{{ player.PlayerInclude.Player.ImagePath }}"/>
+                                                {% else %}
+                                                    <image width="316" height="316" transform="translate(175.035 234.66) scale(0.08)" xlink:href="/public/static/img/no-player-image.png"/>
+                                                {% endif %}
+                                                </a>
+                                                <text class="stats-lineup-svg__name" transform="translate(187.675 274.66)" text-anchor="middle">
+                                                    {{ player.PlayerInclude.Player.CommonName }}
+                                                </text>
+                                            {% endwith %}
+                                        {% endwith %}
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                    {% endwith %}
+                </svg>
+            {% endif %}
+            <!-- /line up -->
+            {% endwith %}
+        </div>
+
+    </div>
+    <!-- /match stats and line up -->
+    <div class="email-capture" id="email-capture">
+        <div class="email-capture__content" id="email-capture-content">
+            <p class="email-capture__text" id="email-capture-text">{{ t("pages.stats.emailCaptureMessage") }}</p>
+            
+            <form action="/emailcapture/" method="POST" class="email-capture__form" id="email-capture-form">
+                <input type="email" name="email" id="email" class="email-capture__input" placeholder="{{ t('pages.checkout.email') }}">
+                <label class="email-capture__label">{{ t("pages.checkout.email") }}</label>
+                <button type="submit" class="email-capture__button" id="email-capture-button">{{ t("pages.checkout.submit") }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{# competitionID #}
+{% endwith %}
+{# GetCompetition #}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endblock %}
+{% block extend_javascript %}
+<script src="/public/static/vendor/jquery-validation-1.17.0/dist/jquery.validate.min.js" crossorigin="anonymous"></script>
+<script language="JavaScript">
+    $("#email-capture-form").validate({
+        invalidHandler: function(form, validator) {
+            $('#email-capture-button').click(function (e) {
+                e.preventDefault();
+            });      
+        }
+    });
+
+    jQuery.validator.addMethod("email", function(value, element) {
+        return this.optional( element ) || /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,6})$/.test( value );
+    }, 'Please enter a valid email address.');
+</script>
+<script type="text/javascript">
+    var $timelineItems = $(".timeline__item");
+    var divider = `<div class="timeline__divider">-</div>`;
+    var kickOff = `<span class="timeline__time-marker">KO</>`
+    var halfTime = `<span class="timeline__time-marker">HT</>`
+    var extraTime = `<span class="timeline__time-marker">ET</>`
+    var fullTime = `<span class="timeline__time-marker">FT</>`
+    
+    document.addEventListener("DOMContentLoaded", function order () {
+        var orderedTimeline = $timelineItems.sort(function (a, b) {
+            return $(a).find(".timeline__time").text() - $(b).find(".timeline__time").text();
+        });
+        
+        $(".timeline").html(orderedTimeline);
+
+        $(".timeline__item").each(function() {
+            $(this).before(divider);
+            $(this).before(kickOff);
+            $(this).before(divider);
+            return false;
+        });
+
+        $(".timeline__item").each(function() {
+            $(this).after(divider);
+        });
+        
+        $(".timeline__item").each(function() {
+            var time = $(this).children(".timeline__time").text(); 
+            if (!(time < 46)) {
+                $(this).after(halfTime);
+                $(this).after(divider);
+                return false; 
+            }
+        });
+
+        $(".timeline__item").each(function() {
+            var time = $(this).children(".timeline__time").text(); 
+            if (!(time < 91)) {
+                $(this).after(extraTime);
+                $(this).after(divider);
+                return false; 
+            }
+        });
+
+        $($(".timeline__item").get().reverse()).each(function() {
+            $(this).after(fullTime);
+            $(this).after(divider);
+            return false; 
+        });
+    });
+
+    function toggleformation()
+    {
+        $(".stats-details__match-formation").toggleClass("d-none");
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        $('#email-capture').click(function(e) {
+            var id = e.target.id;
+            if (id != 'email-capture-text' && id != 'email-capture-form' && id != 'email' && id != 'email-capture-button' && id != 'email-capture-content') {
+                window.location.replace('#');
+            }
+        });
+    });
+</script>
+{% endblock %}

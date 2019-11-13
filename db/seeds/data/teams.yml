@@ -1,0 +1,574 @@
+brands:
+    - name: Adidas
+    - name: Nike
+    - name: Puma
+    - name: New Balance
+    - name: Uhl Sport
+    - name: Umbro
+    - name: Arena
+leagues:
+    - name:
+        en: Worldcup
+        ar: Worldcup
+      statsleagueid: 732
+    - name:
+        en: UAE League
+        ar: UAE League
+      statsleagueid: 959
+    - name:
+        en: Division 1
+        ar: Division 1
+      statsleagueid: 962
+    - name:
+        en: Arabian Gulf Cup
+        ar: Arabian Gulf Cup
+      statsleagueid: 965
+    - name:
+        en: Pro League
+        ar: Pro League
+      statsleagueid: 944
+    - name:
+        en: Division 1 KSA
+        ar: Division 1 KSA
+      statsleagueid: 947
+    - name:
+        en: Kings Cup
+        ar: Kings Cup
+      statsleagueid: 950
+    - name:
+        en: La Liga
+        ar: La Liga
+      statsleagueid: 564
+    - name:
+        en: Serie A
+        ar: Serie A
+      statsleagueid: 384
+    - name:
+        en: Ligue 1
+        ar: Ligue 1
+      statsleagueid: 301
+    - name:
+        en: Premier League
+        ar: Premier League
+      statsleagueid: 8
+teams:
+    - name:
+        en: Al Ahli
+        ar: الأهلي
+      logo: /public/static/img/logos/al ahli-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Al Wasl
+        ar: الوصل
+      logo: /public/static/img/logos/al wasl-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Al Nasr
+        ar: النصر
+      logo: /public/static/img/logos/al nasr-01.png
+      collections:
+        - name: Clubs
+        - name: UAE League
+    - name:
+        en: Hatta
+        ar: حتا
+      logo: /public/static/img/logos/hatta-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Al Jazira SCC
+        ar: نادي الجزيرة
+      logo: /public/static/img/logos/al jazira-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Al Wahda
+        ar: الوحدة
+      logo: /public/static/img/logos/al wahda-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Al Ain
+        ar: العين
+      logo: /public/static/img/logos/al ain-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Al Dhafra
+        ar: الظفرة
+      logo: /public/static/img/logos/al dafra-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Baniyas
+        ar: نادي بني ياس
+      logo: /public/static/img/logos/benyas-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Al Sharjah SCC
+        ar: الشارقة
+      logo: /public/static/img/logos/sharjahhh_-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Al Shabab
+        ar: فريق الشباب
+      logo: /public/static/img/logos/al shabab-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Al Dhaid
+        ar: نادي الذيد
+      logo: /public/static/img/logos/al dhaid-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Al Hamriya
+        ar: نادي الحمرية
+      logo: /public/static/img/logos/al hamrya-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Mleeha CSC
+        ar: نادي مليحة الثقافي الرياضي
+      logo: /public/static/img/logos/Mleeha CSC-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Ittihad Kalba
+        ar: نادي اتحاد كلباء
+      logo: /public/static/img/logos/Ittihad Kalba-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Deba Al Hissin
+        ar: نادي دبا الحصن
+      logo: /public/static/img/logos/dibba al hissin-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Emirates CSC
+        ar: نادي الإمارات
+      logo: /public/static/img/logos/Emirates Cultural Sports Club-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Ras Al Khaimah
+        ar: رأس الخيمة
+      logo: /public/static/img/logos/rass-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Al Taawon
+        ar: نادي التعاون
+      logo: /public/static/img/logos/al tawaan-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Masafi
+        ar: نادي مسافي
+      logo: /public/static/img/logos/masafi-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Dibba
+        ar: دبا
+      logo: /public/static/img/logos/dibba-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Ajman
+        ar: عجمان
+      logo: /public/static/img/logos/ajman-01.png
+      collections:
+          - name: Clubs
+          - name: UAE League
+    - name:
+        en: Arsenal
+        ar: ارسنال
+      logo: /public/static/img/logos/arsenal-01.png
+      collections:
+          - name: Clubs
+          - name: Premier League
+    - name:
+        en: Manchester City
+        ar: مانشستر سيتي
+      logo: /public/static/img/logos/man city-01.png
+      collections:
+          - name: Clubs
+          - name: Premier League
+    - name:
+        en: Manchester United
+        ar: مانشستر يونايتد
+      logo: /public/static/img/logos/man united-01.png
+      collections:
+          - name: Clubs
+          - name: Premier League
+    - name:
+        en: Chelsea
+        ar: تشيلسي
+      logo: /public/static/img/logos/chelsea-01.png
+      collections:
+          - name: Clubs
+          - name: Premier League
+    - name:
+        en: Liverpool
+        ar: ليفربول
+      logo: /public/static/img/logos/liverpool-01.png
+      collections:
+          - name: Clubs
+          - name: Premier League
+    - name:
+        en: Tottenham
+        ar: توتنهام
+      logo: /public/static/img/logos/tottenham-01.png
+      collections:
+          - name: Clubs
+          - name: Premier League
+    - name:
+        en: Barcelona
+        ar: نادي برشلونة
+      logo: /public/static/img/logos/fcb-01.png
+      collections:
+          - name: Clubs
+          - name: La Liga
+    - name:
+        en: Real Madrid
+        ar: ريال مدريد
+      logo: /public/static/img/logos/real mad-01.png
+      collections:
+          - name: Clubs
+          - name: La Liga
+    - name:
+        en: Atletico Madrid
+        ar: أتلتيكو مدريد
+      logo: /public/static/img/logos/Atletico Madrid-01.png
+      collections:
+          - name: Clubs
+          - name: La Liga
+    - name:
+        en: Bayern Munich
+        ar: بايرن ميونيخ
+      logo: /public/static/img/logos/Bayern Munich-01.png
+      collections:
+          - name: Clubs
+          - name: Bundesliga
+    - name:
+        en: Borussia Dortmund
+        ar: بوروسيا دورتموند
+      logo: /public/static/img/logos/Borussia Dortmund-01.png
+      collections:
+          - name: Clubs
+          - name: Bundesliga
+    - name:
+        en: AC Mila
+        ar: نادي ميلان الايطالي
+      logo: /public/static/img/logos/ac milan-01.png
+      collections:
+          - name: Clubs
+          - name: Serie A
+    - name:
+        en: Inter Milan
+        ar: انتر ميلان
+      logo: /public/static/img/logos/inter_milan-01.png
+      collections:
+          - name: Clubs
+          - name: Serie A
+    - name:
+        en: Juventus
+        ar: يوفنتوس
+      logo: /public/static/img/logos/juve-01.png
+      collections:
+          - name: Clubs
+          - name: Serie A
+    - name:
+        en: AS Roma
+        ar: روما
+      logo: /public/static/img/logos/roma-01.png
+      collections:
+          - name: Clubs
+          - name: Serie A
+    - name:
+        en: Paris Saint Germain
+        ar: باريس سان جيرمان
+      logo: /public/static/img/logos/paris san-01.png
+      collections:
+          - name: Clubs
+          - name: Ligue 1
+    - name:
+        en: Belgium
+        ar: بلجيكا
+      logo: /public/static/img/logos/belg-01.png
+      brandname: Adidas
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: Croatia
+        ar: كرواتيا
+      logo: /public/static/img/logos/cor-01.png
+      brandname: Nike
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: Denmark
+        ar: الدنمارك
+      logo: /public/static/img/logos/denmark-01.png
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: England
+        ar: إنجلترا
+      logo: /public/static/img/logos/engl-01.png
+      brandname: Nike
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: France
+        ar: فرنسا
+      logo: /public/static/img/logos/france-01.png
+      brandname: Nike
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: Germany
+        ar: ألمانيا
+      logo: /public/static/img/logos/germ-01.png
+      brandname: Adidas
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: Iceland
+        ar: أيسلندا
+      logo: /public/static/img/logos/iceland-01.png
+      brandname: Arena
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: Spain
+        ar: إسبانيا
+      logo: /public/static/img/logos/spain-01.png
+      brandname: Adidas
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: Poland
+        ar: بولندا
+      logo: /public/static/img/logos/poland-01.png
+      brandname: Nike
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: Portugal
+        ar: برتغال
+      logo: /public/static/img/logos/portugal-01.png
+      brandname: Nike
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: Russia
+        ar: روسيا
+      logo: /public/static/img/logos/russia-01.png
+      brandname: Adidas
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: Serbia
+        ar: صربيا
+      logo: /public/static/img/logos/serbia-01.png
+      brandname: Umbro
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: Sweden
+        ar: السويد
+      logo: /public/static/img/logos/swed-01.png
+      brandname: Adidas
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: Switzerland
+        ar: سويسرا
+      logo: /public/static/img/logos/swiss-01.png
+      brandname: Puma
+      collections:
+          - name: WorldCup2018
+          - name: Europe
+    - name:
+        en: Egypt
+        ar: مصر
+      logo: /public/static/img/logos/egypt-01.png
+      brandname: Adidas
+      collections:
+          - name: WorldCup2018
+          - name: Africa
+    - name:
+        en: Morroco
+        ar: المغرب
+      logo: /public/static/img/logos/mor-01.png
+      brandname: Adidas
+      collections:
+          - name: WorldCup2018
+          - name: Africa
+    - name:
+        en: Tunisia
+        ar: تونس
+      logo: /public/static/img/logos/tunis-01.png
+      brandname: Uhl Sport
+      collections:
+          - name: WorldCup2018
+          - name: Africa
+    - name:
+        en: Nigeria
+        ar: نيجيريا
+      logo: /public/static/img/logos/nigiria-01.png
+      brandname: Nike
+      collections:
+          - name: WorldCup2018
+          - name: Africa
+    - name:
+        en: Senegal
+        ar: السنغال
+      logo: /public/static/img/logos/sen-01.png
+      collections:
+          - name: WorldCup2018
+          - name: Africa
+    - name:
+        en: Saudi Arabia
+        ar: المملكة العربية السعودية
+      logo: /public/static/img/logos/saudi-01.png
+      brandname: Nike
+      collections:
+          - name: WorldCup2018
+          - name: Asia
+    - name:
+        en: Japan
+        ar: اليابان
+      logo: /public/static/img/logos/Japan-1-01.png
+      brandname: Adidas
+      collections:
+          - name: WorldCup2018
+          - name: Asia
+    - name:
+        en: South Korea
+        ar: كوريا الجنوبية
+      logo: /public/static/img/logos/s.kor-01.png
+      brandname: Nike
+      collections:
+          - name: WorldCup2018
+          - name: Asia
+    - name:
+        en: Iran
+        ar: إيران
+      logo: /public/static/img/logos/iran_-01.png
+      brandname: Adidas
+      collections:
+          - name: WorldCup2018
+          - name: Asia
+    - name:
+        en: Australia
+        ar: أستراليا
+      logo: /public/static/img/logos/aus-01.png
+      brandname: Nike
+      collections:
+          - name: WorldCup2018
+          - name: Asia
+    - name:
+        en: Argentina
+        ar: الأرجنتين
+      logo: /public/static/img/logos/arg-01.png
+      brandname: Adidas
+      collections:
+          - name: WorldCup2018
+          - name: South America
+    - name:
+        en: Brazil
+        ar: البرازيل
+      logo: /public/static/img/logos/brazil1-01.png
+      brandname: Nike
+      collections:
+          - name: WorldCup2018
+          - name: South America
+    - name:
+        en: Colombia
+        ar: كولومبيا
+      logo: /public/static/img/logos/colom-1-01.png
+      brandname: Adidas
+      collections:
+          - name: WorldCup2018
+          - name: South America
+    - name:
+        en: Uruguay
+        ar: أوروغواي
+      logo: /public/static/img/logos/urguay-01.png
+      brandname: Puma
+      collections:
+          - name: South America
+          - name: WorldCup2018
+    - name:
+        en: Peru
+        ar: بيرو
+      logo: /public/static/img/logos/peru-01.png
+      brandname: Umbro
+      collections:
+          - name: WorldCup2018
+          - name: South America
+    - name:
+        en: Costa Rica
+        ar: كوستا ريكا
+      logo: /public/static/img/logos/costa rica-01.png
+      brandname: New Balance
+      collections:
+          - name: WorldCup2018
+          - name: North, Central America and Carribean
+    - name:
+        en: Mexico
+        ar: المكسيك
+      logo: /public/static/img/logos/MEX-01.png
+      brandname: Adidas
+      collections:
+          - name: WorldCup2018
+          - name: North, Central America and Carribean
+    - name:
+        en: Panama
+        ar: بناما
+      logo: /public/static/img/logos/PANA-01.png
+      brandname: New Balance
+      collections:
+          - name: WorldCup2018
+          - name: North, Central America and Carribean

@@ -1,0 +1,252 @@
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/public/static/vendor/chosen_v1.8.2/chosen.min.css" crossorigin="anonymous">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+      href="/public/static/vendor/bootstrap-4.0.0-beta.2-dist/css/bootstrap.min.css"
+      crossorigin="anonymous">
+<link rel="stylesheet" href="/public/static/vendor/fontawesome-free-5.0.6/on-server/css/fontawesome-all.min.css"
+      crossorigin="anonymous">
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="tables-container tables-container--home">
+    <div class="home-table__chevron" onclick="toggletablesprevious();">
+        {% if locale == "en-US" or locale == "" %}
+            <i class="fas fa-chevron-left fa-chevron-left--home"></i>
+        {% else %}
+            <i class="fas fa-chevron-right fa-chevron-right--home"></i>
+        {% endif %}
+    </div>
+    <div class="table table--home">
+        <div class="home-table__header-row">
+            {% for comp in stats_filters.ListCompetitions|slice:":3" %}
+            {% if forloop.Counter == 1 %}
+                <div class="home-table__header-item home-table__header-item--selected" id="col{{ forloop.Counter }}" style="cursor:pointer;">
+            {% else %}
+                <div class="home-table__header-item" id="col{{ forloop.Counter }}"  style="cursor:pointer;">
+            {% endif %}
+                <span class="home-table__header-item">{{ t(comp.Name|stringformat:"stats.%v", comp.Name) }}</span>
+            </div>
+            {% endfor %}
+                <a href="{{ href('/stats/') }}" class="home-table__header-item">
+                    <span>{{ t("base.viewAll") }}</span>
+                </a>
+            </div>
+        </div>
+        {% for comp in stats_filters.ListCompetitions|slice:":3" %}
+            {% if forloop.Counter > 1 %}
+                <div class="home-table" id="leaguedetails{{ forloop.Counter }}" style="display:none";>
+            {% else %}
+                <div class="home-table" id="leaguedetails{{ forloop.Counter }}" style="display:grid";>
+            {% endif %}
+                {% with currentSeasonID=comp.CurrentSeasonID|integer %} 
+                {% for fixture in stats_filters.ListFixturesBySeason(currentSeasonID)|slice:":8" %}
+                    {% with localTeam=stats_filters.ConvertGosportmonksTeamToStatsTeam(fixture.LocalTeamInclude.LocalTeam) %}
+                    {% with visitorTeam=stats_filters.ConvertGosportmonksTeamToStatsTeam(fixture.VisitorTeamInclude.VisitorTeam) %}
+                        <a href="/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="home-table__cell">
+                            <div class="home-table__logo-container">
+                                {% if localTeam.LogoPath == "" %}
+                                    <img class="home-table__logo" src="/public/static/icons/clubs/official_logo_soon.png" alt="{{ l10n(localTeam,'Name') }}">
+                                {% else %}
+                                    <img src="{{ localTeam.LogoPath }}" alt="{{ l10n(localTeam,"Name") }}" class="home-table__logo">
+                                {% endif %}
+                            </div>
+                            <span class="home-table__team-name"> {{ l10n(localTeam,"Name") }}</span>
+                            <span class="home-table__goals">{{ fixture.Scores.LocalTeamScore }}</span>
+
+                            <div class="home-table__logo-container">
+                                {% if visitorTeam.LogoPath == "" %}
+                                    <img class="home-table__logo" src="/public/static/icons/clubs/official_logo_soon.png" alt="{{ l10n(visitorTeam,'Name') }}">
+                                {% else %}
+                                    <img src="{{ visitorTeam.LogoPath }}" alt="{{ l10n(visitorTeam,"Name") }}" class="home-table__logo">
+                                {% endif %}
+                            </div>
+                            <span class="home-table__team-name"> {{ l10n(visitorTeam,"Name")}}</span>
+                            <span class="home-table__goals">{{ fixture.Scores.VisitorTeamScore }}</span>
+                        </a>
+                    {% endwith %}
+                    {% endwith %}
+                {% endfor %}
+                <a href="/stats/league/{{ comp.ID }}/season/{{ comp.CurrentSeasonID }}/" class="home-table__view-all">
+                    {{  t("base.viewAll") }}
+                </a>
+            </div>
+            {% endwith %}
+        {% endfor %}
+        <div class="home-table__chevron" onclick="toggletablesnext();">
+            {% if locale == "en-US" or locale == "" %}
+                <i class="fas fa-chevron-right fa-chevron-right--home"></i>
+            {% else %}
+                <i class="fas fa-chevron-left fa-chevron-left--home"></i>
+            {% endif %}
+        </div>
+    </div>
+    <!-- divider -->
+    <div class="divider-line"></div>
+    <!-- /divider -->
+</div>
+
+<div class="flex-container flex-container--download-app" id="downloadApp">
+    <div class="background--app"></div>
+    <div class="main-container main-container--download-app">
+        <h2 class="heading heading--download-app">{{ t("pages.homepage.downloadVictoryApp") }}</h2>
+        <div class="text text--download-app">{{ t("pages.homepage.downloadVictoryAppText") }}</div>
+        <div class="button-row button-row--app-store">
+            <button class="button button--app-store">
+                <i class="fab fa-google-play" aria-hidden="true"></i>
+                {{ t("pages.homepage.buttons.playStore") }}
+            </button>
+            <button class="button button--app-store">
+                <i class="fab fa-apple" aria-hidden="true"></i>
+                {{ t("pages.homepage.buttons.appStore") }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="featured-container">
+
+    <a href="{{ href('/shop/whatsnew/') }}" class="featured-container__block featured-container__block--whats-new">
+        <img src="{{ whatsnew_product.Thumbnail }}" alt="{{ whatsnew_product.Name }}" class="featured-container__image">
+        <h2 class="featured-container__text">{{ t("pages.homepage.whatsNew") }}</h2>
+    </a>
+
+    <a href="{{ href('/shop/featured/') }}" class="featured-container__block featured-container__block--featured">
+        <img src="{{ featured_product.Thumbnail }}" alt="{{ featured_product.Name }}" class="featured-container__image">
+        <h2 class="featured-container__text">
+            {{ t("pages.homepage.featured") }}
+        </h2>
+    </a>
+
+</div>
+
+<div class="main-container--bestsellers">
+    <h2 class="u--bold">{{ t("pages.homepage.bestSellers") }}</h2>
+    <div class="product-cards">
+        {% for p in bestseller_products|slice:":4" %}
+            <a href="{{ href(p.ID|stringformat:'/shop/bestsellers/%v/') }}" class="product-cards__card">
+                {% if p.Thumbnail == "" %}
+                    <img class="product-cards__card-image" src="/public/static/img/1x/Asset%2011.png" alt="Card image cap">
+                {% else %}
+                    <img class="product-cards__card-image" src="{{ p.Thumbnail }}" alt="{{ p.Name }}">
+                {% endif %}
+                <hr>
+                <h5 class="product-cards__title">{{ p.Name }}</h5>
+                <p class="product-cards__text">{{ t("currency.aed_x", p.Price|floatformat:"0") }}</p>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+{% block extend_javascript %}
+<script type="text/javascript">
+
+    var selectClass = "home-table__header-item--selected";
+
+    $("#col1").click(function(){
+        $("#col1").addClass(selectClass);
+        $("#col2").removeClass(selectClass);
+        $("#col3").removeClass(selectClass);
+        document.getElementById("leaguedetails1").style.display = "grid";
+        document.getElementById("leaguedetails2").style.display = "none";
+        document.getElementById("leaguedetails3").style.display = "none";
+    });
+    $("#col2").click(function(){
+        $("#col1").removeClass(selectClass);
+        $("#col2").addClass(selectClass);
+        $("#col3").removeClass(selectClass);
+        document.getElementById("leaguedetails1").style.display = "none";
+        document.getElementById("leaguedetails2").style.display = "grid";
+        document.getElementById("leaguedetails3").style.display = "none";
+    });
+    $("#col3").click(function(){
+        $("#col1").removeClass(selectClass);
+        $("#col2").removeClass(selectClass);
+        $("#col3").addClass(selectClass);
+        document.getElementById("leaguedetails1").style.display = "none";
+        document.getElementById("leaguedetails2").style.display = "none";
+        document.getElementById("leaguedetails3").style.display = "grid";
+    });
+    function toggletablesprevious()
+    {
+        if(document.getElementById("leaguedetails1").style.display == "grid")
+        {
+            $("#col1").removeClass(selectClass);
+            $("#col3").addClass(selectClass);
+            document.getElementById("leaguedetails1").style.display = "none";
+            document.getElementById("leaguedetails3").style.display = "grid";
+        }
+        else if(document.getElementById("leaguedetails2").style.display == "grid")
+        {
+            $("#col1").addClass(selectClass);
+            $("#col2").removeClass(selectClass);
+            document.getElementById("leaguedetails1").style.display = "grid";
+            document.getElementById("leaguedetails2").style.display = "none";
+        }
+        else if(document.getElementById("leaguedetails3").style.display == "grid")
+        {
+            $("#col2").addClass(selectClass);
+            $("#col3").removeClass(selectClass);
+            document.getElementById("leaguedetails2").style.display = "grid";
+            document.getElementById("leaguedetails3").style.display = "none";
+        }
+    }
+    function toggletablesnext()
+    {
+        if(document.getElementById("leaguedetails1").style.display == "grid")
+        {
+            $("#col1").removeClass(selectClass);
+            $("#col2").addClass(selectClass);
+            document.getElementById("leaguedetails1").style.display = "none";
+            document.getElementById("leaguedetails2").style.display = "grid";
+        }
+        else if(document.getElementById("leaguedetails2").style.display == "grid")
+        {
+            $("#col2").removeClass(selectClass);
+            $("#col3").addClass(selectClass);
+            document.getElementById("leaguedetails2").style.display = "none";
+            document.getElementById("leaguedetails3").style.display = "grid";
+        }
+        else if(document.getElementById("leaguedetails3").style.display == "grid")
+        {
+            $("#col1").addClass(selectClass);
+            $("#col3").removeClass(selectClass);
+            document.getElementById("leaguedetails1").style.display = "grid";
+            document.getElementById("leaguedetails3").style.display = "none";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        async function slideshow() {
+                $('#background-2').prop("checked", true);
+                await sleep(3000);
+                $('#background-3').prop("checked", true);
+                await sleep(3000);
+                $('#background-1').prop("checked", true);
+                await sleep(3000);
+        }
+
+        (function() { 
+            setInterval(async function() {
+                $('#background-2').prop("checked", true);
+                await sleep(3000);
+                $('#background-3').prop("checked", true);
+                await sleep(3000);
+                $('#background-1').prop("checked", true);
+                await sleep(3000);
+            }, 9000);
+        })();
+
+        function sleep(ms) {
+             return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        slideshow();
+    });
+</script>
+{% endblock %}

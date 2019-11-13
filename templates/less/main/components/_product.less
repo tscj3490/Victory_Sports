@@ -1,0 +1,126 @@
+.product {
+    flex-grow: 1;
+    max-width: 50rem;
+
+    &__form {
+        flex-shrink: 0;
+        min-width: 20rem;
+        padding: 0 0 0 3rem;
+
+        &:lang(ar) {
+            padding: 0 3rem 0 0;
+        }
+
+        @media screen and (max-width: @bootstrap_sm) {
+            // display: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__main-image {
+        display: block;
+        width: 100%;
+        max-width: 35rem;
+        margin: 0 auto;
+    }
+
+    &__preview-container {
+        display: flex;
+        flex-direction: column;
+        margin-right: 1rem;
+        max-width: 5rem;
+
+        &:lang(ar) {
+            margin: 0;
+            margin-left: 1rem;
+        }
+
+        @media screen and (max-width: @bootstrap_sm) {
+            flex-direction: row;
+            margin: 0;
+            margin-top: 1rem;
+        
+            &:lang(ar) {
+                margin: 0;
+                margin-top: 1rem;
+            }
+        }
+    }
+
+    &__preview-image {
+        max-width: 100%;
+        height: auto;
+
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+
+            @media screen and (max-width: @bootstrap_sm) {
+                flex-direction: row;
+                margin: 0;
+                margin-right: 1rem;
+            
+                &:lang(ar) {
+                    margin: 0;
+                    margin-left: 1rem;
+                }
+            }
+        }
+    }
+
+    &__price {
+        font-weight: 600;
+
+        @media screen and (max-width: @bootstrap_sm) {
+            display: none;
+        }
+    }
+
+    &__title {
+        display: none;
+        padding-top: 1rem;
+        text-align: center;
+        
+        @media screen and (max-width: @bootstrap_sm) {
+            display: block;
+            text-align: left;
+            padding: 1rem 2rem 0 2rem;
+            
+            h5 {
+                font-weight: 700;
+            }
+
+            span {
+                font-weight: 400;
+            }
+        }
+
+        &--sidebar {
+            font-weight: 600;
+
+            @media screen and (max-width: @bootstrap_sm) {
+                display: none;
+            }
+        }
+    }
+}
+
+.product-form {
+
+    &__heading {
+        display: flex;
+        align-items: center;
+    }
+
+    &__toggle {
+        margin-left: auto;
+        padding: 0 1rem;
+        font-size: 2rem;
+        cursor: pointer;
+
+        &:lang(ar) {
+            margin-left: 0;
+            margin-right: auto;
+        }
+    }
+}

@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block header_title %}
+    <a href="{{ href("/") }}" class="header-title__link">
+        {% if locale == "en-US" or locale == "" %}
+            <h1 class="header-title">&nbsp;</h1>
+        {% else %}
+            <h1 class="header-title header-title--arabic">&nbsp;</h1>                    
+        {% endif %}
+        <span class="header-title__subtitle color-stats">{{ t("pages.user.header") }}</span>
+    </a>
+{% endblock %}
+
+{% block header_button %}
+{% endblock %}
+
+{% block below_header_buttons %}
+    <div class="header__background header__row--home"></div>
+{% endblock %}
+
+
+{% block top_leader %}
+{%  endblock %}
+
+{% block extra_css %}
+    {#<script src="/public/static/js/firebug-lite.js#startOpened=true"></script>#}
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.3.0/firebaseui.css" />
+{% endblock %}
+
+
+{% block content %}
+    <div class="main-container main-container--sign-in background background--standard">
+        <div id="firebaseui-auth-container">
+            <h4 class="heading--sign-in">{{ t("pages.user.signIn") }}</h4>
+        </div>
+    </div>
+{% endblock %}
+{% block extend_javascript %}
+
+<script src="https://www.gstatic.com/firebasejs/5.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDKEB4twE57BWYwj1nMYxOFrF0JFyjIQzo",
+        authDomain: "sh-tt-victory.firebaseapp.com",
+        databaseURL: "https://sh-tt-victory.firebaseio.com",
+        projectId: "sh-tt-victory",
+        storageBucket: "",
+        messagingSenderId: "871713921541"
+    };
+    firebase.initializeApp(config);
+</script>
+{% if not user %}
+<script src="https://cdn.firebase.com/libs/firebaseui/3.3.0/firebaseui.js"></script>
+<script type="text/javascript">
+    // FirebaseUI config.
+    console.log("firebaseUI starting");
+    var uiConfig = {
+        signInSuccessUrl: '{{ href("/user/auth/signinSuccess") }}'+location.search,
+        callbacks: {
+            signInSuccess: function(currentUser, credential, redirectUrl) {
+                // console.log("currentUser", currentUser, "credential", credential, "redirectUrl", redirectUrl);
+                // Do something.
+                // Return type determines whether we continue the redirect automatically
+                // or whether we leave that to developer to handle.
+                // console.log("firebaseUI signInSuccess ...", currentUser, credential);
+                // var userData = {
+                //     displayName: currentUser.displayName,
+                //     email: currentUser.email,
+                //     emailVerified: currentUser.emailVerified,
+                //     isAnonymous: currentUser.isAnonymous,
+                //     phoneNumber: currentUser.phoneNumber,
+                //     photoUrl: currentUser.photoUrl,
+                //     refreshToken: currentUser.refreshToken,
+                //     uid: currentUser.uid
+                // };
+                // var credentials = {
+                //     accessToken: credential.accessToken,
+                //     idToken: credential.idToken,
+                //     providerId: credential.providerId
+                // };
+                return true;
+            },
+            signInFailure: function(error) {
+                // Some unrecoverable error occurred during sign-in.
+                // Return a promise when error handling is completed and FirebaseUI
+                // will reset, clearing any UI. This commonly occurs for error code
+                // 'firebaseui/anonymous-upgrade-merge-conflict' when merge conflict
+                // occurs. Check below for more details on this.
+                console.log("signInFailure", error);
+                return handleUIError(error);
+            }
+        },
+        signInFlow: 'redirect',
+        credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM,
+        signInOptions: [
+            // Leave the lines as is for the providers you want to offer your users.
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+            // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        // Terms of service url.
+        tosUrl: '/terms-of-service/'
+    };
+
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.disableAutoSignIn();
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+        /* setTimeout(function() {
+            var signUpGoogle = document.getElementById('signUpGoogle');
+            var signUpEmail = document.getElementById('signUpEmail');
+            var googleButtons = document.querySelectorAll('.firebaseui-idp-google');
+            var emailButtons = document.querySelectorAll('.firebaseui-idp-password');        
+            console.log(googleButtons);
+            signUpGoogle.addEventListener("click", function(e) {
+                googleButtons[1].click();
+            })
+            signUpEmail.addEventListener("click", function(e) {
+                emailButtons[1].click();
+            })
+        }, 500); */
+
+        setTimeout(function() {
+            var buttonText = document.querySelectorAll('.firebaseui-idp-text-long');
+            buttonText[0].innerHTML = "Sign in / Sign up with Google";
+            buttonText[1].innerHTML = "Sign in / Sign up with email";
+        }, 200);
+    });
+</script>
+{% endif %}
+{% endblock %}

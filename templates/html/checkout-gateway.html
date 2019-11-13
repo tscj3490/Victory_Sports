@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+    <script src="https://eu-gateway.mastercard.com/checkout/version/49/checkout.js"
+            data-error="errorCallback"
+            data-beforeRedirect="Checkout.saveFormFields"
+            data-afterRedirect="Checkout.restoreFormFields"
+            data-cancel="cancelCallback">
+    </script>
+
+    <script type="text/javascript">
+        function completeCallback() {
+            //handle payment completion
+            var retVal = confirm("Your transaction was completed would you like to see the receipt?");
+            if( retVal === true ){
+                window.location.href = "{{ order.URL() }}";
+            }
+        }
+        function errorCallback(error) {
+            console.log(JSON.stringify(error));
+            var errHeadline = "{{ t("pages.checkoutGatewayRedirect.redirectToGatewayFailed") }}";
+            var errMsg = 'The payment gateway responded with: ' + error.cause + ": "+ error.explanation;
+            $("#redirect_headline").html(errHeadline);
+            $("#redirect_msg").html(errMsg);
+        }
+        (function poll() {
+            setTimeout(function() {
+                $.ajax({
+                    url: "{{ order.GetOrderStateURL() }}",
+                    type: "GET",
+                    success: function(orderState) {
+                        var state = orderState.State;
+                        var updatedAt = orderState.UpdatedAt;
+                        if (state === "paid") {
+                            completeCallback()
+                        } else {
+                            console.log("polling");
+                        }
+                    },
+                    dataType: "json",
+                    complete: poll,
+                    timeout: 2000
+                });
+            }, 5000);
+        })();
+        Checkout.configure({
+            merchant: '{{ GATEWAY_MERCHANT_ID }}',
+            order: {
+                amount: {{ order.Total|floatformat:"2" }},
+                currency: 'AED',
+                description: '{{ t("pages.checkoutGateway.description", order) }}',
+                id: function() {
+                    return '{{ order.Reference }}';
+                }
+            },
+            session:{
+                id:'{{SESSION_ID}}',
+                version: '{{SESSION_VERSION}}'
+            },
+            {#billing: {#}
+                {#address: {#}
+                    {#street: '{{ order.ShippingAddress.AddressLine1 }} {{ order.ShippingAddress.AddressLine2 }}',#}
+                    {#city: '{{ order.ShippingAddress.City }}',#}
+                    {#country: '{{ order.ShippingAddress.Country }}',#}
+                {#}#}
+            {#},#}
+            {#customer: {#}
+                {#email: '{{ order.Email }}',#}
+                {#phone: '{{ order.ShippingAddress.Telephone }}'#}
+            {#},#}
+            interaction: {
+                merchant: {
+                    name: '{{ GATEWAY_MERCHANT_NAME }}',
+                    address: {
+                        line1: "{{  GATEWAY_MERCHANT_ADDRESS_LINE1 }}",
+                        line2: "{{ GATEWAY_MERCHANT_ADDRESS_LINE2 }}",
+                    }
+                },
+            }
+        });
+        // The URL to which you want to redirect the payer's browser if they cancel their payment.
+        cancelCallback = window.location.href+"?canceled=true";
+    </script>
+{% endblock %}
+
+{% block header_title %}
+    <a href="/" class="header-title__link">
+        {% if locale == "en-US" or locale == "" %}
+            <h1 class="header-title">&nbsp;</h1>
+        {% else %}
+            <h1 class="header-title header-title--arabic">&nbsp;</h1>                    
+        {% endif %}
+        <span class="header-title__subtitle">{{ t("pages.shop.header_title") }}</span>
+    </a>
+{% endblock %}
+
+{% block below_header_buttons %}
+    <div class="header__background">
+        <div class="header__row--secondary">
+            <a href="{{ href("/shop/any/") }}" class="header__link u--bold">{{ t("pages.shop.title") }}</a>
+            <a href="{{ href("/stats/") }}" class="header__link u--bold">{{ t("pages.stats.title") }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block top_leader %}
+{% endblock %}
+
+{% block content %}
+    {% if canceled == true %}
+    {% else %}
+        <script>
+            // Checkout.showPaymentPage();
+            Checkout.showLightbox();
+        </script>
+    {% endif %}
+    {#<input type="button" value="Pay with Lightbox" onclick="Checkout.showLightbox();" />#}
+    {#<input type="button" value="Pay with Payment Page" onclick="Checkout.showPaymentPage();" />#}
+    <div class="background background--standard main-container main-container--payment">
+        <div>
+            <h4 id="redirect_headline">{{ t("pages.checkoutGatewayRedirect.redirectToGateway") }}</h4>
+            <p id="redirect_msg">{{ t("pages.checkoutOrderReceived.description") }}</p>
+            <p>{{ t("pages.checkoutOrderReceived.referenceNrText", order.Reference) }}</p>
+        </div>
+        {% if canceled == true %}
+            <script>
+                var errHeadline = "Payment Canceled";
+                var errMsg = 'You canceled the payment.';
+                $("#redirect_headline").html(errHeadline);
+                $("#redirect_msg").html(errMsg);
+            </script>
+        {% endif %}
+    </div>
+{% endblock %}

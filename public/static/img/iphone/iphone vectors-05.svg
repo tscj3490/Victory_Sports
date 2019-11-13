@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="376px" height="293px" viewBox="0 0 376 293" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>iphone vectors-05</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100.369144%" y1="50.0019669%" x2="-0.3691443%" y2="50.0019669%" id="linearGradient-1">
+            <stop stop-color="#91E9BE" offset="0%"></stop>
+            <stop stop-color="#8DD4CB" offset="32%"></stop>
+            <stop stop-color="#85A1EA" offset="94%"></stop>
+        </linearGradient>
+        <linearGradient x1="257852%" y1="210322%" x2="273604%" y2="210322%" id="linearGradient-2">
+            <stop stop-color="#91E9BE" offset="0%"></stop>
+            <stop stop-color="#8DD4CB" offset="32%"></stop>
+            <stop stop-color="#85A1EA" offset="94%"></stop>
+        </linearGradient>
+        <linearGradient x1="270002%" y1="192917%" x2="283601%" y2="192917%" id="linearGradient-3">
+            <stop stop-color="#91E9BE" offset="0%"></stop>
+            <stop stop-color="#8DD4CB" offset="32%"></stop>
+            <stop stop-color="#85A1EA" offset="94%"></stop>
+        </linearGradient>
+        <linearGradient x1="264529%" y1="185154%" x2="297705%" y2="185154%" id="linearGradient-4">
+            <stop stop-color="#91E9BE" offset="0%"></stop>
+            <stop stop-color="#8DD4CB" offset="32%"></stop>
+            <stop stop-color="#85A1EA" offset="94%"></stop>
+        </linearGradient>
+        <linearGradient x1="272237%" y1="181934%" x2="293743%" y2="181934%" id="linearGradient-5">
+            <stop stop-color="#91E9BE" offset="0%"></stop>
+            <stop stop-color="#8DD4CB" offset="32%"></stop>
+            <stop stop-color="#85A1EA" offset="94%"></stop>
+        </linearGradient>
+        <linearGradient x1="274950%" y1="178192%" x2="295025%" y2="178192%" id="linearGradient-6">
+            <stop stop-color="#91E9BE" offset="0%"></stop>
+            <stop stop-color="#8DD4CB" offset="32%"></stop>
+            <stop stop-color="#85A1EA" offset="94%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iphone-vectors-05">
+            <g transform="translate(-131.000000, -98.000000)">
+                <rect id="Rectangle-path" fill="#E6E6E6" fill-rule="nonzero" x="128" y="98" width="379" height="293"></rect>
+                <g id="Group" stroke-width="4">
+                    <path d="M526.59,254.66 L106.7,0.45" id="Shape" stroke="url(#linearGradient-1)" fill="#FFFFFF" fill-rule="nonzero"></path>
+                    <circle id="Oval" stroke="url(#linearGradient-2)" transform="translate(317.236958, 127.405006) rotate(-58.810000) translate(-317.236958, -127.405006) " cx="317.236958" cy="127.405006" r="75.75"></circle>
+                    <path d="M267.42,352.62 C278.974798,318.891125 265.452005,281.669642 234.941632,263.223301 C204.431259,244.77696 165.188361,250.096705 140.69,276" id="Shape" stroke="url(#linearGradient-3)"></path>
+                    <polyline id="Shape" stroke="url(#linearGradient-4)" points="244.41 521 325.11 387.7 80.73 239.75 0.03 373.05"></polyline>
+                    <polyline id="Shape" stroke="url(#linearGradient-5)" points="205.9 497.69 248.03 428.11 81.77 327.46 39.65 397.03"></polyline>
+                    <path d="M223.47,508.23 L25.81,389.2" id="Shape" stroke="url(#linearGradient-6)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

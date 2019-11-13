@@ -1,0 +1,29 @@
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/public/static/vendor/chosen_v1.8.2/chosen.min.css" crossorigin="anonymous">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+      href="/public/static/vendor/bootstrap-4.0.0-beta.2-dist/css/bootstrap.min.css"
+      crossorigin="anonymous">
+<link rel="stylesheet" href="/public/static/vendor/fontawesome-free-5.0.6/on-server/css/fontawesome-all.min.css"
+      crossorigin="anonymous">
+
+{% extends "base.html" %}
+
+{% block top_leader %}
+{% endblock %}
+
+{% block below_header_buttons %}
+    <div class="header__background">
+        <div class="header__row--secondary">
+            <a href="{{ href("/shop/any/") }}" class="header__link u--bold">{{ t("pages.shop.title") }}</a>
+            <a href="{{ href("/stats/") }}" class="header__link u--bold">{{ t("pages.stats.title") }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="background background--shop main-container">
+    
+    </div>
+{% endblock %}

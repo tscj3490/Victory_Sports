@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="{{ t("base.lang") }}" dir="{{ t("base.dir") }}">
+<head>
+    <!-- current version {{ version }} -->
+    {% block page_head_title %}
+        <title>{{ t("base.page_title") }}</title>
+    {% endblock %}
+    {% block page_head_analytics_tags %}
+    {% endblock %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/public/static/vendor/bootstrap-4.0.0-beta.2-dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/static/css/main.css?{{ version }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/static/vendor/fontawesome-free-5.0.6/on-server/css/fontawesome-all.min.css"
+          crossorigin="anonymous">
+    <link href="/public/static/vendor/open-iconic-v1.1.0/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/public/static/vendor/chosen_v1.8.2/chosen.min.css" crossorigin="anonymous">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.0/firebaseui.css" />
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body lang="{{ t('base.lang') }}" dir="{{ t('base.dir') }}">
+    <script src="/public/static/vendor/jquery-3.2.1/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+
+    {% block header %}
+        <div class="header-row header__row header__row--main">
+            <div class="header__block header__block--left">
+                <div class="header__item header__item--hamburger mobile-menu">
+                    <label for="show-menu" class="show-menu"><i class="fas fa-bars"></i></label>
+                    <input type="checkbox" id="show-menu" role="button">
+                    <div class="mobile-menu__wrapper">
+                        <ul id="menu">
+                            <li class="menu_lvl_1"><a href="{{ href('/') }}"><span>{{ t("menu.home") }}</span></a></li>
+                            {% block mobile_menu_items__before %}{% endblock %}
+                            {% block mobile_menu_items %}
+                                <li class="menu_lvl_1">
+                                    <a href="#" class="highlight_btm_border">
+                                        <span>{{ t("pages.shop.title") }}</span>
+                                        <div class='mobile-menu__lil-arrow'></div>
+                                    </a>
+                                    <ul class="hidden">
+                                        <li class="menu_lvl_2">
+                                            <a href="{{ href(menu_links('shop','any')) }}">
+                                                <span>{{ t("pages.shop.all") }}</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu_lvl_2">
+                                            <a href="{{ href(menu_links('shop','clubs')) }}">
+                                                <span>{{ t("pages.shop.clubs") }}</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu_lvl_2">
+                                            <a href="{{ href(menu_links('shop','worldcup')) }}">
+                                                <span>{{ t("pages.shop.internationalTeams") }}</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu_lvl_2">
+                                            <a href="{{ href(menu_links('shop','players')) }}">
+                                                <span>{{ t("pages.shop.players") }}</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu_lvl_2">
+                                            <a href="{{ href(menu_links('shop','merchandise')) }}">
+                                                <span>{{ t("pages.shop.merchandise") }}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="menu_lvl_1">
+                                    <a href="#" class="highlight_btm_border">
+                                        <span>{{ t("pages.stats.title") }}</span>
+                                        <div class='mobile-menu__lil-arrow'></div>
+                                    </a>
+                                    <ul class="hidden">
+                                        <li class="menu_lvl_2">
+                                            <a href="{{ href(menu_links('stats','scores')) }}">
+                                                <span>{{ t("pages.stats.scores") }}</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu_lvl_2">
+                                            <a href="{{ href(menu_links('stats','top-scorers')) }}">
+                                                <span>{{ t("pages.stats.topScorer") }}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            {% endblock %}
+                            <li class="menu_lvl_1">
+                                <a href="{{ href(menu_links('cart','')) }}">
+                                    <span>{{ t("menu.cart") }}</span>
+                                </a>
+                            </li>
+                            {% if user %}
+                                <li class="menu_lvl_1">
+                                    <form action="{{  href(menu_links('user_auth','signout')) }}" method="post">
+                                        <button type="submit" class="button button--sign-out">
+                                            <span>{{ t("auth.signout") }}</span>
+                                        </button>
+                                    </form>
+                            {% else %}
+                                <li class="menu_lvl_1">
+                                    <a href="{{ href(menu_links('user_auth','signin')) }}">
+                                        <span>{{ t("auth.signin") }}</span>
+                                    </a>
+                            {% endif %}
+                            </li>        
+                            <li class="menu_lvl_1">
+                                {% if locale == "en-US" or locale == "" %}
+                                    <a href="{{ menu_links('language','ar') }}">
+                                        <span>
+                                            <img class="ic_top ic_profile ic_arabic" src="/public/static/img/SVG/AR_switch_lang.svg" alt="Switch Language">
+                                        </span>
+                                {% else %}
+                                    <a href="{{ menu_links('language','en') }}">
+                                        <span class="text text--latin">English</span>
+                                {% endif %}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="{{ href('/user/profile/') }}" class="header__item header__item--profile">
+                    <img class="ic_top ic_top__profile" src="/public/static/img/SVG/profile.svg" alt="Profile">
+                </a>
+                <a href="{{ href('/shop/any/') }}" class="header__item header__item--search">
+                    <img class="ic_top ic_top__lookingglass" src="/public/static/img/SVG/search.svg" alt="Search">
+                </a>
+                <a href="{{ href('/cart/') }}" class="header__item header__item--cart">
+                    <img class="ic_top ic_top__cart" src="/public/static/img/SVG/bag.svg" alt="Cart">
+                    <span class="header__notification" id="headerNotification">0</span>
+                </a>
+            </div>
+
+            <div class="header__block header__block--title">
+                {% block header_title %}
+                    {% if locale == "en-US" or locale == "" %}
+                        <h1 class="header-title">&nbsp;</h1>
+                    {% else %}
+                        <h1 class="header-title header-title--arabic">&nbsp;</h1>                    
+                    {% endif %}
+                {% endblock %}
+            </div>
+
+            <div class="header__block header__block--right">
+                {% if user %}
+                    <div class="header__item header__item--auth sign-in__dropdown">
+                        <form action="{{ href('/user/auth/signout') }}" method="post">
+                            <button type="submit" class="button button--sign-out"><span>{{ t("auth.signout") }}</span></button>
+                        </form>
+                    </div>
+                {% else %}
+                    <a href="{{ href('/user/auth/signin') }}" class="header__item header__item--auth sign-in__dropdown">
+                        <span>{{ t("auth.signin") }}</span>
+                    </a>
+                {% endif %}
+                <div >
+                    {% if locale == "en-US" or locale == "" %}
+                        <a href="/ar{{ path }} " class="header__item header__item--lang">
+                            <img class="ic_top ic_top__switch_lang" src="/public/static/img/SVG/AR_switch_lang.svg" alt="Switch Language">
+                    {% else %}
+                        <a href="{{ path }}" class="header__item header__item--lang">
+                            <span class="text text--latin">English</span>
+                    {% endif %}
+                    </a>
+                </div>
+                {% block header_button %}
+                    <a href="{{ href('/stats/') }}" class="header__item header__item--stats">{{ t("pages.stats.title") }}</a>
+                {% endblock %}
+                <a href="{{ href('/cart/') }}" class="header__item header__item--cart-mobile">
+                    <img class="ic_top ic_top__cart" src="/public/static/img/SVG/bag.svg" alt="Cart">
+                </a>
+                {#<div class="menu-item">#}
+                    {#<img class="ic_top ic_top__lookingglass" src="/public/static/img/SVG/ic_lookingglass.svg" alt="Search">#}
+                {#</div>#}
+            </div>
+        </div>
+        
+        <script>
+            if (getCookie("quantity")) {
+                cookieValue = getCookie("quantity");
+            } else {
+                cookieValue = 0;
+            }
+
+            if (getCookie("cookie-consent")) {
+                consentCookieValue = getCookie("cookie-consent");
+            } else {
+                consentCookieValue = "false";
+            }
+
+            $(document).click(function(event) {
+                if(!$(event.target).closest('.mobile-menu').length) {
+                    if($('#show-menu').prop("checked")) {
+                        $('#show-menu').prop("checked", false);
+                    }
+                }        
+            });
+
+            (function() {
+                if (!getCookie("quantity")) {
+                    setCookie("quantity", 0);
+                }
+
+                updateQuantity();
+            })();
+
+            $(document).ready(function() {
+                if (getCookie("cookie-consent") == "true") {
+                    $(".cookie-banner").hide();
+                } else {
+                    setCookie('cookie-consent', "false");
+                }
+            })
+
+            $(document).on('click', '#cookie-banner-button', function (event) {
+                event.preventDefault();
+                setCookie("cookie-consent", "true");
+                $(".cookie-banner").hide();
+            });
+
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var cookieArray = document.cookie.split(';');
+                for(var i=0; i < cookieArray.length; i++) {
+                    var cookie = cookieArray[i];
+                    while (cookie.charAt(0)==' ') cookie = cookie.substring(1,cookie.length);
+                    if (cookie.indexOf(nameEQ) == 0) return cookie.substring(nameEQ.length,cookie.length);
+                }
+                return null;
+            }
+
+            function setCookie(name, value) {
+                var date = new Date();
+                date.setTime(date.getTime() + (24*60*60*1000)); // Save for one day 
+                expires = "; expires=" + date.toUTCString();
+                document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+            }
+
+            function eraseCookie(name) {   
+                document.cookie = name+'=; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+            }
+        
+            function updateQuantity() {
+                $('#headerNotification').text(cookieValue);
+            }
+        </script>
+    {% endblock %}
+
+    <div class="background--all">
+        {% block below_header_buttons %}
+            <div class="header__background header__row--home">
+                <div class="header__row--secondary">
+                    <a href="{{ href('/shop/any/') }}" class="header__link u--bold">{{ t("pages.shop.title") }}</a>
+                    <a href="{{ href('/stats/') }}" class="header__link u--bold">{{ t("pages.stats.title") }}</a>
+                </div>
+            </div>
+        {% endblock %}
+        {% block top_leader %}
+            <div class="hero">
+                <input type="radio" name="hero-background-selectors" class="hero__selector hero__selector--1" id="background-1" checked>
+                <label for="background-1" class="hero__label hero__label--1" id="hero-label-1"></label>
+                <input type="radio" name="hero-background-selectors" class="hero__selector hero__selector--2" id="background-2">
+                <label for="background-2" class="hero__label hero__label--2" id="hero-label-2"></label>
+                <input type="radio" name="hero-background-selectors" class="hero__selector hero__selector--3" id="background-3">
+                <label for="background-3" class="hero__label hero__label--3" id="hero-label-3"></label>
+                <div class="hero__background"></div>
+                <div class="hero__fade" id="hero-fade"></div>
+                <span class="heading--tagline">{{ t("topLeader.taglines.homepage") }}</span>
+            </div>
+
+            <script>
+                $('[id^=hero-label-]').click(function() {
+                    var id = document.getElementById('hero-fade');
+                    id.style.webkitAnimation = 'none';
+                    setTimeout(function() {
+                        id.style.webkitAnimation = '';
+                    }, 10);
+                });
+            </script>
+        {% endblock %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
+    
+    <div class="cookie-banner">
+        <p class="cookie-banner__text">{{ t("pages.homepage.cookiePolicy") }} <a href="#" class="cookie-banner__link">{{ t("pages.homepage.cookiePolicyLink") }}</a>.</p>
+        <a href="#" class="cookie-banner__accept" id="cookie-banner-button">{{ t("pages.homepage.accept") }}</a>
+    </div>
+
+    <div class="footer">
+        <a href="{{ href('/about/') }}" class="footer__item">{{ t("footer.about") }}</a>
+        <a href="{{ href('/#downloadApp') }}" class="footer__item">{{ t("footer.downloadTheApp") }}</a>
+        <a href="{{ href('/customersupport/') }}" class="footer__item">{{ t("footer.customerService") }}</a>
+        <a href="{{ href('/shop/') }}" class="footer__item footer__item--shop">{{ t("pages.shop.title") }}</a>
+        <a href="{{ href('/stats/') }}" class="footer__item footer__item--stats">{{ t("pages.stats.title") }}</a>
+        <div class="footer__item footer__item--social">
+            <a href="https://www.facebook.com" class="footer__icon-link">
+                <img src="/public/static/img/SVG/ic_facebook.png" class="footer__icon">
+            </a>
+            <a href="https://www.twitter.com" class="footer__icon-link">
+                <img src="/public/static/img/SVG/ic_twitter.png" class="footer__icon">
+            </a>
+            <a href="https://www.instagram.com" class="footer__icon-link">
+                <img src="/public/static/img/SVG/ic_instagram.png" class="footer__icon">
+            </a>
+        </div>
+    </div>
+    <div id="cover"></div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/public/static/vendor/popper-1.12.3/popper.min.js" crossorigin="anonymous"></script>
+    <script src="/public/static/vendor/bootstrap-4.0.0-beta.2-dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+{% block extend_javascript %}{% endblock %}
+</body>
+</html>

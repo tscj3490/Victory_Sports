@@ -1,0 +1,311 @@
+{% extends "stats.html" %}
+
+{% block stats_content %}
+
+{% macro in_table_event(e) %}
+<div class="highlights__details-row">
+    <time class="highlights__time">{{ e.Minute }}'</time>
+    {% if e.Type == "goal" %}
+        <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_goal.svg" alt="Goal">
+    {% endif %}
+    {% if e.Type == "own-goal" %}
+        <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_goal.svg" alt="Goal">
+    {% endif %}
+    {% if e.Type == "yellowcard" %}
+        <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_yellow_card.svg" alt="Yellow Card">
+    {% endif %}
+    {% if e.Type == "redcard" %}
+        <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_red_card.svg" alt="Red Card">
+    {% endif %}
+    {% if e.Type == "substitution" %}
+        <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_substitution.svg" alt="Substitution">
+    {% endif %}
+    {% if e.Type == "penalty" %}
+        <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_goal.svg" alt="Penalty">
+    {% endif %}
+    {% if e.Type == "substitution" %}
+        <span>{{ e.PlayerName }} - {{ e.RelatedPlayerName }}</span>
+    {% else %}
+        <span>{{ e.PlayerName }}</span>
+    {% endif %}
+</div>
+<!-- {{ e.Type }} -->
+{% endmacro %}
+
+
+
+    {% with competitionID=statsLeagueID|integer %}
+    {% with comp=stats_filters.GetCompetition(competitionID) %}
+
+    <!-- stats table -->
+    <h3 class="heading heading--stats-title">{{ t(comp.Name|stringformat:"stats.%v", comp.Name) }}</h3>
+    <div>
+        <div class="table table--match">
+            <h3 class="table__header table__header--secondary table__header--centered match__time">{{ t("pages.stats.tableHeading.time") }}</h3>
+            <h3 class="table__header table__header--secondary table__header--centered match__team u--no-tab-sm">{{ t("pages.stats.tableHeading.team") }}</h3>
+            <h3 class="table__header table__header--secondary table__header--centered match__shop u--no-tab-sm">{{ t("pages.stats.tableHeading.shop") }}</h3>
+            <h3 class="table__header table__header--secondary table__header--highlight match__highlight u--no-tab-sm">{{ t("pages.stats.tableHeading.highlight") }}</h3>
+
+            {% with seasonID=statsSeasonID|integer %}
+            {% with fixtures = stats_filters.ListFixturesBySeasonAndDate(seasonID,stats_calendar.DateParameterTime, statsTeamID) %}
+            {% for fixture in fixtures %}
+
+            {% with localTeam=fixture.LocalTeamInclude.LocalTeam %}
+            {% with visitorTeam=fixture.VisitorTeamInclude.VisitorTeam %}
+            {% with matchHREF="/stats/league/"|add:statsLeagueID|add:"/season/"|add:statsSeasonID|add:"/match/"|add:fixture.ID|add:"/" %}
+            <div class="table__row table__row--match match">
+                {% with startingTime=fixture.Time.GetStartTime() %}
+                    {% if locale == "en-US" or locale == "" %}
+                        <a href="{{matchHREF}}" class="match__hour">
+                    {% else %}
+                        <a href="/ar{{matchHREF}}" class="match__hour">
+                    {% endif %}
+                        <time>
+                            {% if startingTime %}
+                                {{ startingTime.Format("3:04PM") }}
+                            {% else %}
+                                Unkown
+                            {% endif %}
+                        </time>
+                    </a>
+                    {% if locale == "en-US" or locale == "" %}
+                        <a href="{{matchHREF}}" class="match__team-logo-container match__team-logo-container--logo-1 u--no-tab-sm">
+                    {% else %}
+                        <a href="./ar{{matchHREF}}" class="match__team-logo-container match__team-logo-container--logo-1 u--no-tab-sm">
+                    {% endif %} 
+                        {% if localTeam.LogoPath == "" %}
+                            <img class="match__team-logo-image" src="/public/static/icons/clubs/official_logo_soon.png" alt="{{ t(localTeam.Name, localTeam.Name) }}">
+                        {% else %}
+                            <img class="match__team-logo-image" src="{{ localTeam.LogoPath }}" alt="{{ t(localTeam.Name, localTeam.Name) }}">
+                        {% endif %}
+                    </a>
+                    {% if locale == "en-US" or locale == "" %}
+                        <a href="{{matchHREF}}" class="match__team-logo-container match__team-logo-container--logo-2 u--no-tab-sm">
+                    {% else %}
+                        <a href="./ar{{matchHREF}}" class="match__team-logo-container match__team-logo-container--logo-2 u--no-tab-sm">
+                    {% endif %}
+                        {% if visitorTeam.LogoPath == "" %}
+                            <img class="match__team-logo-image" src="/public/static/icons/clubs/official_logo_soon.png" alt="{{ t(visitorTeam.Name, visitorTeam.Name) }}">
+                        {% else %}
+                            <img class="match__team-logo-image" src="{{ visitorTeam.LogoPath }}" alt="{{ t(visitorTeam.Name, visitorTeam.Name) }}">
+                        {% endif %}
+                    </a>
+                    {% if locale == "en-US" or locale == "" %}
+                        <a href="{{matchHREF}}" class="match__team-name match__team-name--local u--no-tab-sm">
+                    {% else %}
+                        <a href="/ar{{matchHREF}}" class="match__team-name match__team-name--local u--no-tab-sm">
+                    {% endif %}
+                        {{ t(localTeam.Name, localTeam.Name) }}
+                    </a>
+                    {% if locale == "en-US" or locale == "" %}
+                        <a href="{{matchHREF}}" class="match__team-name match__team-name--visitor u--no-tab-sm">
+                    {% else %}
+                        <a href="/ar{{matchHREF}}" class="match__team-name match__team-name--visitor u--no-tab-sm">
+                    {% endif %}
+                        {{ t(visitorTeam.Name, visitorTeam.Name) }}
+                    </a>
+                    <span class="match__goals match__goals--local">{{ fixture.Scores.LocalTeamScore }}</span>
+                    <span class="match__goals match__goals--visitor">{{ fixture.Scores.VisitorTeamScore }}</span>
+                {% endwith %}
+                {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                    <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" class="table__cart-link table__cart-link--1">
+                {% else %}
+                    <a href="./?date={{ stats_calendar_today_or_next_date.Format('2006-01-02') }}#email-capture" class="table__cart-link table__cart-link--1">
+                {% endif %}
+                    <img class="table__icon--stats-cart" src="/public/static/img/SVG/ic_cart.svg" alt="Cart">
+                </a>
+                {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                    <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" class="table__cart-link table__cart-link--2">
+                {% else %}
+                    <a href="./?date={{ stats_calendar_today_or_next_date.Format('2006-01-02') }}#email-capture" class="table__cart-link table__cart-link--2">
+                {% endif %}
+                    <img class="table__icon--stats-cart" src="/public/static/img/SVG/ic_cart.svg" alt="Cart">
+                </a>
+                <div class="highlights-divider highlights-divider--league" aria-hidden="true"></div>
+                {% with matchEnded=1 %}
+                {% if matchEnded %}
+                    {% if locale == "en-US" or locale == "" %}
+                        <a href="{{matchHREF}}" class="highlights__team-name highlights__team-name--local">
+                    {% else %}
+                        <a href="/ar{{matchHREF}}" class="highlights__team-name highlights__team-name--local">
+                    {% endif %}
+                        {{ t(localTeam.Name, localTeam.Name) }}
+                    </a>
+                    {% if locale == "en-US" or locale == "" %}
+                        <a href="{{matchHREF}}" class="highlights__team-name highlights__team-name--visitor">
+                    {% else %}
+                        <a href="/ar{{matchHREF}}" class="highlights__team-name highlights__team-name--visitor">
+                    {% endif %}
+                        {{ t(visitorTeam.Name, visitorTeam.Name) }}
+                    </a>
+                    <div class="highlights__details highlights__details--local">
+                        {% with localTeamID=localTeam.ID|integer %}
+                        {% for event in fixture.GetEventsFilteredBy(localTeamID)|slice:":2" %}
+                            {{ in_table_event(event) }}
+                        {% endfor %}
+                        {% endwith %}
+                    </div>
+                    <div class="highlights__details highlights__details--visitor">
+                        {% with visitorTeamID=visitorTeam.ID|integer %}
+                        {% for event in fixture.GetEventsFilteredBy(visitorTeamID)|slice:":2" %}
+                            {{ in_table_event(event) }}
+                        {% endfor %}
+                        {% endwith %}
+                    </div>
+                    
+                    {% if locale == "en-US" or locale == "" %}
+                        <a href="{{matchHREF}}" class="highlights__more u--no-tab-sm">{{ t("pages.stats.seeMore") }}</a>
+                    {% else %}
+                        <a href="/ar{{matchHREF}}" class="highlights__more u--no-tab-sm">{{ t("pages.stats.seeMore") }}</a>
+                    {% endif %}
+                {% else %}
+                {% endif %}
+                {% endwith %}
+            </div>
+            {# matchHREF #}
+            {% endwith %}
+            {# visitorTeam #}
+            {% endwith %}
+            {# localTeam #}
+            {% endwith %}
+
+            {% endfor %}
+
+            {% endwith %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <!-- league Table -->
+    <h3 class="heading heading--stats-title">{{ t(comp.Name|stringformat:"stats.%v", comp.Name) }} {{ t("pages.stats.table") }}</h3>
+    <div>
+        <div class="table table--league">
+            <h3 class="table__header table__header--secondary-bold table__header--left">#{{ t("pages.stats.tableHeading.team") }}</h3>
+            <h3 class="table__header table__header--secondary-bold table__header--centered">{{ t("pages.stats.tableHeading.buy") }}</h3>
+            <h3 class="table__header table__header--secondary-bold table__header--centered">{{ t("pages.stats.tableHeading.played") }}</h3>
+            <h3 class="table__header table__header--secondary-bold table__header--centered">{{ t("pages.stats.tableHeading.wins") }}</h3>
+            <h3 class="table__header table__header--secondary-bold table__header--centered u--no-tab-sm">{{ t("pages.stats.tableHeading.draws") }}</h3>
+            <h3 class="table__header table__header--secondary-bold table__header--centered">{{ t("pages.stats.tableHeading.losses") }}</h3>
+            <h3 class="table__header table__header--secondary-bold table__header--centered u--no-tab-sm">{{ t("pages.stats.tableHeading.goalsScored") }}</h3>
+            <h3 class="table__header table__header--secondary-bold table__header--centered u--no-tab-sm">{{ t("pages.stats.tableHeading.goalsAgainst") }}</h3>
+            <h3 class="table__header table__header--secondary-bold table__header--centered">{{ t("pages.stats.tableHeading.points") }}</h3>
+            {% with seasonID=statsSeasonID|integer %}
+            {% for standing in stats_filters.GetStandings(seasonID) %}
+
+            <div class="table__row table__row--league">
+
+                {% with team=standing.TeamInclude.Team %}
+
+                    <div class="table__league-meta">
+                        
+                        <span class="table__league-position">{{ standing.Position }}</span>
+    
+                        <span class="league_table__indicator
+                            {% if standing.Status=='down' %}
+                            oi oi-caret-bottom
+                            {% endif %}
+                            {% if standing.Status=='same' %}
+                            {#fas fa-circle#}
+                            {% endif %}
+                            {% if standing.Status=='up' %}
+                            oi oi-caret-top
+                            {% endif %}">
+                        </span>
+    
+                        {% if team.LogoPath != "" %}
+                            <div class="table__icon-container--club-logo">
+                                <img src="{{ team.LogoPath }}" alt="{{ t(team.Name, team.Name) }}" class="table__icon--club-logo">
+                            </div>
+                        {% else %}
+                            <div class="table__icon-container--club-logo">
+                                <img src="/public/static/icons/clubs/official_logo_soon.png" alt="{{ t(team.Name, team.Name) }}" class="table__icon--club-logo">
+                            </div>
+                        {% endif %}
+                        
+                        <span>{{ t(team.Name, team.Name) }}</span>
+                    
+                    </div>
+
+                    <a href="/shop/any/?team=TeamID1" class="table__carts-block">
+                        <img class="table__icon--stats-cart" src="/public/static/img/SVG/ic_cart.svg" alt="Cart">
+                    </a>
+
+                    <span class="table__cell--league">{{ standing.Overall.GamesPlayed }}</span>
+                    <span class="table__cell--league">{{ standing.Overall.Won }}</span>
+                    <span class="table__cell--league u--no-tab-sm">{{ standing.Overall.Draw }}</span>
+                    <span class="table__cell--league">{{ standing.Overall.Lost }}</span>
+                    <span class="table__cell--league u--no-tab-sm">{{ standing.Overall.GoalsScored }}</span>
+                    <span class="table__cell--league u--no-tab-sm">{{ standing.Overall.GoalsAgainst }}</span>
+                    <span class="table__cell--league">{{ standing.Points }}</span>
+            
+                {% endwith %}
+            
+            </div>
+
+            {% endfor %}
+            {% endwith %}
+
+        </div>
+    </div>
+    <!-- /league table -->
+    <!-- top scorer -->
+    <h3 class="heading heading--stats-title">{{ t(comp.Name|stringformat:"stats.%v", comp.Name) }} {{ t("pages.stats.topScorer") }}</h3>
+    <div>
+        <div class="table table--scorers">
+            <h3 class="table__header table__header--secondary-bold table__header--left">{{ t("pages.stats.tableHeading.player") }}</h3>
+            <h3 class="table__header table__header--secondary-bold table__header--centered">{{ t("pages.stats.tableHeading.buy") }}</h3>
+            <h3 class="table__header table__header--secondary-bold table__header--centered u--no-mob">{{ t("pages.stats.tableHeading.position") }}</h3>
+            <h3 class="table__header table__header--secondary-bold table__header--centered u--no-mob">{{ t("pages.stats.tableHeading.club") }}</h3>
+            {#<h3 class="table__header table__header--secondary-bold table__header--centered">{{ t("pages.stats.tableHeading.games") }}</h3>#}
+            <h3 class="table__header table__header--secondary-bold table__header--centered">{{ t("pages.stats.tableHeading.goals") }}</h3>
+            {% with seasonID=statsSeasonID|integer %}
+            {% if stats_filters.GetTopscorers(seasonID)|length == 0 %}
+                <div class="table__row table__row--no-matches">
+                    <span>{{ t("pages.stats.topScorerMissing") }}</span>
+                </div>
+            {% endif %}
+            {% for topscorer in stats_filters.GetTopscorers(seasonID)|slice:":6" %}
+                {% with player=topscorer.PlayerInclude.Player %}
+                <div class="table__row table__row--scorers">
+                    {% with team=topscorer.TeamInclude.Team %}
+                        <div class="table__scorers-meta">
+                            {% if team.LogoPath != "" %}
+                                <div class="table__icon-container--club-logo"><img src="{{ team.LogoPath }}" alt="{{ t(team.Name, team.Name) }}" class="table__icon--club-logo"></div>
+                            {% else %}
+                                <div class="table__icon-container--club-logo"><img src="/public/static/icons/clubs/official_logo_soon.png" alt="{{ t(team.Name, team.Name) }}" class="table__icon--club-logo"></div>
+                            {% endif %}
+                            <span class="club-name">{{ player.CommonName }}</span>
+                        </div>
+
+                        <a href="/shop/any/?player=PlayerID1" class="table__carts-block">
+                            <img class="table__icon--stats-cart" src="/public/static/img/SVG/ic_cart.svg" alt="Cart">
+                        </a>
+
+                        {% if player.PositionID == 1 %}
+                        <span class="table__cell--scorers u--no-mob">GoalKeeper</span>
+                        {% endif %}
+                        {% if player.PositionID == 2 %}
+                        <span class="table__cell--scorers u--no-mob">Defender</span>
+                        {% endif %}
+                        {% if player.PositionID == 3 %}
+                        <span class="table__cell--scorers u--no-mob">Midfielder</span>
+                        {% endif %}
+                        {% if player.PositionID == 4 %}
+                        <span class="table__cell--scorers u--no-mob">Forward</span>
+                        {% endif %}
+                        <span class="table__cell--scorers u--no-mob">{{ t(team.Name, team.Name) }}</span>
+                        {#<span class="table__cell--scorers">40</span>#}
+                        <span class="table__cell--scorers">{{ topscorer.Goals }}</span>
+                    {% endwith %}
+                </div>
+                {% endwith %}
+            {% endfor %}
+            {% endwith %}
+            </div>
+        </div>
+    </div>
+    <!-- /top scorer -->
+    {% endwith %}
+    {% endwith %}
+{% endblock %}
+

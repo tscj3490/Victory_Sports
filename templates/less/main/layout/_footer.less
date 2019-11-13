@@ -1,0 +1,64 @@
+.footer {
+    display: flex;
+    color: @color--dark-grey;
+    text-transform: uppercase;
+    height: 4.5rem;
+    border-top: 1px solid @color--light-grey;
+    padding: 0 5rem;
+
+    @media screen and (max-width: @bootstrap_md) {
+        padding: 0 3rem;
+    }
+    
+    @media screen and (max-width: @bootstrap_sm) {
+        padding: 0 1rem;
+    }
+
+    &__icon {
+        height: 100%;
+        width: auto;
+    }
+    
+    &__icon-link {
+        display: flex;
+        height: 40%;
+        width: 25%;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    &__item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20%;
+
+        @media screen and (max-width: @bootstrap_lg) {
+            width: 33.333333333%;
+        }
+
+        @media screen and (max-width: @bootstrap_sm) {
+            width: fit-content;
+            flex-grow: 1;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        
+        &--social {
+            justify-content: space-around;
+            align-items: center;
+            display: flex;
+            font-size: 2rem;
+            height: 100%;
+        }
+
+        &--shop,
+        &--social,
+        &--stats {
+            @media screen and (max-width: @bootstrap_lg) {
+                display: none;
+            }
+        }
+    }
+}

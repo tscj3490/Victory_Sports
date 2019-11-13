@@ -1,0 +1,651 @@
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/public/static/vendor/chosen_v1.8.2/chosen.min.css" crossorigin="anonymous">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+      href="/public/static/vendor/bootstrap-4.0.0-beta.2-dist/css/bootstrap.min.css"
+      crossorigin="anonymous">
+<link rel="stylesheet" href="/public/static/vendor/fontawesome-free-5.0.6/on-server/css/fontawesome-all.min.css"
+      crossorigin="anonymous">
+
+{% extends "base.html" %}
+
+{% block header_title %}
+    <a href="{{ href('/') }}" class="header-title__link">
+        {% if locale == "en-US" or locale == "" %}
+            <h1 class="header-title">&nbsp;</h1>
+        {% else %}
+            <h1 class="header-title header-title--arabic">&nbsp;</h1>                    
+        {% endif %}
+        <span class="header-title__subtitle color-stats">{{ t("pages.stats.header") }}</span>
+    </a>
+{% endblock %}
+
+{% block header_button %}
+    <div class="header__item header__item--stats">
+        <a href="{{ href('/shop/') }}">{{ t("pages.shop.title") }}</a>
+    </div>
+{% endblock %}
+
+{% block below_header_buttons %}
+    <div class="header__background">
+        <div class="header__row--secondary">
+            <a href="{{ href('/shop/any/') }}" class="header__link">{{ t("pages.shop.title") }}</a>
+            <a href="{{ href('/stats/') }}" class="header__link u--bold">{{ t("pages.stats.title") }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block top_leader %}
+{%  endblock %}
+
+{% block content %}
+<div class="background background--stats main-container main-container--stats">
+    <div class="flex-container flex-container--no-wrap">
+
+        <div id="sidebar">
+            <input type="checkbox" id="show-sidebar" role="button">
+            <label for="show-sidebar" class="show-sidebar show-sidebar--stats">
+                <i class="fas fa-sliders-h"></i>
+            </label>
+            <!-- sidebar block -->
+            {% block stats_sidebar %}
+                <div class="col-12 bd-sidebar bd-sidebar--stats">
+                    <div class="row">
+                        <div class="col">
+                            <div class="shop-form-title">{{ t("sidebar.filter") }}</div>
+                        </div>
+                    </div>
+
+                    <div class="shop-form__hideon_filter">
+                        <div class="shop-form-section-title" data-minimized="row_filter_competition">{{ t("sidebar.competition") }}</div>
+                        <div class="row row_filter_competition">
+                            <div class="col shop-form-checkboxes text--latin">
+                                <form action="" class="">
+                                    {% for comp in stats_filters.ListCompetitions %}
+                                    <div class="form-check">
+                                        <label class="form-check-label checkbox {% if comp.ID==statsLeagueID|integer %}active{% endif %}">
+                                            {% if locale == "en-US" or locale == "" %}
+                                                <input id="{{ comp.ID }}" class="form-check-input trigger-onclick" type="checkbox" autocomplete="off" value="" data-href="/stats/league/{{ comp.ID }}/season/{{ comp.CurrentSeasonID }}/">&nbsp;
+                                            {% else %}
+                                                <input id="{{ comp.ID }}" class="form-check-input trigger-onclick" type="checkbox" autocomplete="off" value="" data-href="/ar/stats/league/{{ comp.ID }}/season/{{ comp.CurrentSeasonID }}/">&nbsp;
+                                            {% endif %}
+                                        </label>
+                                        <span class="checkbox__label" data-label-for="{{ comp.ID }}">{{ t(comp.Name|stringformat:"stats.%v", comp.Name) }}</span>
+                                    </div>
+                                    {% endfor %}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% with competitionID=statsLeagueID|integer %}
+                    {% with seasons=stats_filters.ListSeasons(competitionID) %}
+                    {% if seasons|length > 0 %}
+                        <div class="shop-form__hideon_filter">
+                            <div class="shop-form-section-title" data-minimized="row_filter_season">{{ t("sidebar.season") }}</div>
+                            <div class="row row_filter_season">
+                                <div class="col shop-form-checkboxes">
+                                    <form action="" class="">
+                                        {% for season in seasons %}
+                                        <div class="form-check">
+                                            <label class="form-check-label checkbox {% if season.ID==statsSeasonID %}active{% endif %}">
+                                                {% if locale == "en-US" or locale == "" %}
+                                                    <input id="{{ season.ID }}"
+                                                    {% if season.ID==statsSeasonID %}checked{% endif %}
+                                                    class="form-check-input trigger-onclick" type="checkbox" autocomplete="off" value="" data-href="{{ season.Href }}">&nbsp;
+                                                {% else %}
+                                                    <input id="{{ season.ID }}"
+                                                    {% if season.ID==statsSeasonID %}checked{% endif %}
+                                                    class="form-check-input trigger-onclick" type="checkbox" autocomplete="off" value="" data-href="/ar{{ season.Href }}">&nbsp;
+                                                {% endif %}
+                                            </label>
+                                            <span class="checkbox__label" data-label-for="{{ season.ID }}">{{ season.Name }}</span>
+                                        </div>
+                                        {% endfor %}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% endwith %}
+                    {% endwith %}
+
+                    {% with competitionID=statsLeagueID|integer %}
+                    {% with teams=stats_filters.ListTeams(competitionID, statsSeasonID) %}
+                    {% if teams|length > 0 %}
+                        <div class="shop-form__hideon_filter">
+                            <div class="shop-form-section-title" data-minimized="row_filter_clubs">{{ t("sidebar.clubs") }}</div>
+                            <div class="row row_filter_clubs">
+                                <div class="col shop-form-checkboxes">
+                                    <form action="" class="">
+                                        {% for team in teams %}
+                                            <div class="form-check">
+                                                <label class="form-check-label checkbox">
+                                                    {% if locale == "en-US" or locale == "" %}
+                                                        <input id="{{ team.ID }}" class="form-check-input trigger-onclick" type="checkbox" autocomplete="off" value="" data-href="{{ team.Href }}">&nbsp;
+                                                    {% else %}
+                                                        <input id="{{ team.ID }}" class="form-check-input trigger-onclick" type="checkbox" autocomplete="off" value="" data-href="/ar{{ team.Href }}">&nbsp;
+                                                    {% endif %}
+                                                </label>
+                                                <span class="checkbox__label" data-label-for="{{ team.ID }}">{{ t(team.Name, team.Name) }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% endwith %}
+                    {% endwith %}
+                </div>
+            {% endblock %}
+            <!-- /sidebar block -->
+        </div>
+        <div class="tables-container">
+
+            <!-- calendar strip -->
+            <div class="flex-container">
+                <a href="./?date=" class="calendar-strip__icon"></a>
+                <div class="calendar-strip">
+                    <i class="d-lg-block fas fa-chevron-left" id ="calendarLeft"></i>
+                    {% with calendarVisibleEntryIdx=(stats_calendar.TodayOrNextIdx-3) %}
+                    {% with calendarVisibleEntryAfterIdx=(stats_calendar.TodayOrNextIdx+3) %}
+    
+                    {% for entry in stats_calendar.Entries %}
+                        <a href="./?date={{ entry.GetHrefParameter() }}" 
+                                data-calendar-idx="{{ entry.Idx }}"
+                                data-calendar-todayOrNext-idx="{{ stats_calendar.TodayOrNextIdx }}"
+                                data-calendar-date="{{ entry.DateTime.String() }}"
+                                data-calendar-href="{{ entry.GetHrefParameter() }}"
+                                class="calendar-strip__item
+                                {% if entry.Idx < calendarVisibleEntryIdx %}d-none{% endif %}
+                                {% if entry.Idx > calendarVisibleEntryAfterIdx %}d-none{% endif %}
+                                {% if stats_calendar.DateParameter == entry.GetHrefParameter() %}
+                                    selected calendar-strip__item--selected
+                                {% endif %}
+                                ">
+                            {{ entry.ToString() }}
+                        </a>
+                    {% endfor %}
+                    
+                    {% endwith %}
+                    {% endwith %}
+                    <i class="d-lg-block fas fa-chevron-right" id ="calendarRight"></i>
+                </div>
+            </div>
+            <!-- /calendar strip -->
+            
+            <!-- stats content -->
+            {% block stats_content %}
+                <!-- stats table -->
+                <h3 class="heading heading--stats-title">{{  stats_calendar_today_or_next_date.Format("Monday / January 2 2006") }}</h3>
+
+                <div>
+                    {% if stats_calendar_today_or_next_date.Format("2006-01-02") == now.Format("2006-01-02") %}
+                    {% if !stats_calendar_next_or_today.HasMatchesToday %}
+                        <div class="table table--no-matches">
+                            <div class="table__row table__row--no-matches">
+                                <span>
+                                    {{ t("pages.stats.noMatches") }}
+                                    <a href="#" id="no-matches">
+                                        {{ t("pages.stats.nextMatch") }}
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% endif %}
+                    {# list competitions loop begin #}
+                    {% for comp in stats_filters.ListCompetitions %}
+                        {# list fixtures by current season loop begin #}
+                        {% with currentSeasonID=comp.CurrentSeasonID|integer %} 
+                        {% with fixtures = stats_filters.ListFixturesBySeasonAndDate(currentSeasonID,stats_calendar.DateParameterTime, 0) %}
+                            {% if fixtures|length == 0 %}
+                            {% else %}
+                                <div class="table">
+                                {% if locale == "en-US" or locale == "" %}
+                                    <a href="/stats/league/{{ comp.ID }}/season/{{ comp.CurrentSeasonID }}/" class="table__header table__header--main">
+                                        {{ t(comp.Name|stringformat:"stats.%v", comp.Name) }}
+                                    </a>
+                                {% else %}
+                                    <a href="/ar/stats/league/{{ comp.ID }}/season/{{ comp.CurrentSeasonID }}/" class="table__header table__header--main">
+                                        {{ t(comp.Name|stringformat:"stats.%v", comp.Name) }}
+                                    </a>
+                                {% endif %}
+
+                                <h3 class="table__header table__header--secondary table__header--centered u--no-tab-sm">{{ t("pages.stats.tableHeading.shop") }}</h3>
+                                <h3 class="table__header table__header--secondary table__header--highlight u--no-tab-sm">{{ t("pages.stats.tableHeading.highlight") }}</h3>
+
+                            {% for fixture in fixtures %}
+                            {% with localTeam=stats_filters.ConvertGosportmonksTeamToStatsTeam(fixture.LocalTeamInclude.LocalTeam) %}
+                            {% with visitorTeam=stats_filters.ConvertGosportmonksTeamToStatsTeam(fixture.VisitorTeamInclude.VisitorTeam) %}
+                                <div class="table__row table__row--match match">
+                                    {% with startingTime=fixture.Time.GetStartTime() %}
+                                        {% if locale == "en-US" or locale == "" %}
+                                            <a href="/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="match__hour">
+                                        {% else %}
+                                            <a href="/ar/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="match__hour">
+                                        {% endif %}
+                                            {% if startingTime %}
+                                                <time>{{ startingTime.Format("3:04PM") }}</time>
+                                            {% else %}
+                                                Unknown
+                                            {% endif %}
+                                        </a>
+                                        {% if locale == "en-US" or locale == "" %}
+                                            <a href="/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="match__team-logo-container match__team-logo-container--logo-1 u--no-tab-sm">
+                                        {% else %}
+                                            <a href="/ar/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="match__team-logo-container match__team-logo-container--logo-1 u--no-tab-sm">
+                                        {% endif %}                                        
+                                            {% if localTeam.LogoPath == "" %}
+                                                <img class="match__team-logo-image" src="/public/static/icons/clubs/official_logo_soon.png" alt="{{ t(localTeam.Name, localTeam.Name) }}">
+                                            {% else %}
+                                                <img class="match__team-logo-image" src="{{ localTeam.LogoPath }}" alt="{{ t(localTeam.Name, localTeam.Name) }}">
+                                            {% endif %}
+                                        </a>
+                                        {% if locale == "en-US" or locale == "" %}
+                                            <a href="/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="match__team-logo-container match__team-logo-container--logo-2 u--no-tab-sm">
+                                        {% else %}
+                                            <a href="/ar/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="match__team-logo-container match__team-logo-container--logo-2 u--no-tab-sm">
+                                        {% endif %}
+                                            {% if visitorTeam.LogoPath == "" %}
+                                                <img class="match__team-logo-image" src="/public/static/icons/clubs/official_logo_soon.png" alt="{{ t(visitorTeam.Name, visitorTeam.Name) }}">
+                                            {% else %}
+                                                <img class="match__team-logo-image" src="{{ visitorTeam.LogoPath }}" alt="{{ t(visitorTeam.Name, visitorTeam.Name) }}">
+                                            {% endif %}
+                                        </a>
+                                        {% if locale == "en-US" or locale == "" %}
+                                            <a href="/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="match__team-name match__team-name--local u--no-tab-sm">
+                                        {% else %}
+                                            <a href="/ar/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="match__team-name match__team-name--local u--no-tab-sm">
+                                        {% endif %}
+                                            {{ t(localTeam.Name, localTeam.Name) }}
+                                        </a>
+                                        {% if locale == "en-US" or locale == "" %}
+                                            <a href="/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/"  class="match__team-name match__team-name--visitor u--no-tab-sm">
+                                        {% else %}
+                                            <a href="/ar/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="match__team-name match__team-name--visitor u--no-tab-sm">
+                                        {% endif %}
+                                            {{ t(visitorTeam.Name, visitorTeam.Name) }}
+                                        </a>
+                                        <span class="match__goals match__goals--local">{{ fixture.Scores.LocalTeamScore }}</span>
+                                        <span class="match__goals match__goals--visitor">{{ fixture.Scores.VisitorTeamScore }}</span>
+                                    {% endwith %}
+                                    {% if stats_filters.GetTeamBuyURL(localTeam.ID) != "" %}
+                                        <a href="{{ stats_filters.GetTeamBuyURL(localTeam.ID) }}" class="table__cart-link table__cart-link--1">
+                                    {% else %}
+                                        <a href="./?date={{ stats_calendar_today_or_next_date.Format('2006-01-02') }}#email-capture" class="table__cart-link table__cart-link--1">
+                                    {% endif %}
+                                        <img class="table__icon--stats-cart" src="/public/static/img/SVG/ic_cart.svg" alt="Cart">
+                                    </a>
+                                    {% if stats_filters.GetTeamBuyURL(visitorTeam.ID) != "" %}
+                                        <a href="{{ stats_filters.GetTeamBuyURL(visitorTeam.ID) }}" class="table__cart-link table__cart-link--2">
+                                    {% else %}
+                                        <a href="./?date={{ stats_calendar_today_or_next_date.Format('2006-01-02') }}#email-capture" class="table__cart-link table__cart-link--2">
+                                    {% endif %}
+                                        <img class="table__icon--stats-cart" src="/public/static/img/SVG/ic_cart.svg" alt="Cart">
+                                    </a>
+                                    <div class="highlights-divider" aria-hidden="true"></div>
+                                    {% macro in_table_event(e) %}
+                                        <div class="highlights__details-row">
+                                            <time class="highlights__time">{{ e.Minute }}'</time>
+                                            {% if e.Type == "goal" %}
+                                                <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_goal.svg" alt="Goal">
+                                            {% endif %}
+                                            {% if e.Type == "own-goal" %}
+                                                <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_goal.svg" alt=" Own Goal">
+                                            {% endif %}
+                                            {% if e.Type == "yellowcard" %}
+                                                <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_yellow_card.svg" alt="Yellow Card">
+                                            {% endif %}
+                                            {% if e.Type == "redcard" %}
+                                                <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_red_card.svg" alt="Red Card">
+                                            {% endif %}
+                                            {% if e.Type == "substitution" %}
+                                                <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_substitution.svg" alt="Substitution">
+                                            {% endif %}
+                                            {% if e.Type == "penalty" %}
+                                                <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_goal.svg" alt="Penalty">
+                                            {% endif %}
+                                            {% if e.Type == "missed_penalty" %}
+                                                <img class="highlights__event-icon" src="/public/static/img/SVG/ic_stats_no-goal.svg" alt="MIssed Penalty">
+                                            {% endif %}
+                                            {% if e.Type == "substitution" %}
+                                                <span>{{ e.PlayerName }} - {{ e.RelatedPlayerName }}</span><br>
+                                            {% else %}
+                                                <span>{{ e.PlayerName }}</span>
+                                            {% endif %}
+                                        </div>
+                                        <!-- {{ e.Type }} -->
+                                    {% endmacro %}
+
+                                    {% with matchEnded=1 %}
+                                    {% if fixture.EventsInclude.Events|length > 0 %}
+                                        {% if locale == "en-US" or locale == "" %}
+                                            <a href="{{matchHREF}}" class="highlights__team-name highlights__team-name--local">
+                                        {% else %}
+                                            <a href="/ar{{matchHREF}}" class="highlights__team-name highlights__team-name--local">
+                                        {% endif %}
+                                            {{ t(localTeam.Name, localTeam.Name) }}
+                                        </a>
+                                        {% if locale == "en-US" or locale == "" %}
+                                            <a href="{{matchHREF}}" class="highlights__team-name highlights__team-name--visitor">
+                                        {% else %}
+                                            <a href="/ar{{matchHREF}}" class="highlights__team-name highlights__team-name--visitor">
+                                        {% endif %}
+                                            {{ t(visitorTeam.Name, visitorTeam.Name) }}
+                                        </a>
+                                        <div class="highlights__details highlights__details--local">
+                                            {% with localTeamID=localTeam.ID|integer %}
+                                            {% for event in fixture.GetEventsFilteredBy(localTeamID)|slice:":2" %}
+                                            {{ in_table_event(event) }}
+                                            {% endfor %}
+                                            {% endwith %}
+                                        </div>
+                                        <div class="highlights__details highlights__details--visitor">
+                                            {% with visitorTeamID=visitorTeam.ID|integer %}
+                                            {% for event in fixture.GetEventsFilteredBy(visitorTeamID)|slice:":2" %}
+                                            {{ in_table_event(event) }}
+                                            {% endfor %}
+                                            {% endwith %}
+                                        </div>
+                                        {% if locale == "en-US" or locale == "" %}
+                                            <a href="/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="highlights__more">
+                                        {% else %}
+                                            <a href="/ar/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="highlights__more">
+                                        {% endif %}
+                                            {{ t("pages.stats.seeMore") }}
+                                        </a>
+                                    {% else %}
+                                        {% if locale == "en-US" or locale == "" %}
+                                            <a href="/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="highlights__team-name highlights__team-name--local" style="text-align: center">
+                                        {% else %}
+                                            <a href="/ar/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="highlights__team-name highlights__team-name--local" style="text-align: center">
+                                        {% endif %}
+                                            {{ t(localTeam.Name, localTeam.Name) }}
+                                        </a>
+                                        {% if locale == "en-US" or locale == "" %}
+                                            <a href="/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="highlights__team-name highlights__team-name--visitor" style="text-align: center">
+                                        {% else %}
+                                            <a href="/ar/stats/league/{{ fixture.LeagueID }}/season/{{ fixture.SeasonID }}/match/{{ fixture.ID }}/" class="highlights__team-name highlights__team-name--visitor" style="text-align: center">
+                                        {% endif %}
+                                            {{ t(visitorTeam.Name, visitorTeam.Name) }}
+                                        </a>
+                                        <span class="match__unfinished-match">{{ t("pages.stats.highlightsAfterMatchEnds") }}</span>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+                            {# visitorTeam #}
+                            {% endwith %}
+                            {# localTeam #}
+                            {% endwith %}
+                            {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        {% endwith %}
+                        {# list fixtures by current season loop ends #}
+                    {% endfor %}
+                    {# list competitions loop end #}
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+<div class="email-capture" id="email-capture">
+    <div class="email-capture__content" id="email-capture-content">
+        <p class="email-capture__text" id="email-capture-text">{{ t("pages.stats.emailCaptureMessage") }}</p>
+        
+        <form action="/emailcapture/" method="POST" class="email-capture__form" id="email-capture-form">
+            <div>
+                <input type="email" name="email" id="email" class="email-capture__input" placeholder="{{ t('pages.checkout.email') }}">
+            </div>
+            <button type="submit" class="email-capture__button" id="email-capture-button">{{ t("pages.checkout.submit") }}</button>
+        </form>
+    </div>
+</div>
+    
+{% endblock %}
+
+{% block extend_javascript %}
+    
+    <script src="/public/static/js/socket.io-1.3.7.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      // var socket = io();
+      // $('form').submit(function(){
+      //   socket.emit('chat message with ack', $('#m').val(), function(data){
+      //     $('#messages').append($('<li>').text('ACK CALLBACK: ' + data));
+      //   });
+      //   socket.emit('chat message', $('#m').val());
+      //   $('#m').val('');
+      //   return false;
+      // });
+      // socket.on('chat message', function(msg){
+      //   $('#messages').append($('<li>').text(msg));
+      // });
+
+<<<<<<< HEAD
+	  
+=======
+	/*
+>>>>>>> 4fa22ea2c95fb7153a2c7841ddfb6378a3c883d5
+	  // Uncomment if you want to test the socket
+
+      var socket = io(window.location.origin + "/socket.io");
+
+      socket.on("connect", function(e){
+        console.info("socket.io connected");  
+      });
+      socket.on("disconnect", function() {
+        console.info("socket.io disconnected from the server");
+      });
+      socket.on("livescore:update", function(data) {
+        console.log("livescore received:")
+        console.log(data)
+      });
+      socket.on("error", function(e) {
+        console.info("socket.io error: " + e);
+      });
+<<<<<<< HEAD
+	  
+=======
+	*/
+>>>>>>> 4fa22ea2c95fb7153a2c7841ddfb6378a3c883d5
+
+    </script>
+   
+    <script src="/public/static/vendor/jquery-validation-1.17.0/dist/jquery.validate.min.js" crossorigin="anonymous"></script>
+    <script language="JavaScript">
+        $("#email-capture-form").validate({
+            invalidHandler: function(form, validator) {
+                $('#email-capture-button').click(function (e) {
+                    e.preventDefault();
+                });      
+            }
+        });
+
+        jQuery.validator.addMethod("email", function(value, element) {
+            return this.optional( element ) || /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,6})$/.test( value );
+        }, 'Please enter a valid email address.');
+    </script>
+    <script>
+        (function() {
+            $(".checkbox__label").on("click", function(e){
+                var targetCheckbox = $(this).attr("data-label-for");
+                $("#"+targetCheckbox).trigger('click')
+            });
+            $(".trigger-onclick")
+                .each(function() {
+                    var url = $(this).attr("data-href");
+                    if (window.location.href.toLowerCase().indexOf(url) === -1) {
+                        return;
+                    }
+                    $(this).attr('checked',true);
+                    $(this).parent().addClass("active");
+                })
+                .on("change", function() {
+                    var url = $(this).attr("data-href");
+                    if (window.location.href.toLowerCase().indexOf(url) !== -1) {
+                        window.location.href = "/stats/";
+                    } else {
+                        window.location.href = $(this).attr("data-href");
+                    }
+                });
+            $(".shop-form-section-title").on('click', function(e) {
+                var that = $(this);
+                var target = that.attr('data-minimized');
+                if (target === "") {
+                    return;
+                }
+                $('.'+target).fadeToggle( "fast", function() {
+                    // nothing to do after
+                    // toggle the minimized class so that the + and - icon change
+                    that.toggleClass('shop-form-section-title__minimized');
+                });
+            });
+            var filters_showing = true;
+            $(".shop-form-title").on("click", function(e) {
+                var that = $(this);
+                $(".shop-form__hideon_filter").each(function(e) {
+                    var t = $(this);
+                    var dv = t.css("display");
+                    var isRow = t.hasClass("row");
+                    var isMinimized = t.hasClass("shop-form-section-title__minimized");
+
+                    if (filters_showing) {
+                        t.css("display", "none");
+                        if (isMinimized) {
+                            t.removeClass("shop-form-section-title__minimized");
+                        }
+                    } else {
+                        t.css("display",  isRow ? "flex":"block");
+                    }
+                });
+                filters_showing  = !filters_showing;
+                that.toggleClass('shop-form-title__minimized');
+            });
+        })();
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            $('#calendarRight').click(function () {
+                var lastVisible = ".calendar-strip__item:not('.d-none'):last";
+                var firstVisible = ".calendar-strip__item:not('.d-none'):first";
+
+                if($(lastVisible).next().hasClass("d-none")) {
+                    $(lastVisible).next().removeClass("d-none");
+                    $(firstVisible).addClass("d-none");
+                }
+            });
+
+            $('#calendarLeft').click(function () {
+                var lastVisible = ".calendar-strip__item:not('.d-none'):last";
+                var firstVisible = ".calendar-strip__item:not('.d-none'):first";
+
+                if($(firstVisible).prev().hasClass("d-none")) {
+                    $(firstVisible).prev().removeClass("d-none");
+                    $(lastVisible).addClass("d-none");
+                }
+            })
+
+            var breakpoint = 720;
+            var calendarItemsQuantity = checkCalendarItemsQuantity();
+            checkWindow();
+            $(window).resize(checkWindow);
+            
+            function checkWindow() {
+                var windowWidth = $(window).width();
+                if (windowWidth < breakpoint || windowWidth === breakpoint ) {
+                    shrinkCalendar();
+                } else {
+                    growCalendar();
+                }
+            }
+
+            function checkCalendarItemsQuantity() {
+                var visibleElements = 0;
+                $(".calendar-strip__item").each(function(){
+                    if(!$(this).hasClass("d-none")) {
+                        visibleElements++
+                    }
+                });
+                return visibleElements;
+            }
+
+            function shrinkCalendar() {
+                if (calendarItemsQuantity > 5) {
+                    $(".calendar-strip__item").each(function() {
+                        if (!$(this).hasClass("d-none")) {    
+                            $(this).addClass("d-none");
+                            calendarItemsQuantity--;
+                            return false;
+                        }
+                    });
+                }
+                $($(".calendar-strip__item").get().reverse()).each(function() {
+                    if (!$(this).hasClass("selected")) {
+                        if (calendarItemsQuantity > 5) {
+                            $($(".calendar-strip__item").get().reverse()).each(function() {
+                                if (!$(this).hasClass("d-none")) {    
+                                    $(this).addClass("d-none");
+                                    calendarItemsQuantity--;
+                                    return false;
+                                }
+                            });
+                        }
+                    }
+                    return false;
+                });
+                if (calendarItemsQuantity > 5) {
+                    shrinkCalendar();
+                }
+            }
+
+            function growCalendar() {
+                if (calendarItemsQuantity < 7) {
+                    $(".calendar-strip__item").each(function() {
+                        if (!$(this).hasClass("d-none")) {
+                            if(!$(this).prev().hasClass("d-none")) {
+                                return false;
+                            }
+                            $(this).prev().removeClass("d-none");
+                            calendarItemsQuantity++;
+                            return false;
+                        }
+                    });
+                }
+                $($(".calendar-strip__item").get().reverse()).each(function() {
+                    if (!$(this).hasClass("selected")) {
+                        if(calendarItemsQuantity < 7) {
+                            $($(".calendar-strip__item").get().reverse()).each(function() {
+                                if (!$(this).hasClass("d-none")) {  
+                                    if(!$(this).next().hasClass("d-none")) {
+                                        return false;
+                                    }         
+                                    $(this).next().removeClass("d-none");
+                                    calendarItemsQuantity++;
+                                    return false;
+                                }
+                            });
+                        }
+                    }
+                    return false;
+                });
+                if(calendarItemsQuantity < 7) {
+                    growCalendar();
+                }
+            }
+            $('#email-capture').click(function(e) {
+                var id = e.target.id;
+                if (id != 'email-capture-text' && id != 'email-capture-form' && id != 'email' && id != 'email-capture-button' && id != 'email-capture-content') {
+                    window.location.replace('#');
+                }
+            });
+            var href = $('.calendar-strip__item--selected').next().attr('href')
+            $('#no-matches').attr('href', href)
+        });
+
+    </script>
+{% endblock %}

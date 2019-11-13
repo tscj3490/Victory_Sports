@@ -1,0 +1,70 @@
+h4 {
+    text-transform: uppercase;
+}
+
+.delivery-col,
+.payment-col {
+    padding-left: 50px;
+}
+
+.checkout-form {
+    &__border {
+        border: 1px solid @color--light-grey;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        padding-left: 10px;
+        background-color: @color--background;
+    }
+    &__order-item {
+        img {
+            max-width: 106px;
+            max-height: 170px;
+        }
+        h6 {
+            padding-top: 20px;
+            margin-bottom: 0;
+        }
+        p {
+            color: @color--dark-grey;
+        }
+    }
+    &__order {
+        overflow: hidden;
+        padding-bottom: 0;
+        table {
+            margin-top: 60px;
+            width: 105%;
+            margin-left: -10px;
+            margin-right: -5px;
+            line-height: 1.6rem;
+        }
+        td:last-child {
+            width: 100px;
+        }
+        &-shipment {
+            padding-bottom: 20px;
+        }
+        &-total {
+            border-top: 1px solid @color--light-grey;
+            font-weight: 700;
+            line-height: 3rem;
+        }
+        &-spacer {
+            line-height: 15px;
+        }
+    }
+}
+
+.user-profile {
+    &__form {
+        min-width: auto;
+    }
+}
+
+@media (min-width: @bootstrap_lg) {
+    .user-profile {
+        &__form {
+            min-width: 770px
+        }
+    }
+}

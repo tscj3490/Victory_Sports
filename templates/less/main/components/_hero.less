@@ -1,0 +1,99 @@
+.hero {
+    display: flex;
+    height: 470px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    
+    &__background {
+        position: absolute;
+        height: 120%;
+        width: 120%;
+        background-position: 0;
+        background-size: cover;
+        background-repeat: no-repeat;
+        z-index: 1;
+    }
+
+    &__fade {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background: white;
+        opacity: 0;
+        z-index: 2;
+        animation: fadein .75s 1;
+        animation-direction: normal;
+    }
+
+    &__selector {
+        position: absolute;
+        top: -40rem;
+        visibility: hidden;
+
+        &:checked + .hero__label {
+            background-color: @color--primary;
+            height: 1.2rem;
+            width: 1.2rem;
+        }
+
+        &--1:checked ~ .hero__background {
+            background-image: url('/public/static/img/backgrounds/BG_IMG_-01.svg');
+        }
+        
+        &--2:checked ~ .hero__background {
+            background-image: url('/public/static/img/backgrounds/BG_IMG-03.svg');
+        }
+
+        &--3:checked ~ .hero__background {
+            background-image: url('/public/static/img/backgrounds/BG_IMG-04.svg');
+        }
+
+        &--1:checked ~ .hero__background,
+        &--2:checked ~ .hero__background,
+        &--3:checked ~ .hero__background {
+
+            @media(max-width: @bootstrap_lg) {
+                height: 150%;
+                width: 150%;
+            }
+
+            @media(max-width: @bootstrap_md) {
+                background-position: -250px;
+                height: 160%;
+                width: 160%;
+            }
+        }
+    }
+
+    &__label {
+        position: absolute;
+        height: 1rem;
+        width: 1rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        z-index: 5;
+        bottom: 3rem;
+        background: @color--light-grey;
+        cursor: pointer;
+
+        &--1 {
+            transform: translateX(-3rem);
+
+            &:lang(ar) {
+                transform: translateX(3rem);
+            }
+        }
+
+        &--3 {
+            transform: translateX(3rem);
+        
+            &:lang(ar) {
+                transform: translateX(-3rem);
+            }
+        }
+    }
+}

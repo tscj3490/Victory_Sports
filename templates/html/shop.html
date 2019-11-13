@@ -1,0 +1,652 @@
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/public/static/vendor/chosen_v1.8.2/chosen.min.css" crossorigin="anonymous">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+      href="/public/static/vendor/bootstrap-4.0.0-beta.2-dist/css/bootstrap.min.css"
+      crossorigin="anonymous">
+<link rel="stylesheet" href="/public/static/vendor/fontawesome-free-5.0.6/on-server/css/fontawesome-all.min.css"
+      crossorigin="anonymous">
+
+{% extends "base.html" %}
+
+{% block header_title %}
+    <a href="{{ href('/') }}" class="header-title__link">
+        {% if locale == "en-US" or locale == "" %}
+            <h1 class="header-title">&nbsp;</h1>
+        {% else %}
+            <h1 class="header-title header-title--arabic">&nbsp;</h1>                    
+        {% endif %}
+        <span class="header-title__subtitle">{{ t("pages.shop.header_title") }}</span>
+    </a>
+{% endblock %}
+
+{% block mobile_menu_items %}
+    <li class="menu_lvl_1">
+        <a href="{{ href("/shop/any/") }}" class="highlight_btm_border">
+            <span>{{ t("pages.shop.allTeams") }}</span>
+        </a>
+    </li>
+    <li class="menu_lvl_1">
+        <a href="#" class="highlight_btm_border">
+            <span>{{ t("pages.shop.clubs") }}</span>
+            <div class='lil_arrow'></div>
+        </a>
+        <ul class="hidden">
+            <li class="menu_lvl_2"><a href="{{  href(menu_links("shop","any")) }}"><span>{{ t("pages.shop.all") }}</span></a></li>
+        </ul>
+    </li>
+    <li class="menu_lvl_1">
+        <a href="#" class="highlight_btm_border">
+            <span>{{ t("pages.shop.internationalTeams") }}</span>
+            <div class='lil_arrow'></div>
+        </a>
+        <ul class="hidden">
+            <li class="menu_lvl_2"><a href="{{  href(menu_links("shop","any")) }}"><span>{{ t("pages.shop.all") }}</span></a></li>
+        </ul>
+    </li>
+    <li class="menu_lvl_1">
+        <a href="#" class="highlight_btm_border">
+            <span>{{ t("pages.shop.players") }}</span>
+            <div class='lil_arrow'></div>
+        </a>
+        <ul class="hidden">
+            <li class="menu_lvl_2"><a href="{{  href(menu_links("shop","any")) }}"><span>{{ t("pages.shop.all") }}</span></a></li>
+        </ul>
+    </li>
+    <li class="menu_lvl_1">
+        <a href="#" class="highlight_btm_border">
+            <span>{{ t("pages.shop.merchandise") }}</span>
+            <div class='lil_arrow'></div>
+        </a>
+        <ul class="hidden">
+            <li class="menu_lvl_2"><a href="{{  href(menu_links("shop","any")) }}"><span>{{ t("pages.shop.all") }}</span></a></li>
+        </ul>
+    </li>
+    <li class="menu_lvl_1">
+        <a href="{{  href(menu_links("stats","")) }}" class="highlight_btm_border">
+            <span>{{ t("pages.stats.title") }}</span>
+        </a>
+    </li>
+{% endblock %}
+
+{% block below_header_buttons %}
+    <div class="header__background header__background--above-dropdown">
+        <div class="header__row--secondary">
+            <a href="{{ href("/shop/any/") }}" class="header__link u--bold">{{ t("pages.shop.title") }}</a>
+            <a href="{{ href("/stats/") }}" class="header__link">{{ t("pages.stats.title") }}</a>
+        </div>
+    </div>
+    
+    <div class="header__background header__background--dropdown">
+        <div class="header__row--secondary header__row--dropdown">
+            <div class="dropdown__menu-item {% if shop_type == "clubs" %}dropdown__menu-item--selected{% endif %}"data-menu-dropdown-id="menu-dropdown-id-clubs">
+                <a href="{{ href("/shop/clubs/") }}" class="dropdown__menu-link">{{ t("pages.shop.clubs") }}</a>
+                <div class="dropdown__content">
+                    <div class="dropdown__column">
+                        <h5 class="dropdown__list-heading">{{ t("clubs.leagues.uaeLeague") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.uaeleague|slice:"11:" %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="dropdown__column">
+                        <h5 class="dropdown__list-heading">{{ t("clubs.leagues.uaeLeague") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.uaeleague|slice:":11" %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="dropdown__column">
+                        <h5 class="dropdown__list-heading">{{ t("clubs.leagues.premierLeague") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.premierleague %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <h5 class="dropdown__list-heading">{{ t("clubs.leagues.laLiga") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.laliga %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="dropdown__column dropdown__column--final">
+                        <h5 class="dropdown__list-heading">{{ t("clubs.leagues.seriaA") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.seriea %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <h5 class="dropdown__list-heading">{{ t("clubs.leagues.ligue1") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.ligue1 %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <h5 class="dropdown__list-heading">{{ t("clubs.leagues.bundesliga") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.bundesliga %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown__menu-item {% if shop_type == "worldcup" %}dropdown__menu-item--selected{% endif %}"
+                    data-menu-dropdown-id="menu-dropdown-id-international-teams">
+                <a href="{{ href("/shop/worldcup/") }}" class="dropdown__menu-link">{{ t("pages.shop.internationalTeams") }}</a>
+                <div class="dropdown__content">
+                    <div class="dropdown__column">
+                        <h5 class="dropdown__list-heading">{{ t("internationalTeams.europe") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.europe|slice:":10" %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="dropdown__column">
+                        <h5 class="dropdown__list-heading">{{ t("internationalTeams.europe") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.europe|slice:"10:" %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <h5 class="dropdown__list-heading">{{ t("internationalTeams.asia") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.asia %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="dropdown__column">
+                        <h5 class="dropdown__list-heading">{{ t("internationalTeams.africa") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.africa %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <h5 class="dropdown__list-heading">{{ t("internationalTeams.northAndRest") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.northcentralamericaandcarribean %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="dropdown__column dropdown__column--final">
+                        <h5 class="dropdown__list-heading">{{ t("internationalTeams.southAmerica") }}</h5>
+                        <ul class="dropdown__list">
+                            {% for team in menu_clubs.southamerica %}
+                                <li class="dropdown__list-item">
+                                    <a href="{{ href("/shop/any/") }}?team_select={{ team.ID | iriencode }}">
+                                        {% if team.Logo %}
+                                            <img src="{{ team.Logo }}" alt="{{ l(team.Name) }}" class="dropdown__logo">
+                                        {% endif %}
+                                        {{ l(team.Name) }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown__menu-item {% if shop_type == "players" %}dropdown__menu-item--selected{% endif %}" data-menu-dropdown-id="menu-dropdown-id-players">
+                <a href="{{ href("/shop/players/") }}" class="dropdown__menu-link">{{ t("pages.shop.players") }}</a>
+                <div class="dropdown__content">
+                    <div class="dropdown__column dropdown__column--final">
+                        <h5 class="dropdown__list-heading">{{ t("internationalTeams.europe") }}</h5>
+                        <ul class="dropdown__list">
+                            <li class="dropdown__list-item">
+                                <a href="{{ href("/shop/players/") }}?team=al-nasr">Al Nasr</a>
+                            </li>
+                            <li class="dropdown__list-item">
+                                <a href="{{ href("/shop/players/") }}?team=al-nasr">Al Ain</a>
+                            </li>
+                            <li class="dropdown__list-item">
+                                <a href="{{ href("/shop/players/") }}?team=al-nasr">Al Etehad</a>
+                            </li>
+                            <li class="dropdown__list-item">
+                                <a href="{{ href("/shop/players/") }}?team=al-nasr">Al Shabab Team</a>
+                            </li>
+                            <li class="dropdown__list-item">
+                                <a href="{{ href("/shop/players/") }}?team=al-nasr">Al Sharjah SCC</a>
+                            </li>
+                            <li class="dropdown__list-item">
+                                <a href="{{ href("/shop/players/") }}?team=al-nasr">Dibba</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown__menu-item dropdown__menu-item--no-mobile {% if shop_type == "merchandise" %}dropdown__menu-item--selected{% endif %}" data-menu-dropdown-id="menu-dropdown-id-players">
+                <a href="{{ href("/shop/merchandise/") }}" class="dropdown__menu-link">{{ t("pages.shop.merchandise") }}</a>
+                <div class="dropdown__content">
+                    <div class="dropdown__column">
+                        <ul class="dropdown__list">
+                            <li class="dropdown__list-item">
+                                <a href="{{ href("/shop/merchandise/") }}?team=al-nasr">{{ t("merchandise.shirts") }}</a>
+                            </li>
+                            <li class="dropdown__list-item">
+                                <a href="{{ href("/shop/merchandise/") }}?team=al-nasr">{{ t("merchandise.tshirts") }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown__column">
+                        <ul class="dropdown__list">
+                            <li class="dropdown__list-item">
+                                <a href="{{ href("/shop/merchandise/") }}?team=al-nasr">{{ t("merchandise.pants") }}</a>
+                            </li>
+                            <li class="dropdown__list-item">
+                                <a href="{{ href("/shop/merchandise/") }}?team=al-nasr">{{ t("merchandise.shorts") }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown__column dropdown__column--final">
+                        <ul class="dropdown__list">
+                            <li class="dropdown__list-item">
+                                <a href="{{ href("/shop/merchandise/") }}?team=al-nasr">{{ t("merchandise.jackets") }}</a>
+                            </li>
+                            <li class="dropdown__list-item">
+                                <a href="{{ href("/shop/merchandise/") }}?team=al-nasr">{{ t("merchandise.otherAccessories") }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script language="JavaScript">
+        (function(){
+            menuItems = $(".dropdown__menu-item");
+            menuItems.on("mouseenter mouseleave", function(e) {
+                // detect if it's mouseenter or mouseleave
+                var that = $(this);
+                var cover = $("#cover");
+                switch(e.type) {
+                    case "mouseenter":
+                        cover.show();
+                        break;
+                    case "mouseleave":
+                        cover.hide();
+                        break;
+                }
+            });
+            if ($(document).width() < 993) {
+                menuItems.click(function(e) {
+                    e.preventDefault();
+                });
+                $(document).click(function(event) {
+                    if(!$(event.target).closest('#sidebar').length) {
+                        if($('#show-sidebar').prop("checked")) {
+                            $('#show-sidebar').prop("checked", false);
+                        }
+                    }     
+                });
+            }
+        })();
+    </script>
+{% endblock %}
+
+{% block extend_javascript %}
+    <script src="/public/static/vendor/chosen_v1.8.2/chosen.jquery.min.js" crossorigin="anonymous"></script>
+    <script>
+        (function(){
+            $(".form-check-label").on("click", function(e){
+                var formTarget = $(this).attr("data-form-id");
+                setTimeout(function(){
+                    $("#"+formTarget).submit();
+                }, 400);
+            });
+            $(".checkbox__label").on("click", function(e){
+                var targetCheckbox = $(this).attr("data-label-for");
+                var isChecked = $("#"+targetCheckbox).attr("checked");
+                $("#"+targetCheckbox).attr("checked", !isChecked);
+                $("#"+targetCheckbox).trigger('click')
+            });
+            $(".btn-group-toggle label").on("click", function(e) {
+                 var input = $(this).children("input")[0];
+                 var isChecked = $(input).attr("checked");
+                 $(input).attr("checked", !isChecked);
+            });
+            $(".trigger-onclick")
+                .each(function(){
+                    var url = $(this).attr("data-href");
+                    if (window.location.href.toLowerCase().indexOf(url) === -1) {
+                        return;
+                    }
+                    $(this).attr('checked',true);
+                    $(this).parent().addClass("active");
+                })
+                .on("change", function(){
+                    var url = $(this).attr("data-href");
+                    if (window.location.href.toLowerCase().indexOf(url) !== -1) {
+                        window.location.href = "/stats/";
+                    } else {
+                        window.location.href = $(this).attr("data-href");
+                    }
+                });
+            $(".shop-form__multiselect").chosen();
+            $(".shop-form__multiselect").on('change', function(evt, params) {
+                var formTarget = $(this).attr("data-form-id");
+                setTimeout(function(){
+                    $("#"+formTarget).submit();
+                }, 400);
+            });
+            $(".shop-form-section-title").on('click', function(e) {
+                var that = $(this);
+                var target = that.attr('data-minimized');
+                if (target === "") {
+                    return;
+                }
+                $('.'+target).fadeToggle( "fast", function() {
+                    // nothing to do after
+                    // toggle the minimized class so that the + and - icon change
+                    that.toggleClass('shop-form-section-title__minimized');
+                });
+            });
+            var filters_showing = true;
+            $(".shop-form-title").on("click", function(e) {
+                var that = $(this);
+                $(".shop-form__hideon_filter").each(function(e) {
+                    var t = $(this);
+                    var dv = t.css("display");
+                    var isRow = t.hasClass("row");
+                    var isMinimized = t.hasClass("shop-form-section-title__minimized");
+
+                    if (filters_showing) {
+                        t.css("display", "none");
+                        if (isMinimized) {
+                            t.removeClass("shop-form-section-title__minimized");
+                        }
+                    } else {
+                        t.css("display",  isRow ? "flex":"block");
+                    }
+                });
+                filters_showing  = !filters_showing;
+                that.toggleClass('shop-form-title__minimized');
+            });
+        })();
+    </script>
+{% endblock %}
+
+{% block top_leader %}
+{% endblock %}
+
+{% block content %}
+<div class="background background--shop main-container main-container--shop">
+    <div class="flex-container flex-container--no-wrap">
+
+        <div id="sidebar">
+            <!-- sidebar mobile button -->
+            <input type="checkbox" id="show-sidebar" role="button">
+            <label for="show-sidebar" class="show-sidebar">
+                <i class="fas fa-sliders-h"></i>
+            </label>
+            <!-- /sidebar mobile button -->
+            <!-- sidebar block -->
+            <div class="col-12 bd-sidebar">
+                <form method="get" action="" class="" id="form-filter">
+                <div class="row">
+                    <div class="col">
+                        <div class="shop-form-title">{{ t("sidebar.filter") }}</div>
+                    </div>
+                </div>
+    
+                <div class="shop-form-section-title shop-form__hideon_filter" data-minimized="row_filter_kit">{{ t("sidebar.kit") }}</div>
+                <div class="row row_filter_kit shop-form__hideon_filter">
+                    <div class="col shop-form-checkboxes">
+                        {% for kit in product_kits %}
+                            <div class="form-check">
+                                <div data-toggle="buttons" class="btn-group-toggle">
+                                    <label
+                                            data-form-id="form-filter"
+                                            class="form-check-label checkbox {% if kit.Code in query.filter_kit %}active{% endif %}">
+                                        <input id="{{ kit.Code }}" value="{{ kit.Code }}"
+                                                {% if kit.Code in query.filter_kit %}checked{% endif %}
+                                                class="form-check-input" type="checkbox" autocomplete="off" name="filter_kit">&nbsp;
+                                    </label>
+                                    <span class="checkbox__label" data-label-for="{{ kit.Code }}">{{ t(kit.TranslationID) }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="shop-form-section-title shop-form__hideon_filter" data-minimized="row_team_select_clubs">{{ t("sidebar.clubs") }}</div>
+                <div class="row row_team_select_clubs shop-form__hideon_filter">
+                    <div class="col shop-form-select">
+                        <select
+                                data-form-id="form-filter"
+                                name="team_select" id="clubs-select" multiple class="chosen-select shop-form__multiselect" data-placeholder="{{ t("sidebar.selectAClub") }}">
+                            <option value=""></option>
+                            {% for team in menu_clubs.clubs %}
+                                {% spaceless %}
+                                <option
+                                        {% if team.ID|stringformat:"%d" in query.team_select %}
+                                        selected
+                                        {% endif %}
+                                        value="{{ team.ID }}">{{ l(team.Name) }}</option>
+                                {% endspaceless %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="shop-form-section-title shop-form__hideon_filter" data-minimized="row_team_select_int">{{ t("sidebar.internationalTeams") }}</div>
+                <div class="row row_team_select_int shop-form__hideon_filter">
+                    <div class="col shop-form-select">
+                        <select
+                                data-form-id="form-filter"
+                                name="team_select" id="int-teams-select" multiple class="chosen-select shop-form__multiselect" data-placeholder="{{ t("sidebar.selectATeam") }}">
+                            <option value=""></option>
+                            {% for team in menu_clubs.worldcup2018 %}
+                                {% spaceless %}
+                                    <option
+                                            {% if team.ID|stringformat:"%d" in query.team_select %}
+                                                selected
+                                            {% endif %}
+                                            value="{{ team.ID }}">{{ l(team.Name) }}</option>
+                                {% endspaceless %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="shop-form-section-title shop-form__hideon_filter" data-minimized="row_filter_gender">{{ t("sidebar.gender") }}</div>
+                <div class="row row_filter_gender shop-form__hideon_filter">
+                    <div class="col shop-form-checkboxes">
+                        {% for gender in product_genders %}
+                            <div class="form-check">
+                                <div data-toggle="buttons" class="btn-group-toggle">
+                                    <label
+                                            data-form-id="form-filter"
+                                            class="form-check-label checkbox {% if gender.Code in query.filter_gender %}active{% endif %}">
+                                        <input id="{{ gender.Code }}" value="{{ gender.Code }}"
+                                                {% if gender.Code in query.filter_gender %}checked{% endif %}
+                                                class="form-check-input" type="checkbox" autocomplete="off" name="filter_gender">&nbsp;
+                                    </label>
+                                    <span class="checkbox__label" data-label-for="{{ gender.Code }}">{{ t(gender.TranslationID) }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="shop-form-section-title shop-form__hideon_filter" data-minimized="row_filter_size">{{ t("sidebar.size") }}</div>
+                <div class="row row_filter_size shop-form__hideon_filter">
+                    <div class="col">
+                        <div class="form-check">
+                            <div data-toggle="buttons" class="btn-group-toggle">
+                                {% for size in product_sizes %}
+                                    <label
+                                            data-form-id="form-filter"
+                                            class="form-check-label checkbox checkbox--size {% if size.ID|stringformat:"%v" in query.filter_size|join:", "|split:", " %}active{% endif %}">
+                                        <input
+                                                {% if size.ID|stringformat:"%v" in query.filter_size|join:", "|split:", " %}checked{% endif %}
+                                                name="filter_size"
+                                                id="size_{{ size.ID }}" class="form-check-input" type="checkbox" autocomplete="off" value="{{ size.ID }}">{{ size.Name }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-form-section-title shop-form__hideon_filter" data-minimized="row_brand_select">{{ t("sidebar.brand") }}</div>
+                <div class="row row_brand_select shop-form__hideon_filter">
+                    <div class="col shop-form-select">
+                        <select
+                                data-form-id="form-filter"
+                                name="brand_select" id="brand-select" multiple class="chosen-select shop-form__multiselect" data-placeholder="{{ t("sidebar.selectABrand") }}">
+                            <option value=""></option>
+                            {% for brand in brands %}
+                                {% spaceless %}
+                                    <option
+                                            {% if brand.Name in query.brand_select %}
+                                                selected
+                                            {% endif %}
+                                            value="{{ brand.Name }}">{{ brand.Name }}</option>
+                                {% endspaceless %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="shop-form-section-title shop-form-section-title__sortby" data-minimized="row_sort_by">{{ t("sidebar.sortBy") }}</div>
+                <div class="row row_sort_by">
+                    <div class="col shop-form-checkboxes">
+                        <div class="form-check">
+                            <div data-toggle="buttons" class="btn-group-toggle">
+                                <label
+                                        data-form-id="form-filter"
+                                        class="form-check-label checkbox {% if "ToHigh" in query.sort_by %}active{% endif %}">
+                                    <input id="sortByToHigh" value="ToHigh"
+                                           {% if "ToHigh" in query.sort_by %}checked{% endif %}
+                                           class="form-check-input" type="checkbox" autocomplete="off" name="sort_by">&nbsp;
+                                </label>
+                                <span class="checkbox__label" data-label-for="sortByToHigh">{{ t("sidebar.priceLowToHigh") }}</span>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <div data-toggle="buttons" class="btn-group-toggle">
+                                <label
+                                        data-form-id="form-filter"
+                                        class="form-check-label checkbox {% if "ToLow" in query.sort_by %}active{% endif %}">
+                                    <input id="sortByToLow" value="ToLow"
+                                           {% if "ToLow" in query.sort_by %}checked{% endif %}
+                                           class="form-check-input" type="checkbox" autocomplete="off" name="sort_by">&nbsp;
+                                </label>
+                                <span class="checkbox__label" data-label-for="sortByToLow">{{ t("sidebar.priceHighToLow") }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <!-- /sidebar block -->
+        </div>
+        {% if products|length == 0 %}
+            <div class="flex-container flex-container--no-orders">
+                <span>{{ t("pages.shop.noResults") }}</span>
+            </div>
+        {% endif %}
+        <div class="product-cards product-cards--shop">
+            {% for p in products %}
+                <a href="./{{ p.ID }}/?{{ query.Encode() }}" class="product-cards__card">
+                    <div class="product-cards__card-image">
+                        {% if p.Thumbnail == "" %}
+                            <img src="/public/static/img/1x/Asset%2011.png" alt="Card image cap">
+                        {% else %}
+                            <img src="{{ p.Thumbnail }}" alt="{{ p.Name }}">
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <h5 class="product-cards__title">{{ p.Name }}</h5>
+                    <p class="product-cards__text">AED {{ p.Price|floatformat:"0" }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

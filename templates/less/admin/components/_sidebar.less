@@ -1,0 +1,34 @@
+.sidebar {
+    border: none;
+    background-color: @color--dark-grey;
+
+    // This should be removed at a later date. Right now the panel is built in a bit of a stupid way.
+    // We can allow the normal document flow to do the work of the lines positioning lines below.
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    &__menu {
+        color: rgba(255, 255, 255, 0.9);
+        padding-top: 1rem;
+    }
+
+    &__menu-item {
+        border: none;
+    }
+
+    &__menu-link,
+    &__menu-link:link,
+    &__menu-link:visited {
+        color: inherit;
+        text-decoration: none;
+        padding: .75rem 1.25rem;
+
+        &:hover,
+        &:active
+        &:focus {
+            color: #fff;
+            background: lighten(@color--dark-grey, 5);
+        }
+    }
+}

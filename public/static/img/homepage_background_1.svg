@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1371px" height="515px" viewBox="0 0 1371 515" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>homepage_background_1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="15.6061269%" y1="141.533534%" x2="84.3938731%" y2="-41.5354751%" id="linearGradient-1">
+            <stop stop-color="#F3C0B9" offset="8%"></stop>
+            <stop stop-color="#DCAED0" offset="38%"></stop>
+            <stop stop-color="#B791F4" offset="78%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="homepage_background_1">
+            <g id="BG_IMG-01" transform="translate(0.000000, -23.000000)">
+                <rect id="Rectangle-path" fill="url(#linearGradient-1)" fill-rule="nonzero" x="0" y="22.85" width="1371" height="515.15"></rect>
+                <g id="Group" transform="translate(2.000000, 0.000000)">
+                    <polyline id="Shape" stroke="#F1F1F1" stroke-width="6" points="0 219.53 392.68 72.92 153.62 3.81"></polyline>
+                    <polyline id="Shape" stroke="#F1F1F1" stroke-width="6" points="624.77 217.69 690.8 184.24 751.58 152.8 1049.43 0.32"></polyline>
+                    <path d="M0,534.23 L441,311" id="Shape" stroke="#F1F1F1" stroke-width="6"></path>
+                    <path d="M129.56,468.56 C129.56,468.56 443.56,550.11 607.47,410.03 C611.2,406.96 634.08,388.45 639.54,362.85 C639.82,361.516667 640.053333,360.183333 640.24,358.85" id="Shape" stroke="#F1F1F1" stroke-width="6"></path>
+                    <ellipse id="Oval" fill="#F1F1F1" fill-rule="nonzero" cx="218.75" cy="264.12" rx="13.77" ry="4.9"></ellipse>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,129 @@
+.header {
+    &__background {
+        padding: 1px 0;
+
+        &--above-dropdown {
+            padding-bottom: 0;
+        }
+    }
+    &__block {
+        height: 4.5rem;;
+        width: 33.333333%;
+        justify-content: flex-start;
+        display: flex;
+
+        &--title {
+            justify-content: center;
+        }
+        
+        &--right {
+            flex-direction: row-reverse;
+        }
+    }
+    &__item {
+        min-width: 70px;
+        height: 100%;
+        line-height: 21px;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 0 .75rem;
+
+        &:hover {
+            background: #efefef;
+        }
+
+        @media(min-width: @bootstrap_lg) {
+            display: flex;
+        }
+        
+        &--auth,
+        &--lang,
+        &--stats {
+            border-left: 1px solid @color--light-grey;
+
+            &:lang(ar) {
+                border: none;
+                border-right: 1px solid @color--light-grey;                
+            }
+        }
+
+        &--cart {
+            position: relative;
+        }
+
+        &--cart,
+        &--profile,
+        &--search {
+            border-right: 1px solid @color--light-grey;
+
+            &:lang(ar) {
+                border: none;
+                border-left: 1px solid @color--light-grey;
+            }
+        }
+
+        &--cart-mobile,
+        &--hamburger {
+            display: flex;
+
+            @media(min-width: @bootstrap_lg) {
+                display: none;
+            }
+        }
+
+        &--hamburger {
+            padding-top: 4px;
+            font-size: 16px;
+            position: relative;
+        }
+    }
+    &__link {
+        &:not(:last-child) {
+            margin-right: 4rem;
+            &:lang(ar) {
+                margin-right: 0;
+                margin-left: 4rem;
+            }
+        }
+    }
+    &__notification {
+        font-size: .75rem;
+        height: 1.35rem;
+        width: 1.35rem;
+        border-radius: 50%;
+        background-color: @color--secondary;
+        color: #fff;
+        position: absolute;
+        top: 1.1rem;
+        right: 1.25rem;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &__row {
+        &--dropdown {
+            position: relative;
+            @media (max-width: @bootstrap_xs) {
+                display: none;
+            }
+        }
+        &--home {
+            padding-bottom: 0;
+        }
+        &--main {
+            display: flex;
+            align-items: center;
+        }
+        &--secondary {
+            display: flex;
+            height: 4rem;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background-color: @color--background;
+            color: @color--heading-primary;
+        }
+    }
+}

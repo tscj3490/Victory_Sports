@@ -1,0 +1,57 @@
+.background {
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &--all {
+        background-image: linear-gradient(45deg, @color--tertiary, @color--secondary);
+    }
+
+    &--app {
+        background-image: url("/public/static/img/1x/download_app_img_desktop.png");
+        background-clip: border-box;
+        background-position: 0 -65px;
+        background-repeat: no-repeat;
+        width: 40%;
+        height: 20rem;
+
+        @media screen and (max-width: @bootstrap_lg) {
+            height: 12rem;
+            background-size: 20rem;
+            background-position: 50% -20px;
+            width: 100%;
+        }
+    }
+
+    &--cart {
+        background-image: url('/public/static/img/backgrounds/Vectors_cart page.png');
+    }
+
+    &--checkout {
+        background-image: url('/public/static/img/backgrounds/Vectors_checkout 1.png');
+        background-position-x: -20rem;
+    }
+
+    &--product-details {
+        background-image: url('/public/static/img/backgrounds/Vectors_item page.png');
+    }
+
+    &--shop {
+        background-image: url('/public/static/img/backgrounds/Vectors_player team list.png');  
+    }
+
+    &--standard {
+        background-image: url('/public/static/img/SVG/bg_middle_and_goal.svg');        
+    }
+
+    &--stats {
+        background-image: url('/public/static/img/backgrounds/Vectors_victory all stats.png');
+    }
+
+    &--stats-details {
+        background-image: url('/public/static/img/backgrounds/Vectors_scores page.png');
+    }
+
+    &--stats-league {
+        background-image: url('/public/static/img/backgrounds/Vectors_victory scores 1.png');
+    }
+}
